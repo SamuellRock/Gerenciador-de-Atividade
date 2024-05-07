@@ -1,0 +1,30 @@
+Perfis Do Sistema
+
+Acesso-Cadastro-Avante: Cadastrar os beneficiados no Sistema
+
+-Acesso a model Usuario_Externo
+
+
+Acesso-Cadastro-Atividade: Cadastra Atividades no Sistema
+
+-acesso a model Atividades
+
+
+Acesso-Inscricção-na-atividade: Inscreve beneficiario cadastrado na atividade do sistema
+
+-Acesso a model Inscrever_na_Atividade
+
+
+Acessor-Informação: Acessar as iformações da ativdade e dos serviços enviando lista de presença e etc.
+
+-------------Acesso-Coringa-------------
+
+
+
+
+Cadastra Usuarios Internos
+
+
+
+
+
