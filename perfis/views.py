@@ -62,12 +62,13 @@ def login(request):
         
         auth.login(request, user)
         return HttpResponse('ENTROOOU, LOGOU, é para glorificar de pé igreja')
-<<<<<<< HEAD
-=======
+
 
 #linkar URL sair/ a um botão de logout
 def logout(request):
     request.session.flush()
     return redirect(reverse('login'))
+
+
     
->>>>>>> 7a16f908874245f9744a91411f2f244357089b31
+
