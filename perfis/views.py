@@ -1,6 +1,11 @@
-from django.shortcuts import render, redirect,reverse, get_object_or_404,HttpResponse
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.contrib import auth
+
 from .forms import UserFormTemplate
 from .models import Users
+
 
 
 def cadastro_user(request):
@@ -38,3 +43,19 @@ def cadastro_usuario(request):
         return HttpResponse('Conta Criada')
 
 
+def login(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect(reverse('cadastroUser'))
+        return render(request, 'login.html')
+    elif request.method == 'POST':
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        
+        user = auth.authenticate(usarname=email, password=senha)
+        
+        if not user:
+             return HttpResponse('Usuario invalido')
+        
+        auth.login(request, user)
+        return HttpResponse('ENTROOOU, LOGOU, é para glorificar de pé igreja')
