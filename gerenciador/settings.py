@@ -118,3 +118,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'perfis.Users'
 
+# Role Permissions
+
+ROLEPERMISSIONS_MODULE = 'gerenciador.roles'
+
