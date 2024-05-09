@@ -52,10 +52,16 @@ def login(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         
-        user = auth.authenticate(usarname=email, password=senha)
+        user = auth.authenticate(username=email, password=senha)
         
         if not user:
              return HttpResponse('Usuario invalido')
         
         auth.login(request, user)
         return HttpResponse('ENTROOOU, LOGOU, é para glorificar de pé igreja')
+
+#linkar URL sair/ a um botão de logout
+def logout(request):
+    request.session.flush()
+    return redirect(reverse('login'))
+    
