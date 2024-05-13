@@ -6,6 +6,7 @@ class Administrador(AbstractUserRole):
         'cadastro_externo': True,
         'cadastro_atividade': True,
         'cadastro_inscricao': True,
+        'cadastro_interno': True
     }
 
 

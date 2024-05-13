@@ -19,7 +19,7 @@ def cadastro_atividade(request):
         return render(request, 'cadastro_atividade.html', {'form': form})
 
 
-@has_permission_decorator('cadastro_inscrição')
+@has_permission_decorator('cadastro_inscricao')
 def inscricao(request):
     if request.method == 'GET':
         form = Inscrever_na_AtividadeForm

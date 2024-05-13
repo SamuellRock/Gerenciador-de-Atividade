@@ -12,7 +12,17 @@
         <form action="{% url 'cadastro_usuario'%}" method="POST">
 
             {% csrf_token %}
+
             <br>
+            <label>Nome:</label>
+            <input class="form-control" type="text" placeholder="Digite seu nome" name="nome">
+
+
+            <br>
+            <label>Sobrenome:</label>
+            <input class="form-control" type="text" placeholder="Digite seu sobrenome" name="sobrenome">
+            <br>
+
             <label>E-mail:</label>
             <input class="form-control" type="email" placeholder="Digite seu email" name="email">
             <br>
@@ -21,9 +31,13 @@
             <input class="form-control" type="password" name="senha" placeholder="Digite a senha">
 
             <br>
+            <label>Perfil</label>
+            {{grupoForm.grupo_de_acesso}}
+            <br>
+
             <input type="submit" class="btn btn-success" value="Cadastrar">
         </form>
-        
+
     </div>
 
 </body>
