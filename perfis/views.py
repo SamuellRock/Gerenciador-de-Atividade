@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import auth
 from .forms import UserFormTemplate
@@ -8,8 +8,8 @@ from django.contrib.auth import update_session_auth_hash
 from .forms import PasswordChangeFormTemplate
 from django.contrib.auth.decorators import login_required
 from rolepermissions.decorators import has_permission_decorator
-
-
+from django.core.mail import send_mail
+from gerenciador.gerardor import gerar_senha
 @has_permission_decorator('cadastro_interno')
 def cadastro_usuario(request):
     if request.method == "GET":
@@ -19,7 +19,11 @@ def cadastro_usuario(request):
 
     elif request.method == 'POST':
         email = request.POST.get('email')
-        senha = request.POST.get('senha')
+
+        #Gerado de senha automatico
+        senha = gerar_senha()
+        print(senha)
+
         nome = request.POST.get('nome')
         sobrenome = request.POST.get('sobrenome')
         grupo = request.POST.get('grupo_de_acesso')
@@ -38,6 +42,7 @@ def cadastro_usuario(request):
         user = Users.objects.create_user(username=email, email=email, password=senha, grupo_de_acesso=grupo,
                                          first_name=nome, last_name=sobrenome)
         user.save()
+        send_mail(f'Senha do Cadastro Avante', f'Sua conta no sistema avante foi cadastrada com sucesso!.\nSua senha é: {senha} \nentre e mude a sua senha para uma personalizada', 'pedro@programador.com.br',[f'{email}'])
         return HttpResponse('Conta Criada')
 
 
@@ -45,17 +50,18 @@ def login(request):
 
     if request.method == 'GET':
         if request.user.is_authenticated:
-            #Se o usuario estiver autenticado nao precisa careegar o template login
+            #Se o usuario estiver autenticado nao precisa carregar o template login vai para cadastro usuario
             return redirect(reverse('cadastro_usuario'))
         return render(request, 'login.html')
 
     elif request.method == 'POST':
         if request.user.is_authenticated:
-
             return redirect(reverse('cadastro_usuario'))
 
         email = request.POST.get('email')
         senha = request.POST.get('senha')
+        #gerador de senha automatico user
+
 
         #passando os parametros para o user para ver se ele existe no banco
         user = auth.authenticate(username=email, password=senha)

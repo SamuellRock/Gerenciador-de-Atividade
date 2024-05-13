@@ -1,6 +1,7 @@
 from django.db import models
 from .choices import ChoicesAtividades
 
+
 #Alteração
 
 class Tipo_Atividade(models.Model):
