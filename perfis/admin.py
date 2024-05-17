@@ -10,7 +10,7 @@ class UserAdmin(auth_admin.UserAdmin):
     add_form = UserCreationForm
     model = Users
     fieldsets = auth_admin.UserAdmin.fieldsets + (
-        ('Grupo_de_acesso', {'fields':('grupo_de_acesso',)}),
+        ('Grupo de acesso', {'fields':('grupo_de_acesso',)}),
     )
 
 

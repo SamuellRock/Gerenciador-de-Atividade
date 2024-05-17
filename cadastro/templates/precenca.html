@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Num</th>
+      <th scope="col">Aluno</th>
+      <th scope="col">Presença</th>
+
+    </tr>
+  </thead>
+  <tbody>
+{% for aluno in alunos%}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{aluno}}</td>
+      <td>{{form.precenca}}</td>
+
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+
+</div>
+
+</body>
+</html>

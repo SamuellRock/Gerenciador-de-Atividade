@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from rolepermissions.decorators import has_permission_decorator
 from django.core.mail import send_mail
 from gerenciador.gerardor import gerar_senha
+
+@login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
 def cadastro_usuario(request):
     if request.method == "GET":
@@ -80,7 +82,7 @@ def login(request):
         auth.login(request, user)
         return redirect(reverse('cadastro_usuario'))
 
-@login_required()
+@login_required(login_url='login')
 def alterar_senha(request):
 
     if request.method == 'GET':
@@ -105,7 +107,7 @@ def alterar_senha(request):
 
 #TODO linkar URL sair/ a um botão de logout
 def logout(request):
-    request.session.flush()
+    auth.logout(request)
     return redirect(reverse('login'))
 
 

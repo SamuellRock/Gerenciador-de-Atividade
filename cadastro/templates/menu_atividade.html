@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Atividades do Responsável</title>
+</head>
+<body>
+<div class="container">
+    <h1>Atividades do Responsável</h1>
+    <ul class="list-group">
+        {% for atividade in atividades %}
+            <li class="list-group-item">
+                <a href="{% url 'listP' atividade.id %}">{{ atividade }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
