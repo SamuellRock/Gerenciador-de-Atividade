@@ -11,6 +11,7 @@ from rolepermissions.decorators import has_permission_decorator
 from django.core.mail import send_mail
 from gerenciador.gerardor import gerar_senha
 
+
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
 def cadastro_usuario(request):
@@ -52,7 +53,6 @@ def login(request):
 
     if request.method == 'GET':
         if request.user.is_authenticated:
-            #Se o usuario estiver autenticado nao precisa carregar o template login vai para cadastro usuario
             return redirect(reverse('cadastro_usuario'))
         return render(request, 'login.html')
 
@@ -81,6 +81,7 @@ def login(request):
         #SE existe
         auth.login(request, user)
         return redirect(reverse('cadastro_usuario'))
+
 
 @login_required(login_url='login')
 def alterar_senha(request):

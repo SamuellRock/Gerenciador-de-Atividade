@@ -45,3 +45,4 @@ def lista_presenca(request, atividade_id):
     return render(request, 'precenca.html', {'form': form, 'alunos': alunos})
 
 
+
