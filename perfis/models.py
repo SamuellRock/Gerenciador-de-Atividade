@@ -6,6 +6,6 @@ class Users(AbstractUser):
                                ('CE', 'Cadastro Externo'),
                                ('CA', 'Cadastro Atividade'),
                                ('CI', 'Cadastro Inscrição'),
-                               ('LP', 'Listagem de Pessoas'))
+                               ('LP', 'Lista de Presença'))
     grupo_de_acesso = models.CharField(max_length=3, choices=choices_grupo_de_acesso)
 

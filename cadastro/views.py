@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Inscrever_na_Atividade, Atividade
 
 
+#TODO Fazer Update e Delete dos usuarios Internos e Externo
+
+
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
 def cadastro_externo(request):
@@ -30,14 +33,14 @@ def inscricao(request):
 
 
 @login_required(login_url='login')
-#TODO rolepermissions
+@has_permission_decorator('lista_presenca')
 def menu_atividade(request):
     atividades = Atividade.objects.filter(responsavel=request.user)
     return render(request, 'menu_atividade.html', {'atividades': atividades})
 
 
 @login_required(login_url='login')
-#TODO rolepermissions
+@has_permission_decorator('lista_presenca')
 def lista_presenca(request, atividade_id):
     atividade = get_object_or_404(Atividade, pk=atividade_id, responsavel=request.user)
     alunos = Inscrever_na_Atividade.objects.filter(atividade=atividade)

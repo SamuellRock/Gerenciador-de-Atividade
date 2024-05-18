@@ -6,7 +6,8 @@ class Administrador(AbstractUserRole):
         'cadastro_externo': True,
         'cadastro_atividade': True,
         'cadastro_inscricao': True,
-        'cadastro_interno': True
+        'cadastro_interno': True,
+        'lista_presenca': True,
     }
 
 
@@ -25,6 +26,12 @@ class CadastroAtividade(AbstractUserRole):
 class CadastroInscricao(AbstractUserRole):
     available_permissions = {
         'cadastro_inscricao': True,
+    }
+
+
+class ListaPresenca(AbstractUserRole):
+    available_permissions = {
+        'lista_presenca': True,
     }
 
 

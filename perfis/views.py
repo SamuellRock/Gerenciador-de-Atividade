@@ -47,7 +47,7 @@ def cadastro_usuario(request):
         send_mail(f'Senha do Cadastro Avante', f'Sua conta no sistema avante foi cadastrada com sucesso!.\nSua senha é: {senha} \nentre e mude a sua senha para uma personalizada', 'pedro@programador.com.br',[f'{email}'])
         return HttpResponse('Conta Criada')
 
-
+#TODO check Password 
 def login(request):
 
     if request.method == 'GET':
