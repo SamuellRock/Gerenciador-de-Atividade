@@ -101,8 +101,9 @@ def alterar_senha(request):
 
             return redirect(reverse('cadastro_usuario'))
 
-        else:
-            return HttpResponse("primeiro_login.html")#TODO coloar mensagem de erro
+        if not form.is_valid():
+            messages.add_message(request, messages.ERROR, 'Senha invalida!')
+            return redirect(reverse('alterar_senha'))
     else:
         form = PasswordChangeFormTemplate(request.user)
         # Se o formulário não for válido, renderize o formulário novamente com os erros
