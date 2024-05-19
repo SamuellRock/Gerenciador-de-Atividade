@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import cadastro_usuario
 from .views import login, logout, alterar_senha
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -8,5 +9,11 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('', login, name='login'),
     path('alterar_senha/', alterar_senha, name='alterar_senha'),
+
+    #Senhas
+    path('senha_esquecida/', auth_views.PasswordResetView.as_view(template_name="registration/email_confirmacao.html"), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="registration/email_confirmacao_done.html"), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="registration/nova_senha.html"), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name="registration/senha_confirmada.html"), name='password_reset_complete'),
     path('sair/', logout, name='sair'),
 ]

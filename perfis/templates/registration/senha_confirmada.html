@@ -13,25 +13,16 @@
     <div class="background"></div>
     <div class="container">
 
-        {% if messages %}
-        <br>
-            {% for message in messages%}
-                <div class="alert {{message.tags}}">{{message}}</div>
-            {% endfor %}
-
-        {% endif %}
-
     </div>
 
-        <form action="{% url 'alterar_senha' %}" method="POST">
-        <img src="{% static 'img/login/logo.png'%}">
+        <form>
+
          {% csrf_token %}
 
-            {{form}}
+            <label>Senha Confirmada com sucesso,faca o login</label>
 
-            <button>Cadastra</button>
 
-            <!-- Fazer o esqueci minha senha -->
+            <a class="btn btn-success" href="{% url 'login'%}">Login</a>
 
         </form>
 
