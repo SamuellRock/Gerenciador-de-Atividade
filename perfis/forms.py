@@ -1,5 +1,6 @@
 from .models import Users
 from django.contrib.auth import forms
+from django.utils.translation import gettext, gettext_lazy as _
 
 
 
@@ -43,3 +44,7 @@ class PasswordChangeFormTemplate(forms.PasswordChangeForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        for field_name in ['new_password1', 'new_password2']:
+            self.fields[field_name].help_text = None
+
