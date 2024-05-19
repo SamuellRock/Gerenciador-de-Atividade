@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from rolepermissions.decorators import has_permission_decorator
 from django.core.mail import send_mail
 from gerenciador.gerardor import gerar_senha
+from django.contrib import messages
+
 
 
 @login_required(login_url='login')
@@ -48,7 +50,7 @@ def cadastro_usuario(request):
         send_mail(f'Senha do Cadastro Avante', f'Sua conta no sistema avante foi cadastrada com sucesso!.\nSua senha é: {senha} \nentre e mude a sua senha para uma personalizada', 'pedro@programador.com.br',[f'{email}'])
         return HttpResponse('Conta Criada')
 
-
+#TODO check Password 
 def login(request):
 
     if request.method == 'GET':
@@ -70,7 +72,8 @@ def login(request):
 
         #Se o usuario for invalido ou seja nao achae ele no banco
         if not user:
-            return HttpResponse('Usuario Invalido')#TODO coloar mensagem de erro
+            messages.add_message(request, messages.ERROR, 'Usuario invalido ou senha incorreta!')
+            return redirect(reverse('login'))
 
         print(user.last_login)
         if user.last_login is None:

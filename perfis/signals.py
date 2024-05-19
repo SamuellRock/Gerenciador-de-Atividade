@@ -23,6 +23,9 @@ def definindo_permisoes(sender, instance, created, **kwargs):
 
         elif instance.grupo_de_acesso == "CA":
             assign_role(instance, 'cadastro_atividade')
+        
+        elif instance.grupo_de_acesso == "LP":
+            assign_role(instance, 'lista_presenca')
 
 
 
