@@ -3,6 +3,7 @@ from .choices import ChoicesAtividades
 from django.contrib.auth.models import User
 from django.conf import settings
 from datetime import datetime
+from .validator import *
 
 
 User = settings.AUTH_USER_MODEL
@@ -15,14 +16,14 @@ class Tipo_Atividade(models.Model):
     def __str__(self):
         return self.tipo_atividade
 
-
+#TODO API CEP
 class Usuario_Externo(models.Model):
-    nome = models.CharField(max_length=50, blank=False, null=False)
-    cpf = models.CharField(max_length=11, blank=False, null=False)
+    nome = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome])
+    cpf = models.CharField(max_length=14, blank=False, null=False, validators=[validate_cpf])
     nascimento = models.DateField(blank=False, null=False)
-    responsavel_nome = models.CharField(max_length=50, null=True, blank=True)
-    responsavel_cpf = models.DateField(max_length=11, null=True, blank=True)
-    telefone = models.CharField(max_length=11, blank=False, null=False)
+    responsavel_nome = models.CharField(max_length=50, null=True, blank=True, validators=[validate_nome])
+    responsavel_cpf = models.CharField(max_length=14, null=True, blank=True, validators=[validate_cpf])
+    telefone = models.CharField(max_length=15, blank=False, null=False, validators=[validate_cpf])
     endereco = models.CharField(max_length=80, blank=False, null=False)
     cidade = models.CharField(max_length=30)
     estado = models.CharField(max_length=30)

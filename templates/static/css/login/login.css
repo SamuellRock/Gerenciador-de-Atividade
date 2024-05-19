@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Avante</title>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<!--Stylesheet-->
-<style media="screen">
-    :root {
+:root {
     --azul-claro: #00A1D0;
     --azul-escuro: #041241;
     --rosa: #D155A4;
@@ -23,7 +14,9 @@ box-sizing: border-box;
 }
 body{
 background-color: var(--azul-claro);
-background-image: url("img/Wallapaper-background.png");
+background-image: url("../../img/login/Wallapaper-background.png");
+
+
 }
 .background{
 width: 430px;
@@ -118,22 +111,3 @@ p {
   margin-top: 30px;
   color: var(--azul-escuro);
 }
-
-</style>
-</head>
-
-<body>
-<div class="background">
-</div>
-<form>
-<img src="D:\DocumentosHD\PROJETO WEB3\img\logo (1).png">
-<label for="username">E-mail</label>
-<input type="text" placeholder="E-mail" id="username">
-<label for="password">Senha</label>
-<input type="password" placeholder="Senha" id="password">
-<button>Entrar</button>
-<a href="#">Esqueci minha senha</a>
-</form>
-<p>© 2024 Avante. Todos os direitos reservados – Desenvolvido por GOING FORYOU</p>
-</body>
-</html>

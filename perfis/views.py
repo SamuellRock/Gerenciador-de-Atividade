@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from rolepermissions.decorators import has_permission_decorator
 from django.core.mail import send_mail
 from gerenciador.gerardor import gerar_senha
+from django.contrib import messages
+
+
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
@@ -52,7 +55,6 @@ def login(request):
 
     if request.method == 'GET':
         if request.user.is_authenticated:
-            #Se o usuario estiver autenticado nao precisa carregar o template login vai para cadastro usuario
             return redirect(reverse('cadastro_usuario'))
         return render(request, 'login.html')
 
@@ -70,7 +72,8 @@ def login(request):
 
         #Se o usuario for invalido ou seja nao achae ele no banco
         if not user:
-            return HttpResponse('Usuario Invalido')#TODO coloar mensagem de erro
+            messages.add_message(request, messages.ERROR, 'Usuario invalido ou senha incorreta!')
+            return redirect(reverse('login'))
 
         print(user.last_login)
         if user.last_login is None:
@@ -81,6 +84,7 @@ def login(request):
         #SE existe
         auth.login(request, user)
         return redirect(reverse('cadastro_usuario'))
+
 
 @login_required(login_url='login')
 def alterar_senha(request):

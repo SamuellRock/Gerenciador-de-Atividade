@@ -10,13 +10,17 @@ class Usuario_ExternoForm(ModelForm):
         model = Usuario_Externo
         fields = '__all__'
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
             self.fields[field].widget.attrs.update({'placeholder': field})
 
+        self.fields['telefone'].widget.attrs.update({'id': 'telefone', 'oninput': 'formatarTelefone(this)'})
+        self.fields['cpf'].widget.attrs.update({'id': 'cpf', 'oninput': 'formatarCPF(this)'})
+        self.fields['responsavel_cpf'].widget.attrs.update({'id': 'responsavel_cpf', 'oninput': 'formatarCPF(this)'})
+        self.fields['nascimento'].widget.attrs.update({'id': 'data_nascimento', 'maxlength': '10', 'oninput':'formatarData(this)'})
 
 class AtividadeForm(ModelForm):
     class Meta:
