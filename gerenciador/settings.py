@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cadastro',
     'perfis',
-    'rolepermissions'
+    'rolepermissions',
+    'AppHome',
 ]
 
 MIDDLEWARE = [
