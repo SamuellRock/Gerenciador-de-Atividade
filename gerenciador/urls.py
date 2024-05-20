@@ -3,6 +3,7 @@ from django.urls import path,include
 from .views import teste
 from cadastro import urls as cadastro_urls
 from perfis import urls as perfis_urls
+from AppHome import urls as appHome_urls
 
 #TODO Upgrade para home/
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
     #path('', teste, name='teste'),
     path('', include(cadastro_urls)),
     path('', include(perfis_urls)),
+    path('', include(appHome_urls)),
 ]

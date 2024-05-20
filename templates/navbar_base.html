@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<title>Sistema de Gerenciamento</title>
+
+</head>
+
+
+
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <div> <img class="logo" src="{% static 'img/login/logo.png'%}"> </div>
+        <ul class="menu">
+            <li class="dashboard"><a href="#"><i class="fas fa-tachometer-alt"></i> Home </a></li>
+            <li><a href="{% url 'menuAt'%}"><i class="fas fa-tasks"></i> Atividades</a></li>
+            <li><a href="{% url 'cdA' %}"><i class="fas fa-address-card"></i> Cadastrar Atividades</a></li>
+            <li><a href="{% url 'cdE' %}"><i class="fas fa-address-card"></i> Cadastrar no Avante</a></li>
+            <li><a href="{% url 'insc' %}"><i class="fas fa-users"></i> inscrever</a></li>
+        </ul>
+        <div class="logout"><a href="{% url 'sair'%}"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
+    </div>
+
+</body>
+</html>
