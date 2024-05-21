@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gerenciamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<style>
+    /* Estilos CSS existentes */
+
+    /* Estilos para o calendário */
+    .ui-datepicker {
+        font-family: "Nunito", sans-serif;
+        background-color: var(--branco);
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .ui-datepicker-header {
+        background-color: var(--azul-claro);
+        border-radius: 5px 5px 0 0;
+        color: var(--branco);
+    }
+
+    .ui-datepicker-title {
+        font-size: 1.2rem;
+    }
+
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+        font-size: 1.2rem;
+        color: var(--branco);
+    }
+
+    .ui-datepicker-calendar {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .ui-datepicker-calendar th,
+    .ui-datepicker-calendar td {
+        padding: 8px;
+        text-align: center;
+        border: 1px solid var(--azul-claro);
+    }
+
+    .ui-datepicker-calendar .ui-state-default {
+        background-color: var(--azul-claro);
+        color: var(--branco);
+        border-radius: 50%;
+    }
+
+    .ui-datepicker-calendar .ui-state-default:hover {
+        background-color: var(--azul-escuro);
+    }
+
+    /* Estilos específicos para o formulário */
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-group button {
+        margin-left: 10px;
+    }
+
+    .form-group button#openCalendar {
+        margin-right: 10px;
+    }
+
+    button[type="submit"] {
+        margin-left: auto;
+    }
+</style>
+</head>
+<body>
+
+<!-- Conteúdo HTML existente -->
+
+<div class="content">
+    <!-- Conteúdo HTML existente -->
+    <div class="form-container">
+        <h2>Cadastro de Atividades</h2>
+        <form id="activityForm">
+            <!-- Campos do formulário -->
+            <div class="form-group">
+                <label for="activityDate">Data da Atividade:</label>
+                <input type="text" id="activityDate" name="activityDate" readonly required>
+                <button type="button" id="openCalendar">Selecionar Data</button>
+            </div>
+            <!-- Outros campos do formulário -->
+            <button type="submit">Cadastrar Atividade</button>
+        </form>
+    </div>
+    <!-- Calendário -->
+    <div id="calendar" class="hidden">
+        <!-- Conteúdo do calendário será inserido aqui -->
+    </div>
+</div>
+
+<!-- Conteúdo HTML existente -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const openCalendarButton = document.getElementById('openCalendar');
+    const activityDateInput = document.getElementById('activityDate');
+    const calendarContainer = document.getElementById('calendar');
+
+    openCalendarButton.addEventListener('click', function() {
+        $(activityDateInput).datepicker({
+            dateFormat: 'dd/mm/yy',
+            onSelect: function(dateText) {
+                activityDateInput.value = dateText;
+                calendarContainer.classList.add('hidden');
+            }
+        }).datepicker('show');
+    });
+
+    const activityForm = document.getElementById('activityForm');
+    activityForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(activityForm);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+        console.log(data);
+        // Aqui você pode envuiar os dados para o backend para processamento
+        // Por exemplo, usando fetch() para enviar ma requisição POST
+    });
+});
+</script>
+
+</body>
+</html>
