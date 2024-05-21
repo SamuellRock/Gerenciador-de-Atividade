@@ -6,9 +6,35 @@ from datetime import datetime
 from .validator import *
 
 
+
 User = settings.AUTH_USER_MODEL
 
 #Alteração
+
+class DiaAtividade(models.Model):
+    SEGUNDA = 'Segunda-feira'
+    TERCA = 'Terça-feira'
+    QUARTA = 'Quarta-feira'
+    QUINTA = 'Quinta-feira'
+    SEXTA = 'Sexta-feira'
+    SABADO = 'Sábado'
+    DOMINGO = 'Domingo'
+
+    DIAS_DA_SEMANA_CHOICES = [
+        (SEGUNDA, 'Segunda-feira'),
+        (TERCA, 'Terça-feira'),
+        (QUARTA, 'Quarta-feira'),
+        (QUINTA, 'Quinta-feira'),
+        (SEXTA, 'Sexta-feira'),
+        (SABADO, 'Sábado'),
+        (DOMINGO, 'Domingo'),
+    ]
+
+    dia_semana = models.CharField(max_length=15, choices=DIAS_DA_SEMANA_CHOICES)
+
+    def __str__(self):
+        return self.dia_semana
+
 
 class Tipo_Atividade(models.Model):
     tipo_atividade = models.CharField(max_length=5, choices=ChoicesAtividades.choices)
@@ -40,12 +66,12 @@ class Tipo_Atividade(models.Model):
 
 
 class Atividade(models.Model):
-    nome_atividade = models.CharField(max_length=50, blank=False, null=False)
+    nome_atividade = models.CharField(max_length=50, blank=False, null=False,validators=[validate_nome])
     tipo_atividade = models.ForeignKey(Tipo_Atividade, on_delete=models.SET_NULL, null=True)
-    descricao = models.TextField()
+    descricao = models.TextField(blank=True)
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False} )
-    #data_atividade = models.DateField(blank=False, null=False)
-    #hora_atividade = models.DateTimeField(blank=False, null=False)
+    dia_atividade = models.ForeignKey(DiaAtividade, on_delete=models.SET_NULL, null=True)
+    hora_atividade = models.DateTimeField(blank=False, null=True)
     Ativo = models.BooleanField(blank=False, null=False)
 
     def __str__(self):

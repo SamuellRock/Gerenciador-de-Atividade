@@ -25,22 +25,22 @@ def cadastro_usuario(request):
     elif request.method == 'POST':
         email = request.POST.get('email')
 
+        form = UserFormTemplate(request.POST)
+
         #Gerado de senha automatico
         senha = gerar_senha()
-        print(senha)
 
         nome = request.POST.get('nome')
         sobrenome = request.POST.get('sobrenome')
         grupo = request.POST.get('grupo_de_acesso')
 
-        print(grupo)
-
         #pegando do user da model e verficando se o email é igual
         user = Users.objects.filter(email=email)
 
-
         if user.exists():
-            return HttpResponse('Email existe')
+            messages.add_message(request, messages.ERROR, 'Email ja existe!')
+            return render(request, 'cadastro_usuario.html', {"grupoForm": form, 'nome': nome, 'sobrenome':sobrenome})
+
 
         #caso o usuario não exista crie ele
         #o username é obrigatorio ou seja como nossa inscrição é pelo email coloquei o email no username
@@ -48,19 +48,23 @@ def cadastro_usuario(request):
                                          first_name=nome, last_name=sobrenome)
         user.save()
         send_mail(f'Senha do Cadastro Avante', f'Sua conta no sistema avante foi cadastrada com sucesso!.\nSua senha é: {senha} \nentre e mude a sua senha para uma personalizada', 'pedro@programador.com.br',[f'{email}'])
-        return HttpResponse('Conta Criada')
+        messages.add_message(request, messages.SUCCESS, 'Usuario Cadastrado com sucesso!')
+        return redirect(reverse('cadastro_usuario'))
 
-#TODO check Password 
+    else:
+        messages.add_message(request, messages.ERROR, 'Erro inesperado, tente novamente!')
+        return redirect(reverse('cadastro_usuario'))
+
 def login(request):
 
     if request.method == 'GET':
         if request.user.is_authenticated:
-            return redirect(reverse('cadastro_usuario'))
+            return redirect(reverse('home'))
         return render(request, 'login.html')
 
     elif request.method == 'POST':
         if request.user.is_authenticated:
-            return redirect(reverse('cadastro_usuario'))
+            return redirect(reverse('home'))
 
         email = request.POST.get('email')
         senha = request.POST.get('senha')
@@ -70,7 +74,7 @@ def login(request):
         #passando os parametros para o user para ver se ele existe no banco
         user = auth.authenticate(username=email, password=senha)
 
-        #Se o usuario for invalido ou seja nao achae ele no banco
+        #Se o usuario for invalido ou seja nao achar ele no banco
         if not user:
             messages.add_message(request, messages.ERROR, 'Usuario invalido ou senha incorreta!')
             return redirect(reverse('login'))
@@ -83,7 +87,7 @@ def login(request):
 
         #SE existe
         auth.login(request, user)
-        return redirect(reverse('cadastro_usuario'))
+        return redirect(reverse('home'))
 
 
 @login_required(login_url='login')
@@ -95,22 +99,23 @@ def alterar_senha(request):
 
     elif request.method == 'POST':
         form = PasswordChangeFormTemplate(user=request.user,data=request.POST)
+
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
 
-            return redirect(reverse('cadastro_usuario'))
+            return redirect(reverse('home'))
 
         if not form.is_valid():
             messages.add_message(request, messages.ERROR, 'Senha invalida!')
+            messages.add_message(request, messages.ERROR, 'Coloque uma senha mais elaborada com numeros, letras maiuscula e minusculas!')
             return redirect(reverse('alterar_senha'))
     else:
         form = PasswordChangeFormTemplate(request.user)
-        # Se o formulário não for válido, renderize o formulário novamente com os erros
+        messages.add_message(request, messages.ERROR, 'Senha invalida!')
         return render(request, 'primeiro_login.html', {'form': form})
 
 
-#TODO linkar URL sair/ a um botão de logout
 def logout(request):
     auth.logout(request)
     return redirect(reverse('login'))

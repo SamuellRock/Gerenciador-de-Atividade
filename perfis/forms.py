@@ -48,3 +48,4 @@ class PasswordChangeFormTemplate(forms.PasswordChangeForm):
         for field_name in ['new_password1', 'new_password2']:
             self.fields[field_name].help_text = None
 
+        fields = ['new_password1', 'new_password2']

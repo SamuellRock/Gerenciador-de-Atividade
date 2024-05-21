@@ -11,10 +11,10 @@ body {
     padding: 0;
 }
 
-.container {
+.containers {
     display: flex;
     min-height: 100vh;
-
+    float: left;
 }
 
 .sidebar {

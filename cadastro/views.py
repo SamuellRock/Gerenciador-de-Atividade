@@ -7,8 +7,6 @@ from .models import Inscrever_na_Atividade, Atividade,Usuario_Externo
 from django.contrib import messages
 
 
-
-
 #TODO Fazer Update e Delete dos usuarios Internos e Externo
 
 
@@ -46,6 +44,19 @@ def cadastro_atividade(request):
     if request.method == 'GET':
         form = AtividadeForm
         return render(request, 'cadastro_atividade.html', {'form': form})
+
+    elif request.method == "POST":
+        form = AtividadeForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Atividade cadastrada com sucesso!')
+            return redirect(reverse('cdA'))
+
+        elif not form.is_valid():
+            messages.add_message(request, messages.ERROR, 'Ocorreu algum erro ao cadastrar')
+            return render(request, 'cadastro_atividade.html', {'form': form})
+
 
 
 

@@ -7,8 +7,17 @@
 </head>
 <body>
 
+
+
     <div class="container">
 
+         {% if messages %}
+        <br>
+            {% for message in messages%}
+                <div class="alert {{message.tags}}">{{message}}</div>
+            {% endfor %}
+
+        {% endif %}
 
 
         <form action="{% url 'cadastro_usuario'%}" method="POST">
@@ -17,16 +26,16 @@
 
             <br>
             <label>Nome:</label>
-            <input class="form-control" type="text" placeholder="Digite seu nome" name="nome">
+            <input class="form-control" type="text" placeholder="Digite seu nome" name="nome" value="{{nome}}">
 
 
             <br>
             <label>Sobrenome:</label>
-            <input class="form-control" type="text" placeholder="Digite seu sobrenome" name="sobrenome">
+            <input class="form-control" type="text" placeholder="Digite seu sobrenome" name="sobrenome" value="{{sobrenome}}">
             <br>
 
             <label>E-mail:</label>
-            <input class="form-control" type="email" placeholder="Digite seu email" name="email">
+            <input class="form-control" type="email" placeholder="Digite seu email" name="email" value="{{email}}">
             <br>
 
             <label>Perfil</label>

@@ -3,6 +3,4 @@ from .views import *
 
 urlpatterns = [
     path('home/', dash_home, name='home'),
-
-
 ]

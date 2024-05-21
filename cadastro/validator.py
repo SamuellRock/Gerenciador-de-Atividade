@@ -5,7 +5,7 @@ def validate_nome(nome):
     numeros = '1,2,3,4,5,6,7,8,9,0'.split(',')
     for letra in nome:
         if letra in numeros:
-            raise ValidationError(f'O nome {nome} não pode conter numeros', params={'nome': nome})
+            raise ValidationError(f'{nome} não pode conter numeros', params={'nome': nome})
 
 
 def validate_cpf(cpf):
