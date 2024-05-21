@@ -120,7 +120,7 @@
     
     h1 {
         font-family: "Nunito", sans-serif;
-        color: var(--azul-escuro);
+        color: var (--azul-escuro);
     }
     
     .box-container {
@@ -138,6 +138,12 @@
         flex: 1 1 calc(50% - 20px); 
         box-sizing: border-box;
         text-align: center; 
+    }
+    
+    .box-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
     
     .box h3 {
@@ -166,13 +172,23 @@
     .box h5 a:hover {
         text-decoration: underline;
     }
+    
+    button {
+        padding: 2px 4px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--azul-escuro);
+        color: var(--branco);
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+    }
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="sidebar">
-        <div> <img class="logo" src="templates\static\img\login\logo.png"> </div>
+        <div> <img class="logo" src="{% static 'img/logo.png' %}"> </div>
         <ul class="menu">
             <li class="dashboard"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
             <li><a href="#"><i class="fas fa-tasks"></i> Atividades</a></li>
@@ -183,27 +199,41 @@
     </div>
 
     <div class="content">
-        <h1>Opções de Cadastro:</h1>
+        <h1>Atividades</h1>
         <div class="box-container">
             <div class="box">
-                <h3>Cadastro de Atividades</h3>
-                <h5><a href="cadastroServicos.html">Serviços</a></h5>
-                <h5><a href="cadastroAtividades.html">Atividades</a></h5>
+                <div class="box-header">
+                    <h3>Aulas</h3>
+                    <button>Inscrever Aluno</button>
+                </div>
+                <ul>
+                    {% for aula in aulas %}
+                        <li>{{ aula.nome }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="box">
-                <h3>Cadastro de Usuários</h3>
-                <h5><a href="cadastroFuncionario.html">Funcionário</a></h5>
-                <h5><a href="cadastroUsuario.html">Aluno</a></h5>
-                <h5><a href="cadastroResponsavel.html">Responsável da Atividade/Serviço</a></h5>
+                <div class="box-header">
+                    <h3>Serviços</h3>
+                    <button>Inscrever Aluno</button>
+                </div>
+                <ul>
+                    {% for servico in servicos %}
+                        <li>{{ servico.nome }}</li>
+                    {% endfor %}
+
+
+                <!-- PARTE PARA LISTAGEM SER RETIRADA DO BANCO DE DADOS --> 
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
 <div class="profile">
-    <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture">
+    <img src="{% static 'img/perfil.jpg' %}" alt="Profile Picture">
     <a href="#">Samuel</a>
-    <!-- Essa imagen do Samuel é pra ser alterada de acordo com cadastro do usuários --> 
+    <!-- Essa imagem do Samuel é pra ser alterada de acordo com cadastro do usuário --> 
 </div>
 
 </body>
