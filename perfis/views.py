@@ -29,6 +29,7 @@ def cadastro_usuario(request):
 
         #Gerado de senha automatico
         senha = gerar_senha()
+        print(senha)
 
         nome = request.POST.get('nome')
         sobrenome = request.POST.get('sobrenome')
