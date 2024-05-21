@@ -121,6 +121,31 @@
     h1{
         font-family: "Nunito", sans-serif;
     }
+    .box-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .box {
+        background-color: var(--branco);
+        border: 1px solid var(--azul-claro);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        flex: 1 1 calc(50% - 20px); /* Distribuição igual do espaço */
+        box-sizing: border-box;
+        text-align: center; /* Centraliza o conteúdo */
+    }
+    .box h1 {
+        margin-top: 0;
+        color: var(--azul-escuro);
+        border-bottom: 2px solid var(--azul-claro);
+        padding-bottom: 10px;
+        font-size: 25px;
+    }
+    
+    
 </style>
 </head>
 <body>
@@ -139,7 +164,18 @@
 
     <div class="content">
         <h1>Sistema de Gerenciamento Avante</h1>
-        <!-- Conteúdo principal aqui -->
+        <div class="content">
+            <div class="box-container">
+                <div class="box">
+                   <h1> Box 1 (teste) </h1>
+                   <p> Conteúdo da primeira caixa </p>
+                </div>
+                <div class="box">
+                    <h1> Box 2 (teste) </h1>
+                    <p> Conteúdo da segunda caixa </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
