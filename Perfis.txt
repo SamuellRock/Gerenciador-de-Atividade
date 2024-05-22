@@ -1,3 +1,35 @@
+/admin/
+usuario: admin
+senha: pedro272
+
+---- L O G I N S -----  
+/login/
+
+SENHA PADRÃO de TODOS: 
+adm12345
+
+
+Permissão Administrador:
+admin@test.com
+
+
+Permissão Cadastro de Atividade:
+cad.atividade@test.com
+
+
+Permissão Cadastro extreno no avante:
+cad.externo@test.com
+
+
+Permissão Inscrever em uma atividade:
+inscricao.ativ@test.com
+
+
+Permissão ver Lista de presença:
+lista.presenca@test.com
+
+
+_________________________________________________________________________________
 Perfis Do Sistema
 
 Acesso-Cadastro-Avante: Cadastrar os beneficiados no Sistema
@@ -23,8 +55,3 @@ Acessor-Informação: Acessar as iformações da ativdade e dos serviços envian
 
 
 Cadastra Usuarios Internos
-
-
-
-
-

@@ -23,7 +23,6 @@
     .container {
         display: flex;
         min-height: 100vh;
-    
     }
 
     .sidebar {
@@ -38,7 +37,7 @@
         text-align: center;
         font-size: 24px;
         margin-bottom: 20px;
-        width: 95%; /* Ajustado o tamanho da imagem */
+        width: 95%;
     }
 
     .menu {
@@ -53,15 +52,15 @@
     .menu li a {
         color: var(--azul-escuro);
         text-decoration: none;
-        border-radius: 4px; /* Adicionado o border-radius */
-        transition: box-shadow 0.3s ease; /* Adicionada a transição */
+        border-radius: 4px; 
+        transition: box-shadow 0.3s ease; 
     }
 
     .menu li a:hover {
         color: var(--azul-claro);
         background-color: var(--azul-escuro);
         font-size: 16px;
-        width: 100%; /* Ajustado o tamanho do item do menu */
+        width: 100%; 
         border-radius: 3px;
         box-shadow: 5px 5px 5px 5px var(--azul-escuro), 0px 0px 0px 10px var(--azul-escuro);
     }
@@ -118,9 +117,12 @@
         border-radius: 50%;
         margin-right: 10px;
     }
-    h1{
+    
+    h1 {
         font-family: "Nunito", sans-serif;
+        color: var (--azul-escuro);
     }
+    
     .box-container {
         display: flex;
         gap: 20px;
@@ -133,11 +135,18 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        flex: 1 1 calc(50% - 20px); /* Distribuição igual do espaço */
+        flex: 1 1 calc(50% - 20px); 
         box-sizing: border-box;
-        text-align: center; /* Centraliza o conteúdo */
+        text-align: center; 
     }
-    .box h1 {
+    
+    .box-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .box h3 {
         margin-top: 0;
         color: var(--azul-escuro);
         border-bottom: 2px solid var(--azul-claro);
@@ -145,44 +154,86 @@
         font-size: 25px;
     }
     
+    .box h5 {
+        color: var(--azul-escuro);
+        margin: 10px 0;
+        padding: 5px 10px;
+        background-color: var(--azul-claro);
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 15px;
+    }
     
+    .box h5 a {
+        color: var(--azul-escuro);
+        text-decoration: none;
+    }
+    
+    .box h5 a:hover {
+        text-decoration: underline;
+    }
+    
+    button {
+        padding: 2px 4px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--azul-escuro);
+        color: var(--branco);
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+    }
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="sidebar">
-        <div> <img class="logo" src="templates\static\img\login\logo.png"> </div>
+        <div> <img class="logo" src="{% static 'img/logo.png' %}"> </div>
         <ul class="menu">
-            <li class="dashboard"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="atividades.html"><i class="fas fa-tasks"></i> Atividades</a></li>
-            <li><a href="usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
-            <li><a href="opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
+            <li class="dashboard"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fas fa-tasks"></i> Atividades</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Usuários</a></li>
+            <li><a href="#"><i class="fas fa-address-card"></i> Cadastros</a></li>
         </ul>
         <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
     </div>
 
     <div class="content">
-        <h1>Sistema de Gerenciamento Avante</h1>
-        <div class="content">
-            <div class="box-container">
-                <div class="box">
-                   <h1> Box 1 (teste) </h1>
-                   <p> Conteúdo da primeira caixa </p>
+        <h1>Atividades</h1>
+        <div class="box-container">
+            <div class="box">
+                <div class="box-header">
+                    <h3>Aulas</h3>
+                    <button>Inscrever Aluno</button>
                 </div>
-                <div class="box">
-                    <h1> Box 2 (teste) </h1>
-                    <p> Conteúdo da segunda caixa </p>
+                <ul>
+                    {% for aula in aulas %}
+                        <li>{{ aula.nome }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                    <h3>Serviços</h3>
+                    <button>Inscrever Aluno</button>
                 </div>
+                <ul>
+                    {% for servico in servicos %}
+                        <li>{{ servico.nome }}</li>
+                    {% endfor %}
+
+
+                <!-- PARTE PARA LISTAGEM SER RETIRADA DO BANCO DE DADOS --> 
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
 <div class="profile">
-    <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture">
-    <a href="perfil.html">Samuel</a> 
-    <!-- Essa imagen do Samuel é pra ser alterada de acordo com cadastro do usuários --> 
+    <img src="{% static 'img/perfil.jpg' %}" alt="Profile Picture">
+    <a href="#">Samuel</a>
+    <!-- Essa imagem do Samuel é pra ser alterada de acordo com cadastro do usuário --> 
 </div>
 
 </body>
