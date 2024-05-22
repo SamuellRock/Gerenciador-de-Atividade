@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gerenciamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    :root {
+        --azul-claro: #00A1D0;
+        --azul-escuro: #041241;
+        --rosa: #D155A4;
+        --amarelo: #FFD500;
+        --branco: #FFFFFF;
+    }
+    body {
+        font-family: "Nunito", sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        height: 100vh;
+        width: 250px;
+        background-color: var(--azul-claro);
+        padding-top: 20px;
+        color: var(--azul-escuro);
+    }
+
+    .logo {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        width: 95%;
+    }
+
+    .menu {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .menu li {
+        padding: 10px;
+    }
+
+    .menu li a {
+        color: var(--azul-escuro);
+        text-decoration: none;
+        border-radius: 4px; 
+        transition: box-shadow 0.3s ease; 
+    }
+
+    .menu li a:hover {
+        color: var(--azul-claro);
+        background-color: var(--azul-escuro);
+        font-size: 16px;
+        width: 100%; 
+        border-radius: 3px;
+        box-shadow: 5px 5px 5px 5px var(--azul-escuro), 0px 0px 0px 10px var(--azul-escuro);
+    }
+
+    .dashboard {
+        margin-bottom: 20px;
+        border-top: 1px solid var(--azul-escuro);
+        border-bottom: 1px solid var(--azul-escuro);
+        padding: 10px 0;
+    }
+
+    .logout {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background-color: var(--azul-claro);
+        color: var(--azul-escuro);
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logout a {
+        color: var(--azul-escuro);
+        text-decoration: none;
+    }
+
+    a {
+        text-decoration: none;
+        font-family: "Nunito", sans-serif;
+    }
+
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .profile {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--azul-claro);
+        color: var(--azul-escuro);
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    
+    h1 {
+        font-family: "Nunito", sans-serif;
+        color: var (--azul-escuro);
+    }
+    
+    .box-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .box {
+        background-color: var(--branco);
+        border: 1px solid var(--azul-claro);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        flex: 1 1 calc(50% - 20px); 
+        box-sizing: border-box;
+        text-align: center; 
+    }
+    
+    .box-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .box h3 {
+        margin-top: 0;
+        color: var(--azul-escuro);
+        border-bottom: 2px solid var(--azul-claro);
+        padding-bottom: 10px;
+        font-size: 25px;
+    }
+    
+    .box h5 {
+        color: var(--azul-escuro);
+        margin: 10px 0;
+        padding: 5px 10px;
+        background-color: var(--azul-claro);
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 15px;
+    }
+    
+    .box h5 a {
+        color: var(--azul-escuro);
+        text-decoration: none;
+    }
+    
+    .box h5 a:hover {
+        text-decoration: underline;
+    }
+    
+    button {
+        padding: 2px 4px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--azul-escuro);
+        color: var(--branco);
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <div> <img class="logo" src="{% static 'img/logo.png' %}"> </div>
+        <ul class="menu">
+            <li class="dashboard"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fas fa-tasks"></i> Atividades</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Usuários</a></li>
+            <li><a href="#"><i class="fas fa-address-card"></i> Cadastros</a></li>
+        </ul>
+        <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
+    </div>
+
+    <div class="content">
+        <h1>Atividades</h1>
+        <div class="box-container">
+            <div class="box">
+                <div class="box-header">
+                    <h3>Aulas</h3>
+                    <button>Inscrever Aluno</button>
+                </div>
+                <ul>
+                    {% for aula in aulas %}
+                        <li>{{ aula.nome }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                    <h3>Serviços</h3>
+                    <button>Inscrever Aluno</button>
+                </div>
+                <ul>
+                    {% for servico in servicos %}
+                        <li>{{ servico.nome }}</li>
+                    {% endfor %}
+
+
+                <!-- PARTE PARA LISTAGEM SER RETIRADA DO BANCO DE DADOS --> 
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile">
+    <img src="{% static 'img/perfil.jpg' %}" alt="Profile Picture">
+    <a href="#">Samuel</a>
+    <!-- Essa imagem do Samuel é pra ser alterada de acordo com cadastro do usuário --> 
+</div>
+
+</body>
+</html>
