@@ -71,11 +71,13 @@ class Atividade(models.Model):
     descricao = models.TextField(blank=True)
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False} )
     dia_atividade = models.ForeignKey(DiaAtividade, on_delete=models.SET_NULL, null=True)
-    hora_atividade = models.DateTimeField(blank=False, null=True)
+    hora_atividade = models.TimeField(blank=False, null=False)
     Ativo = models.BooleanField(blank=False, null=False)
 
     def __str__(self):
         return self.nome_atividade
+    def __str__(self):
+        return self.hora_atividade.strftime('%H:%M')
 
 
 class Inscrever_na_Atividade(models.Model):

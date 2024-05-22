@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <title>Lista de Usuários Externos</title>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Lista de Usuários Externos</h1>
+
+    {% if messages %}
+        <br>
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Nascimento</th>
+                <th>Responsável</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.cpf }}</td>
+                    <td>{{ usuario.nascimento }}</td>
+                    <td>{{ usuario.responsavel_nome }}</td>
+                    <td>{{ usuario.telefone }}</td>
+                    <td>{{ usuario.endereco }}</td>
+                    <td>{{ usuario.cidade }}</td>
+                    <td>{{ usuario.estado }}</td>
+                    <td>
+                        <a href="{% url 'update_usuario_externo' usuario.pk %}" class="btn btn-primary">Editar</a>
+                       
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'cdE' %}" class="btn btn-success">Cadastrar Novo Usuário</a>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Voltar à HOME</a>
+</div>
+
+</body>
+
+</html>

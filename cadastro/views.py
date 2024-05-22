@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect,reverse
-from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm,Lista_PrecencaForm
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Inscrever_na_Atividade, Atividade,Usuario_Externo
@@ -37,6 +37,30 @@ def cadastro_externo(request):
                                  'Erro ao cadastrar usuario externo. Verifique os dados e tente novamente.')
             return render(request, 'cadastro_benificiario.html', {'form': form})
 
+
+'''SAMUEL ESTEVE AQUI'''
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_externo')
+def lista_externa(request):
+    usuarios = Usuario_Externo.objects.all()
+    return render(request, 'lista_avante.html', {'usuarios': usuarios})
+
+
+
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_externo')
+def update_usuario_externo(request, pk):
+    usuario = get_object_or_404(Usuario_Externo, pk=pk)
+    if request.method == 'POST':
+        form = Usuario_ExternoForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Usuário Externo atualizado com sucesso!')
+            return redirect(reverse('update_usuario_externo', args=[pk]))
+    else:
+        form = Usuario_ExternoForm(instance=usuario)
+    return render(request, 'update/update_usuario_externo.html', {'form': form, 'usuario': usuario})
+#ATÈ AQUI
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_atividade')
