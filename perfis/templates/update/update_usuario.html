@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <title>Atualizar Usuário</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Atualizar Usuário</h1>
+
+    {% if messages %}
+        <br>
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form action="{% url 'update_usuario' user.pk %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br><br>
+        <input type="submit" value="Atualizar" class="btn btn-success">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Voltar a HOME</a>
+    </form>
+</div>
+
+</body>
+</html>

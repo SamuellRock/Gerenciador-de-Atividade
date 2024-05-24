@@ -11,6 +11,8 @@ urlpatterns = [
     path('inscricao/', inscricao, name='insc'),
     path('menu_atividade/', menu_atividade, name='menuAt'),
     path('lista_precenca/<int:atividade_id>/', lista_presenca, name='listP'),
-    path('update_userexterno/<int:pk>/', update_usuario_externo, name='update_usuario_externo'),
     path('lista_avante/', lista_externa, name='lista_externa'),
+    path('update_userexterno/<int:pk>/', update_usuario_externo, name='update_usuario_externo'),
+    path('update_atividade/<int:pk>/', update_atividade, name='update_atividade'),
 ]
+

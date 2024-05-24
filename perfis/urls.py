@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import cadastro_usuario
-from .views import login, logout, alterar_senha
+from .views import login, logout, alterar_senha, update_usuario
 from django.contrib.auth import views as auth_views
 
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('', login, name='login'),
     path('alterar_senha/', alterar_senha, name='alterar_senha'),
+    path('update_usuario/<int:pk>/', update_usuario, name='update_usuario'),
 
     #Senhas
     path('senha_esquecida/', auth_views.PasswordResetView.as_view(template_name="registration/email_confirmacao.html"), name='password_reset'),

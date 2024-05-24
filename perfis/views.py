@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import auth
 from .forms import UserFormTemplate
@@ -55,6 +55,24 @@ def cadastro_usuario(request):
     else:
         messages.add_message(request, messages.ERROR, 'Erro inesperado, tente novamente!')
         return redirect(reverse('cadastro_usuario'))
+
+
+'''SAMUEL ESTEVE AQUI atualizar Users'''
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_interno')
+def update_usuario(request, pk):
+    user = get_object_or_404(Users, pk=pk)
+    if request.method == 'POST':
+        form = UserFormTemplate(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Usuário atualizado com sucesso!')
+            return redirect(reverse('update_usuario', args=[pk]))
+    else:
+        form = UserFormTemplate(instance=user)
+    return render(request, 'update/update_usuario.html', {'form': form, 'user': user})
+#ATÈ AQUI
+
 
 def login(request):
 

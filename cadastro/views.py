@@ -38,7 +38,7 @@ def cadastro_externo(request):
             return render(request, 'cadastro_benificiario.html', {'form': form})
 
 
-'''SAMUEL ESTEVE AQUI'''
+'''SAMUEL ESTEVE AQUI  Atualizar usuario Externo'''
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
 def lista_externa(request):
@@ -82,6 +82,21 @@ def cadastro_atividade(request):
             return render(request, 'cadastro_atividade.html', {'form': form})
 
 
+'''SAMUEL ESTEVE AQUI atualizar atividade'''
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_externo')
+def update_atividade(request, pk):
+    atividade = get_object_or_404(Atividade, pk=pk)
+    if request.method == 'POST':
+        form = AtividadeForm(request.POST, instance=atividade)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Atividade atualizada com sucesso!')
+            return redirect(reverse('update_atividade', args=[pk]))
+    else:
+        form = AtividadeForm(instance=atividade)
+    return render(request, 'update/update_atividade.html', {'form': form, 'atividade': atividade})
+#ATÈ AQUI
 
 
 
