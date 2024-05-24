@@ -1,18 +1,14 @@
+{% extends 'navbar_base.html' %}
 {% load static%}
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <title>Title</title>
-</head>
-
+{% block 'title' %}Cadastro Usuario{% endblock %}
 
 <body>
 
 <div class="container">
-
+{% block 'msg'%}
     {% if messages %}
         <br>
             {% for message in messages%}
@@ -20,6 +16,14 @@
             {% endfor %}
 
     {% endif %}
+
+{% endblock %}
+
+{%block 'section'%}{% endblock %}
+
+{% block 'main'%}
+
+    <!-- FRONTE GLENDINHA AQUI -->
 
  <form action="{% url 'cdE' %}" method="POST">
         {% csrf_token %}
@@ -32,7 +36,9 @@
 
     <script src="{% static 'js/cadastroExterno/cadastroExterno.js' %}"></script>
 
+        <!-- FRONT temina aqui -->
 
+{% endblock %}
 </div>
 
 </body>

@@ -85,4 +85,19 @@ def lista_presenca(request, atividade_id):
     return render(request, 'precenca.html', {'form': form, 'alunos': alunos})
 
 
+@login_required(login_url='login')
+def atualizar_externo(request, id):
+    usario = get_object_or_404(Usuario_Externo, pk=id)
+    novo_formulario = Usuario_ExternoForm(request.POST or None, request.FILES or None, instance=usario)
+
+    if novo_formulario.is_valid():
+        novo_formulario.save()
+        return redirect('home')
+
+    return render(request, 'atualizar_externo.html', {'formulario': novo_formulario})
+
+
+def lista_clientes(reqest):
+    clientes = Usuario_Externo.objects.all()
+    return render(reqest, 'atualizar_externo.html', {'clientes': clientes})
 
