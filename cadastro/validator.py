@@ -16,3 +16,5 @@ def validate_cpf(cpf):
         if i in char_up or i in char:
             raise ValidationError(f'O cpf {cpf} não pode conter letras', params={'cpf':cpf})
 
+
+
