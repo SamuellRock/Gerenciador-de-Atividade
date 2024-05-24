@@ -1,0 +1,139 @@
+:root {
+--azul-claro: #00A1D0;
+--azul-escuro: #041241;
+--rosa: #D155A4;
+--amarelo: #FFD500;
+--branco: #FFFFFF;
+}
+body {
+font-family: "Nunito", sans-serif;
+margin: 0;
+padding: 0;
+}
+
+.container {
+display: flex;
+min-height: 100vh;
+
+}
+
+.sidebar {
+height: 100vh;
+width: 250px;
+background-color: var(--azul-claro);
+padding-top: 20px;
+color: var(--azul-escuro);
+}
+
+.logo {
+text-align: center;
+font-size: 24px;
+margin-bottom: 20px;
+width: 95%; /* Ajustado o tamanho da imagem */
+}
+
+.menu {
+list-style-type: none;
+padding: 0;
+}
+
+.menu li {
+padding: 10px;
+}
+
+.menu li a {
+color: var(--azul-escuro);
+text-decoration: none;
+border-radius: 4px; /* Adicionado o border-radius */
+transition: box-shadow 0.3s ease; /* Adicionada a transição */
+}
+
+.menu li a:hover {
+color: var(--azul-claro);
+background-color: var(--azul-escuro);
+font-size: 16px;
+width: 100%; /* Ajustado o tamanho do item do menu */
+border-radius: 3px;
+box-shadow: 5px 5px 5px 5px var(--azul-escuro), 0px 0px 0px 10px var(--azul-escuro);
+}
+
+.dashboard {
+margin-bottom: 20px;
+border-top: 1px solid var(--azul-escuro);
+border-bottom: 1px solid var(--azul-escuro);
+padding: 10px 0;
+}
+
+.logout {
+position: fixed;
+bottom: 20px;
+left: 20px;
+background-color: var(--azul-claro);
+color: var(--azul-escuro);
+padding: 10px;
+border-radius: 10px;
+display: flex;
+align-items: center;
+}
+
+.logout a {
+color: var(--azul-escuro);
+text-decoration: none;
+}
+
+a {
+text-decoration: none;
+font-family: "Nunito", sans-serif;
+}
+
+.content {
+flex: 1;
+padding: 20px;
+}
+
+.profile {
+position: fixed;
+top: 20px;
+right: 20px;
+background-color: var(--azul-claro);
+color: var(--azul-escuro);
+padding: 10px;
+border-radius: 10px;
+display: flex;
+align-items: center;
+}
+
+.profile img {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+margin-right: 10px;
+}
+h1{
+font-family: "Nunito", sans-serif;
+}
+.box-container {
+display: flex;
+gap: 20px;
+flex-wrap: wrap;
+}
+
+.box {
+background-color: var(--branco);
+border: 1px solid var(--azul-claro);
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+padding: 20px;
+flex: 1 1 calc(50% - 20px); /* Distribuição igual do espaço */
+box-sizing: border-box;
+text-align: center; /* Centraliza o conteúdo */
+}
+.box h1 {
+margin-top: 0;
+color: var(--azul-escuro);
+border-bottom: 2px solid var(--azul-claro);
+padding-bottom: 10px;
+font-size: 25px;
+}
+
+

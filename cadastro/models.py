@@ -46,6 +46,7 @@ class Tipo_Atividade(models.Model):
 class Usuario_Externo(models.Model):
     nome = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome])
     cpf = models.CharField(max_length=14, blank=False, null=False, validators=[validate_cpf])
+    #TODO DIA
     nascimento = models.DateField(blank=False, null=False)
     responsavel_nome = models.CharField(max_length=50, null=True, blank=True, validators=[validate_nome])
     responsavel_cpf = models.CharField(max_length=14, null=True, blank=True, validators=[validate_cpf])
