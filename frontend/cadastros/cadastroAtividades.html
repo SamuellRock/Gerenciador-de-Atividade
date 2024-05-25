@@ -7,7 +7,6 @@
     <title>Sistema de Gerenciamento</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         :root {
             --azul-claro: #00A1D0;
@@ -21,114 +20,6 @@
             font-family: "Nunito", sans-serif;
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            background-color: var(--azul-claro);
-            padding-top: 20px;
-            color: var(--azul-escuro);
-        }
-
-        .logo {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            width: 95%;
-            /* Ajustado o tamanho da imagem */
-        }
-
-        .menu {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .menu li {
-            padding: 10px;
-        }
-
-        .menu li a {
-            color: var(--azul-escuro);
-            text-decoration: none;
-            border-radius: 4px;
-            /* Adicionado o border-radius */
-            transition: box-shadow 0.3s ease;
-            /* Adicionada a transição */
-        }
-
-        .menu li a:hover {
-            color: var(--azul-claro);
-            background-color: var(--azul-escuro);
-            font-size: 16px;
-            width: 100%;
-            /* Ajustado o tamanho do item do menu */
-            border-radius: 3px;
-            box-shadow: 5px 5px 5px 5px var(--azul-escuro), 0px 0px 0px 10px var(--azul-escuro);
-        }
-
-        .dashboard {
-            margin-bottom: 20px;
-            border-top: 1px solid var(--azul-escuro);
-            border-bottom: 1px solid var(--azul-escuro);
-            padding: 10px 0;
-        }
-
-        .logout {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: var(--azul-claro);
-            color: var(--azul-escuro);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .logout a {
-            color: var(--azul-escuro);
-            text-decoration: none;
-        }
-
-        a {
-            text-decoration: none;
-            font-family: "Nunito", sans-serif;
-            color: var(--azul-escuro);
-        }
-
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .profile {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--azul-claro);
-            color: var(--azul-escuro);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        h1 {
-            font-family: "Nunito", sans-serif;
-            color: var(--azul-escuro);
         }
 
         .form-container {
@@ -174,7 +65,6 @@
             font-family: "Nunito", sans-serif;
         }
 
-
         .hidden {
             display: none;
         }
@@ -186,20 +76,6 @@
 </head>
 
 <body>
-
-    <div class="container">
-        <div class="sidebar">
-            <div><img class="logo" src="templates\static\img\login\logo.png" alt="Logo"></div>
-            <ul class="menu">
-                <li class="dashboard"><a href="dashboard.html"><i class> </i>
-                        <i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="atividades.html"><i class="fas fa-tasks"></i> Atividades</a></li>
-                <li><a href="usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
-                <li><a href="opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
-            </ul>
-            <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
-        </div>
-        <div class="content">
             <div class="form-container">
                 <h2>Cadastro de Atividades</h2>
                 <form id="activityForm">
@@ -250,14 +126,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             const openCalendarButton = document.getElementById('openCalendar');
             const activityDateInput = document.getElementById('activityDate');
-            const calendarContainer = document.getElementById('calendar');
 
             openCalendarButton.addEventListener('click', function() {
                 $(activityDateInput).datepicker({
                     dateFormat: 'dd/mm/yy',
                     onSelect: function(dateText) {
                         activityDateInput.value = dateText;
-                        calendarContainer.classList.add('hidden');
                     }
                 }).datepicker('show');
             });
@@ -270,13 +144,9 @@
                 formData.forEach((value, key) => {
                     data[key] = value;
                 });
-                console.log(data);
-                // Back End (Pedrinho conto cntg)
-                // Acho que dá pra usar o fetch() para enviar uma requisição POST
             });
         });
     </script>
 </body>
 
 </html>
-
