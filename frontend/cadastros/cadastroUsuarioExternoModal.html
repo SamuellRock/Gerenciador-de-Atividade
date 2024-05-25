@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Beneficiado</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         :root {
             --azul-claro: #00A1D0;
@@ -15,22 +13,20 @@
             --rosa: #D155A4;
             --amarelo: #FFD500;
             --branco: #FFFFFF;
+            --fonte: "Nunito", sans-serif;
         }
 
         body {
-            font-family: "Nunito", sans-serif;
+            font-family: var(--fonte);
             margin: 0;
             padding: 0;
+            background-color: var(--branco);
         }
 
         .form-container {
             max-width: 600px;
-            margin: 50px auto;
+            margin: 20px auto;
             padding: 20px;
-            border: 1px solid var(--azul-claro);
-            border-radius: 10px;
-            background-color: var(--branco);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
@@ -39,11 +35,9 @@
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             color: var(--azul-escuro);
-            font-family: "Nunito", sans-serif;
             font-weight: bold;
-            color: var(--azul-escuro);
         }
 
         input[type="text"],
@@ -51,7 +45,7 @@
         input[type="tel"],
         textarea,
         select {
-            width: 100%;
+            width: calc(100% - 16px);
             padding: 8px;
             border: 1px solid var(--azul-claro);
             border-radius: 5px;
@@ -59,21 +53,26 @@
         }
 
         button {
-            padding: 8px 12px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             background-color: var(--azul-escuro);
             color: var(--branco);
             cursor: pointer;
-            font-family: "Nunito", sans-serif;
+            font-family: var(--fonte);
+            font-size: 16px;
+        }
+
+        h2 {
+            color: var(--azul-escuro);
+            font-family: var(--fonte);
+            text-decoration: underline;
+            text-decoration-color: var(--azul-claro);
+            text-align: center;
         }
 
         .hidden {
             display: none;
-        }
-        h2 { 
-            color: var(--azul-escuro);
-            font-family: "Nunito", sans-serif;
         }
     </style>
 </head>

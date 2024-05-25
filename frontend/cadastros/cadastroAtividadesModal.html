@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +14,30 @@
             --rosa: #D155A4;
             --amarelo: #FFD500;
             --branco: #FFFFFF;
+            --fonte: "Nunito", sans-serif;
         }
+
         body {
             font-family: var(--fonte);
             margin: 0;
             padding: 0;
+            background-color: var(--branco);
         }
+
+        .form-container {
+            background-color: var(--branco); 
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px; 
             color: var(--azul-escuro);
             font-weight: bold;
             font-family: var(--fonte);
+            color: var(--azul-escuro);
         }
 
         input[type="text"],
@@ -33,8 +46,9 @@
         input[type="time"],
         input[type="date"],
         input[type="number"] {
-            width: 100%;
+            width: calc(100% - 16px); 
             padding: 8px;
+            margin-bottom: 15px; 
             border: 1px solid var(--azul-claro);
             border-radius: 5px;
             box-sizing: border-box;
@@ -48,11 +62,13 @@
             color: var(--branco);
             cursor: pointer;
             font-size: 16px;
+            margin-bottom: 15px; 
+            font-family: var(--fonte);
         }
 
         button:hover {
             background-color: var(--azul-claro);
-            color: var(--azul-escuro)
+            color: var(--azul-escuro);
         }
 
         .day-of-week {
@@ -70,9 +86,13 @@
         .activity-day {
             margin-bottom: 20px;
         }
+
         h2 {
             font-family: var(--fonte);
             color: var(--azul-escuro);
+            text-decoration: underline;
+            text-decoration-color: var(--azul-claro);
+            text-align: center;
         }
     </style>
 </head>
@@ -113,8 +133,11 @@
                     </div>
                     <div class="form-group">
                         <label for="activityTime">Hora da Atividade:</label>
-                <input type="time" id="activityTime" name="activityTime" required>
+                        <input type="time" class="activityTime" name="activityTime[]" required>
+                    </div>
+                </div>
             </div>
+            <button type="button" class="add-day-btn" id="addDayBtn">Adicionar Dia</button>
             <button type="submit">Cadastrar Atividade</button>
         </form>
     </div>
@@ -176,4 +199,6 @@
         });
     </script>
 </body>
+
 </html>
+
