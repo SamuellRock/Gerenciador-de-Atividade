@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Usuário Interno</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<style>
+        :root {
+            --azul-claro: #00A1D0;
+            --azul-escuro: #041241;
+            --rosa: #D155A4;
+            --amarelo: #FFD500;
+            --branco: #FFFFFF;
+            --fonte: "Nunito", sans-serif;
+        }
+
+        body {
+            font-family: var(--fonte);
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid var(--azul-claro);
+            border-radius: 10px;
+            background-color: var(--branco);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--azul-escuro);
+            font-family: "Nunito", sans-serif;
+            font-weight:bold;
+        }
+
+        input[type="text"],
+        textarea,
+        select,
+        input[type="time"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--azul-claro);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--azul-escuro);
+            color: var(--branco);
+            cursor: pointer;
+            font-family: var(--fonte);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-date {
+            margin-left: 10px;
+        }
+        h2 { 
+            color: var(--azul-escuro);
+            font-family: var(--fonte);
+        }
+</style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastro de Usuário Interno</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="userType">Tipo de Usuário:</label>
+                <select id="userType" name="userType" required>
+                    <option value="Funcionário">Funcionário</option>
+                    <option value="Voluntário">Voluntário</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="funcao">Função:</label>
+                <input type="text" id="funcao" name="funcao" required>
+            </div>
+            <div class="form-group">
+                <label for="login">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Beneficiado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <style>
+        :root {
+            --azul-claro: #00A1D0;
+            --azul-escuro: #041241;
+            --rosa: #D155A4;
+            --amarelo: #FFD500;
+            --branco: #FFFFFF;
+        }
+
+        body {
+            font-family: "Nunito", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid var(--azul-claro);
+            border-radius: 10px;
+            background-color: var(--branco);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--azul-escuro);
+            font-family: "Nunito", sans-serif;
+            font-weight: bold;
+            color: var(--azul-escuro);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--azul-claro);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--azul-escuro);
+            color: var(--branco);
+            cursor: pointer;
+            font-family: "Nunito", sans-serif;
+        }
+
+        .hidden {
+            display: none;
+        }
+        h2 { 
+            color: var(--azul-escuro);
+            font-family: "Nunito", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Cadastro de Beneficiado</h2>
+        <form id="beneficiaryForm">
+            <div class="form-group">
+                <label for="beneficiaryName">Nome:</label>
+                <input type="text" id="beneficiaryName" name="beneficiaryName" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryCpf">CPF:</label>
+                <input type="text" id="beneficiaryCpf" name="beneficiaryCpf" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryDob">Data de Nascimento:</label>
+                <input type="date" id="beneficiaryDob" name="beneficiaryDob" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryPhone">Telefone:</label>
+                <input type="tel" id="beneficiaryPhone" name="beneficiaryPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryAddress">Endereço:</label>
+                <input type="text" id="beneficiaryAddress" name="beneficiaryAddress" required>
+            </div>
+            <div class="form-group hidden" id="guardianFields">
+                <div class="form-group">
+                    <label for="guardianName">Nome do Responsável:</label>
+                    <input type="text" id="guardianName" name="guardianName">
+                </div>
+                <div class="form-group">
+                    <label for="guardianCpf">CPF do Responsável:</label>
+                    <input type="text" id="guardianCpf" name="guardianCpf">
+                </div>
+                <div class="form-group">
+                    <label for="guardianPhone">Contato do Responsável:</label>
+                    <input type="tel" id="guardianPhone" name="guardianPhone">
+                </div>
+            </div>
+            <button type="submit">Cadastrar Beneficiado</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const beneficiaryDobInput = document.getElementById('beneficiaryDob');
+            const guardianFields = document.getElementById('guardianFields');
+            const beneficiaryForm = document.getElementById('beneficiaryForm');
+
+            beneficiaryDobInput.addEventListener('change', function() {
+                const dob = new Date(beneficiaryDobInput.value);
+                const age = getAge(dob);
+                if (age < 18) {
+                    guardianFields.classList.remove('hidden');
+                } else {
+                    guardianFields.classList.add('hidden');
+                }
+            });
+
+            function getAge(dob) {
+                const diff = Date.now() - dob.getTime();
+                const ageDate = new Date(diff);
+                return Math.abs(ageDate.getUTCFullYear() - 1970);
+            }
+
+            beneficiaryForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(beneficiaryForm);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+                console.log(data);
+                // Aqui você pode enviar os dados para o backend usando fetch ou AJAX
+            });
+        });
+    </script>
+</body>
+
+</html>
