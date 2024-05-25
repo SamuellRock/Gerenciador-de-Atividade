@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gerenciamento</title>
+    <title>Cadastro de Atividades</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         :root {
             --azul-claro: #00A1D0;
@@ -15,120 +14,14 @@
             --rosa: #D155A4;
             --amarelo: #FFD500;
             --branco: #FFFFFF;
+            --fonte: "Nunito", sans-serif;
         }
 
         body {
-            font-family: "Nunito", sans-serif;
+            font-family: var(--fonte);
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            background-color: var(--azul-claro);
-            padding-top: 20px;
-            color: var(--azul-escuro);
-        }
-
-        .logo {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            width: 95%;
-            /* Ajustado o tamanho da imagem */
-        }
-
-        .menu {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .menu li {
-            padding: 10px;
-        }
-
-        .menu li a {
-            color: var(--azul-escuro);
-            text-decoration: none;
-            border-radius: 4px;
-            /* Adicionado o border-radius */
-            transition: box-shadow 0.3s ease;
-            /* Adicionada a transição */
-        }
-
-        .menu li a:hover {
-            color: var(--azul-claro);
-            background-color: var(--azul-escuro);
-            font-size: 16px;
-            width: 100%;
-            /* Ajustado o tamanho do item do menu */
-            border-radius: 3px;
-            box-shadow: 5px 5px 5px 5px var(--azul-escuro), 0px 0px 0px 10px var(--azul-escuro);
-        }
-
-        .dashboard {
-            margin-bottom: 20px;
-            border-top: 1px solid var(--azul-escuro);
-            border-bottom: 1px solid var(--azul-escuro);
-            padding: 10px 0;
-        }
-
-        .logout {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: var(--azul-claro);
-            color: var(--azul-escuro);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .logout a {
-            color: var(--azul-escuro);
-            text-decoration: none;
-        }
-
-        a {
-            text-decoration: none;
-            font-family: "Nunito", sans-serif;
-            color: var(--azul-escuro);
-        }
-
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .profile {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--azul-claro);
-            color: var(--azul-escuro);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        h1 {
-            font-family: "Nunito", sans-serif;
-            color: var(--azul-escuro);
+            background-color: #f0f0f0;
         }
 
         .form-container {
@@ -149,14 +42,17 @@
             display: block;
             margin-bottom: 5px;
             color: var(--azul-escuro);
-            font-family: "Nunito", sans-serif;
-            font-weight:bold;
+            font-weight: bold;
+            font-family: var(--fonte);
+            color: var(--azul-escuro);
         }
 
         input[type="text"],
         textarea,
         select,
-        input[type="time"] {
+        input[type="time"],
+        input[type="date"],
+        input[type="number"] {
             width: 100%;
             padding: 8px;
             border: 1px solid var(--azul-claro);
@@ -165,118 +61,145 @@
         }
 
         button {
-            padding: 8px 12px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             background-color: var(--azul-escuro);
             color: var(--branco);
             cursor: pointer;
-            font-family: "Nunito", sans-serif;
+            font-size: 16px;
         }
 
-
-        .hidden {
-            display: none;
+        button:hover {
+            background-color: var(--azul-claro);
+            color: var(--azul-escuro)
         }
 
-        .btn-date {
-            margin-left: 10px;
+        .day-of-week {
+            margin-top: 5px;
+            color: var(--azul-escuro);
+            font-weight: bold;
+        }
+
+        .add-day-btn {
+            margin-top: 10px;
+            background-color: var(--azul-escuro);
+            color: var(--azul-claro);
+
+        }
+
+        .activity-day {
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-family: var(--fonte);
+            color: var(--azul-escuro);
         }
     </style>
 </head>
 
 <body>
-
-    <div class="container">
-        <div class="sidebar">
-            <div><img class="logo" src="templates\static\img\login\logo.png" alt="Logo"></div>
-            <ul class="menu">
-                <li class="dashboard"><a href="dashboard.html"><i class> </i>
-                        <i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="atividades.html"><i class="fas fa-tasks"></i> Atividades</a></li>
-                <li><a href="usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
-                <li><a href="opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
-            </ul>
-            <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
-        </div>
-        <div class="content">
-            <div class="form-container">
-                <h2>Cadastro de Atividades</h2>
-                <form id="activityForm">
+    <div class="form-container">
+        <h2>Cadastro de Atividades</h2>
+        <form id="activityForm">
+            <div class="form-group">
+                <label for="activityName">Nome da Atividade:</label>
+                <input type="text" id="activityName" name="activityName" required>
+            </div>
+            <div class="form-group">
+                <label for="activityType">Tipo de Atividade:</label>
+                <select id="activityType" name="activityType" required>
+                    <option value="Aulas">Aulas</option>
+                    <option value="Serviços">Serviços</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="activityDescription">Descrição da Atividade:</label>
+                <textarea id="activityDescription" name="activityDescription" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="activityResponsible">Responsável:</label>
+                <input type="text" id="activityResponsible" name="activityResponsible" required>
+            </div>
+            <div class="form-group">
+                <label for="activityLimit">Limite de Alunos:</label>
+                <input type="number" id="activityLimit" name="activityLimit" required>
+            </div>
+            <div id="activityDaysContainer">
+                <div class="activity-day">
                     <div class="form-group">
-                        <label for="activityName">Nome da Atividade:</label>
-                        <input type="text" id="activityName" name="activityName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="activityType">Tipo de Atividade:</label>
-                        <select id="activityType" name="activityType" required>
-                            <option value="Atividade">Aulas</option>
-                            <option value="Serviço">Serviços</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="activityDescription">Descrição da Atividade:</label>
-                        <textarea id="activityDescription" name="activityDescription" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="activityResponsible">Responsável:</label>
-                        <input type="text" id="activityResponsible" name="activityResponsible" required> 
-                    </div>
-                    <div class="form-group">
-                        <label id="openCalendar" class="btn-date" for="activityDate">Data da Atividade:</label>
-                        <input type="text" id="activityDate" name="activityDate" readonly required>
+                        <label for="activityDate">Data da Atividade:</label>
+                        <input type="date" class="activityDate" name="activityDate[]" required>
+                        <div class="day-of-week"></div>
                     </div>
                     <div class="form-group">
                         <label for="activityTime">Hora da Atividade:</label>
-                        <input type="time" id="activityTime" name="activityTime" required>
+                        <input type="time" class="activityTime" name="activityTime[]" required>
                     </div>
-                    <button type="submit">Cadastrar Atividade</button>
-                </form>
+                </div>
             </div>
-            <!-- Calendário -->
-            <div id="calendar" class="hidden">
-                <!-- Conteúdo do calendário será inserido aqui -->
-            </div>
-        </div>
-        <div class="profile">
-            <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture">
-            <a href="perfil.html">Samuel</a>
-            <!-- Essa imagen do Samuel é pra ser alterada de acordo com cadastro do usuários --> 
-        </div>
+            <button type="button" class="add-day-btn" id="addDayBtn">Adicionar Dia</button>
+            <button type="submit">Cadastrar Atividade</button>
+        </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const openCalendarButton = document.getElementById('openCalendar');
-            const activityDateInput = document.getElementById('activityDate');
-            const calendarContainer = document.getElementById('calendar');
 
-            openCalendarButton.addEventListener('click', function() {
-                $(activityDateInput).datepicker({
-                    dateFormat: 'dd/mm/yy',
-                    onSelect: function(dateText) {
-                        activityDateInput.value = dateText;
-                        calendarContainer.classList.add('hidden');
-                    }
-                }).datepicker('show');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addDayBtn = document.getElementById('addDayBtn');
+            const activityDaysContainer = document.getElementById('activityDaysContainer');
+
+            addDayBtn.addEventListener('click', function () {
+                const activityDay = document.createElement('div');
+                activityDay.classList.add('activity-day');
+                activityDay.innerHTML = `
+                    <div class="form-group">
+                        <label for="activityDate">Data da Atividade:</label>
+                        <input type="date" class="activityDate" name="activityDate[]" required>
+                        <div class="day-of-week"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="activityTime">Hora da Atividade:</label>
+                        <input type="time" class="activityTime" name="activityTime[]" required>
+                    </div>
+                `;
+                activityDaysContainer.appendChild(activityDay);
+
+                const dateInputs = activityDay.querySelectorAll('.activityDate');
+                dateInputs.forEach(input => {
+                    input.addEventListener('change', function () {
+                        const dayOfWeekDiv = this.nextElementSibling;
+                        const dateValue = this.value;
+                        if (dateValue) {
+                            const dayOfWeek = getDayOfWeek(dateValue);
+                            dayOfWeekDiv.textContent = `Dia da Semana: ${dayOfWeek}`;
+                        } else {
+                            dayOfWeekDiv.textContent = '';
+                        }
+                    });
+                });
             });
 
-            const activityForm = document.getElementById('activityForm');
-            activityForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const formData = new FormData(activityForm);
-                const data = {};
-                formData.forEach((value, key) => {
-                    data[key] = value;
+            function getDayOfWeek(dateString) {
+                const date = new Date(dateString);
+                const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+                return days[date.getDay()];
+            }
+
+            const initialDateInputs = document.querySelectorAll('.activityDate');
+            initialDateInputs.forEach(input => {
+                input.addEventListener('change', function () {
+                    const dayOfWeekDiv = this.nextElementSibling;
+                    const dateValue = this.value;
+                    if (dateValue) {
+                        const dayOfWeek = getDayOfWeek(dateValue);
+                        dayOfWeekDiv.textContent = `Dia da Semana: ${dayOfWeek}`;
+                    } else {
+                        dayOfWeekDiv.textContent = '';
+                    }
                 });
-                console.log(data);
-                // Back End (Pedrinho conto cntg)
-                // Acho que dá pra usar o fetch() para enviar uma requisição POST
             });
         });
     </script>
 </body>
 
 </html>
-

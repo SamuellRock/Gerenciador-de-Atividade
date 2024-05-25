@@ -1,20 +1,19 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect,reverse
-from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm,Lista_PrecencaForm
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
-from .models import Inscrever_na_Atividade, Atividade,Usuario_Externo
+from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo
 from django.contrib import messages
 
 
-#TODO Fazer Update e Delete dos usuarios Internos e Externo
-
+# TODO Fazer Update e Delete dos usuarios Internos e Externo
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
 def cadastro_externo(request):
     if request.method == 'GET':
-        form = Usuario_ExternoForm
+        form = Usuario_ExternoForm()
         return render(request, 'cadastro_benificiario.html', {'form': form})
 
     if request.method == 'POST':
@@ -38,6 +37,31 @@ def cadastro_externo(request):
             return render(request, 'cadastro_benificiario.html', {'form': form})
 
 
+'''SAMUEL ESTEVE AQUI  Atualizar usuario Externo'''
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_externo')
+def lista_externa(request):
+    usuarios = Usuario_Externo.objects.all()
+    return render(request, 'lista_avante.html', {'usuarios': usuarios})
+
+
+
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_externo')
+def update_usuario_externo(request, pk):
+    usuario = get_object_or_404(Usuario_Externo, pk=pk)
+    if request.method == 'POST':
+        form = Usuario_ExternoForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Usuário Externo atualizado com sucesso!')
+            return redirect(reverse('update_usuario_externo', args=[pk]))
+    else:
+        form = Usuario_ExternoForm(instance=usuario)
+    return render(request, 'update/update_usuario_externo.html', {'form': form, 'usuario': usuario})
+#ATÈ AQUI
+
+
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_atividade')
 def cadastro_atividade(request):
@@ -58,6 +82,21 @@ def cadastro_atividade(request):
             return render(request, 'cadastro_atividade.html', {'form': form})
 
 
+'''SAMUEL ESTEVE AQUI atualizar atividade'''
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_externo')
+def update_atividade(request, pk):
+    atividade = get_object_or_404(Atividade, pk=pk)
+    if request.method == 'POST':
+        form = AtividadeForm(request.POST, instance=atividade)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Atividade atualizada com sucesso!')
+            return redirect(reverse('update_atividade', args=[pk]))
+    else:
+        form = AtividadeForm(instance=atividade)
+    return render(request, 'update/update_atividade.html', {'form': form, 'atividade': atividade})
+#ATÈ AQUI
 
 
 
@@ -85,19 +124,64 @@ def lista_presenca(request, atividade_id):
     return render(request, 'precenca.html', {'form': form, 'alunos': alunos})
 
 
+# lista---------------------------------------------------------------
 @login_required(login_url='login')
-def atualizar_externo(request, id):
-    usario = get_object_or_404(Usuario_Externo, pk=id)
-    novo_formulario = Usuario_ExternoForm(request.POST or None, request.FILES or None, instance=usario)
-
-    if novo_formulario.is_valid():
-        novo_formulario.save()
-        return redirect('home')
-
-    return render(request, 'atualizar_externo.html', {'formulario': novo_formulario})
+def lista_usuario(request):
+    usuario = Usuario_Externo.objects.all()
+    return render(request, 'lista/lista_usuario.html', {'usuarios': usuario})
 
 
-def lista_clientes(reqest):
-    clientes = Usuario_Externo.objects.all()
-    return render(reqest, 'atualizar_externo.html', {'clientes': clientes})
+@login_required(login_url='login')
+def lista_atividade(request):
+    atividade = Atividade.objects.all()
+    return render(request, 'lista/lista_atividade.html', {'atividades': atividade})
 
+
+@login_required(login_url='login')
+def lista_inscricao(request):
+    inscrito = Inscrever_na_Atividade.objects.all()
+    return render(request, 'lista/lista_inscricao.html', {'inscrito': inscrito})
+
+
+# ---------------------------------------------------------------------
+
+
+# Delete---------------------------------------------------------------
+@login_required(login_url='login')
+def deletar_cliente(request, id):
+    usuario = get_object_or_404(Usuario_Externo, pk=id)
+    form = Usuario_ExternoForm(request.POST or None, instance=usuario)
+
+    if request.method == 'POST':
+        usuario.delete()
+        messages.add_message(request, messages.SUCCESS, 'Deletado com Sucesso')
+        return redirect(reverse('lista'))
+
+    return render(request, 'delete/deletar_externo.html', {'form': form})
+
+
+@login_required(login_url='login')
+def deletar_atividade(request, id):
+    atividade = get_object_or_404(Atividade, pk=id)
+    form = AtividadeForm(request.POST or None, instance=atividade)
+
+    if request.method == 'POST':
+        atividade.delete()
+        messages.add_message(request, messages.SUCCESS, 'Atividade deletada com Sucesso')
+        return redirect(reverse('lista_atividade'))
+
+    return render(request, 'delete/deletar_atividade.html', {'form': form})
+
+
+@login_required(login_url='login')
+def deletar_inscricao(request, id):
+    inscricao = get_object_or_404(Inscrever_na_Atividade, pk=id)
+    form = Inscrever_na_AtividadeForm(request.POST or None, instance=inscricao)
+    if request.method == 'POST':
+        inscricao.delete()
+        messages.add_message(request, messages.SUCCESS, 'Inscricao deletada com Sucesso')
+        return redirect(reverse('deletar_inscricao'))
+
+    return render(request, 'delete/deletar_inscricao.html', {'form': form})
+
+# ---------------------------------------------------------------------
