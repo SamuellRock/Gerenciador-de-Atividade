@@ -6,10 +6,10 @@
 <title>Sistema de Gerenciamento</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link relstylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 <style>
     :root {
-        --azul-claro: #00A1D0;
+        --azul-claro: #4AA0CD;
         --azul-escuro: #041241;
         --rosa: #D155A4;
         --amarelo: #FFD500;
@@ -53,20 +53,42 @@
     .menu li a {
         color: var(--azul-escuro);
         text-decoration: none;
-        border-radius: 4px; 
-        transition: box-shadow 0.3s ease; 
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu li a i {
+        margin-right: 10px;
+    }
+
+    .menu li a .fa-chevron-down {
+        margin-left: auto;
     }
 
     .menu li a:hover {
-        color: var(--azul-claro);
-        background-color: var(--azul-escuro);
-        font-size: 16px;
-        width: 100%; 
-        border-radius: 3px;
-        box-shadow: 5px 5px 5px 5px var(--azul-escuro), 0px 0px 0px 10px var(--azul-escuro);
+        color: var(--azul-escuro);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    .dashboard {
+    .menu li ul {
+        list-style-type: none;
+        padding-left: 20px;
+        font-size: 14px;
+        display: none;
+    }
+
+    .menu li ul li {
+        padding: 5px 10px;
+    }
+
+    .menu li ul li a {
+        font-size: 14px;
+    }
+
+    .pagina-inicial {
         margin-bottom: 20px;
         border-top: 1px solid var(--azul-escuro);
         border-bottom: 1px solid var(--azul-escuro);
@@ -120,7 +142,7 @@
         margin-right: 10px;
     }
     
-    h1 {
+    h1{
         font-family: "Nunito", sans-serif;
         color: var(--azul-escuro);
     }
@@ -136,9 +158,9 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        flex: 1 1 calc(50% - 20px); 
+        flex: 1 1 calc(50% - 20px);
         box-sizing: border-box;
-        text-align: center; 
+        text-align: center;
     }
     .box h3 {
         margin-top: 10px; /* Reduz o espaço superior */
@@ -163,7 +185,7 @@
     .box h5 a:hover {
         text-decoration: underline;
     }
-    
+    /* Estilos da Modal */
     .modal {
         display: none; 
         position: fixed; 
@@ -178,13 +200,13 @@
 
     .modal-content {
         background-color: var(--branco);
-        margin: 5% auto; /* Ajusta a margem superior para ocupar menos espaço */
-        padding: 10px; /* Reduz o padding interno */
+        margin: 5% auto; 
+        padding: 10px; 
         border: 1.5px solid var(--azul-claro);
         border-radius: 10px;
         width: 90%;
-        max-width: 600px; /* Reduz a largura máxima */
-        height: 80%; /* Mantém a altura */
+        max-width: 600px; 
+        height: 80%; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
@@ -194,7 +216,7 @@
         color: var(--azul-escuro);
         font-size: 28px;
         font-weight: bold;
-        align-self: flex-end; /* Move o botão para a direita */
+        align-self: flex-end; 
         margin-bottom: 10px;
     }
 
@@ -209,7 +231,7 @@
         width: 100%;
         height: 100%;
         border: none;
-        flex: 1; /* Faz o iframe ocupar o espaço disponível */
+        flex: 1; 
     }
     h3 { 
         color: var(--azul-escuro);
@@ -223,12 +245,25 @@
 
 <div class="container">
     <div class="sidebar">
-        <div> <img class="logo" src="templates\static\img\login\logo.png"> </div>
+        <div> <img class="logo" src="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\img\logo (1).png"> </div>
         <ul class="menu">
-            <li class="dashboard"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="#"><i class="fas fa-tasks"></i> Atividades</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Usuários</a></li>
-            <li><a href="#"><i class="fas fa-address-card"></i> Cadastros</a></li>
+            <li class="pagina-inicial"><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+            <li>
+                <a href="#" onclick="toggleDropdown(event, 'atividades-dropdown')"><i class="fas fa-tasks"></i> Atividades <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
+                <ul id="atividades-dropdown">
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\aulas.html"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" onclick="toggleDropdown(event, 'usuarios-dropdown')"><i class="fas fa-users"></i> Usuários <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
+                <ul id="usuarios-dropdown">
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosInternos.html"><i class="fas fa-user-shield"></i> Funcionários e Voluntários </a></li>
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosExternos.html"><i class="fas fa-user-friends"></i> Beneficiados </a></li>
+                </ul>
+            </li>
+            <li><a href="cadastros/opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
+            <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
         </ul>
         <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
     </div>
@@ -250,9 +285,8 @@
 </div>
 
 <div class="profile">
-    <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture">
-    <a href="#">Samuel</a>
-    <!-- Essa imagem do Samuel é pra ser alterada de acordo com o cadastro dos usuários --> 
+    <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture" id="profile-picture">
+    <a href="perfil.html" id="profile-name">Usuário</a> 
 </div>
 
 <!-- Modal -->
@@ -264,6 +298,24 @@
 </div>
 
 <script>
+    function toggleDropdown(event, dropdownId) {
+        event.preventDefault();
+        var dropdown = document.getElementById(dropdownId);
+        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+    }
+
+    // Simulação de carregamento de dados do usuário
+    document.addEventListener("DOMContentLoaded", function() {
+        // Exemplo de dados do usuário, que seriam carregados dinamicamente
+        var userProfile = {
+            name: "Samuel",
+            picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" // Caminho da imagem
+        };
+
+        document.getElementById("profile-name").textContent = userProfile.name;
+        document.getElementById("profile-picture").src = userProfile.picture;
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         // Modal
         var modal = document.getElementById("myModal");

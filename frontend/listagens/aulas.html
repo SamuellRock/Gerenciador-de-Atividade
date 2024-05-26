@@ -303,7 +303,7 @@
             <div class="box-container">
                 <div class="box">
                     <div class="box-header">
-                        <h3>Aulas</h3>
+                        <h3>Aulas e Serviços</h3>
                         <button class="btn-inscrever"><i class="fas fa-user-plus"></i> Inscrever Aluno </button>
                     </div>
                     <table>
@@ -311,6 +311,7 @@
                             <th>Nome</th>
                             <th>Dias</th>
                             <th>Horários</th>
+                            <th>Tipo de Atividade </th>
                             <th>Status</th>
                             <th>Ações</th>
                         </tr>
@@ -319,6 +320,7 @@
                             <td>{{ aula.nome }}</td>
                             <td>{{ aula.dias }}</td>
                             <td>{{ aula.horarios }}</td>
+                            <td>{{ aula.tipodeatividade }}</td>
                             <td>{{ aula.status }}</td>
                             <td>
                                 <button class="btn-editar"><i class="fas fa-edit"></i> Editar</button>
