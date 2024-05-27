@@ -1,20 +1,26 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+
+from perfis.models import Users
 from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.clickjacking import xframe_options_exempt
+
+
 
 
 # TODO Fazer Update e Delete dos usuarios Internos e Externo
-
+@xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
 def cadastro_externo(request):
     if request.method == 'GET':
         form = Usuario_ExternoForm()
-        return render(request, 'cadastro_benificiario.html', {'form': form})
+        return render(request, 'cadastro_UserExterno.html', {'form': form})
 
     if request.method == 'POST':
         form = Usuario_ExternoForm(request.POST)
@@ -25,7 +31,7 @@ def cadastro_externo(request):
 
             if usuario.exists():
                 messages.add_message(request, messages.ERROR, 'Usuario ja existe!')
-                return render(request, 'cadastro_benificiario.html', {'form': form})
+                return render(request, 'cadastro_UserExterno.html', {'form': form})
 
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Usuario Externo cadastrado com sucesso!')
@@ -34,7 +40,7 @@ def cadastro_externo(request):
         else:
             messages.add_message(request, messages.ERROR,
                                  'Erro ao cadastrar usuario externo. Verifique os dados e tente novamente.')
-            return render(request, 'cadastro_benificiario.html', {'form': form})
+            return render(request, 'cadastro_UserExterno.html', {'form': form})
 
 
 '''SAMUEL ESTEVE AQUI  Atualizar usuario Externo'''
@@ -66,18 +72,19 @@ def update_usuario_externo(request, pk):
 @has_permission_decorator('cadastro_atividade')
 def cadastro_atividade(request):
     if request.method == 'GET':
-        form = AtividadeForm
+        form = AtividadeForm()
         return render(request, 'cadastro_atividade.html', {'form': form})
 
-    elif request.method == "POST":
+    elif request.method == 'POST':
         form = AtividadeForm(request.POST)
-
         if form.is_valid():
-            form.save()
+            atividade = form.save(commit=False)
+            atividade.responsavel = form.cleaned_data['responsavel']
+            atividade.save()
+
             messages.add_message(request, messages.SUCCESS, 'Atividade cadastrada com sucesso!')
             return redirect(reverse('cdA'))
-
-        elif not form.is_valid():
+        else:
             messages.add_message(request, messages.ERROR, 'Ocorreu algum erro ao cadastrar')
             return render(request, 'cadastro_atividade.html', {'form': form})
 
@@ -102,11 +109,23 @@ def update_atividade(request, pk):
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_inscricao')
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_inscricao')
 def inscricao(request):
     if request.method == 'GET':
-        form = Inscrever_na_AtividadeForm
-        return render(request, 'inscricao.html', {'form': form})
+        form = Inscrever_na_AtividadeForm()
+        responsaveis = Users.objects.filter(is_superuser=False)
+        return render(request, 'inscricao.html', {'form': form, 'responsaveis': responsaveis})
 
+    elif request.method == 'POST':
+        form = Inscrever_na_AtividadeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Inscrição realizada com sucesso!')
+            return redirect(reverse('lista_inscricao'))
+        else:
+            messages.add_message(request, messages.ERROR, 'Erro ao realizar inscrição. Verifique os dados e tente novamente.')
+            return render(request, 'inscricao.html', {'form': form})
 
 @login_required(login_url='login')
 @has_permission_decorator('lista_presenca')
@@ -185,3 +204,31 @@ def deletar_inscricao(request, id):
     return render(request, 'delete/deletar_inscricao.html', {'form': form})
 
 # ---------------------------------------------------------------------
+
+
+# Ajax request---------------------------------------------------------------
+def get_responsavel_data(request):
+    responsavel_id = request.GET.get('responsavel_id')
+    if responsavel_id:
+        try:
+            atividades_responsaveis = Atividade.objects.filter(responsavel_id=responsavel_id)
+
+            atividades = [
+                {
+                    'id': atividade.id,
+                    'nome_atividade': atividade.nome_atividade,
+                    'hora_atividade': atividade.hora_atividade,
+                    'dia_atividade': atividade.dia_atividade.dia_semana
+                }
+                for atividade in atividades_responsaveis
+            ]
+
+            data = {
+                'atividades_do_responsavel': atividades,
+                'email_do_responsavel': atividades_responsaveis[0].responsavel.email if atividades_responsaveis else ''
+            }
+            return JsonResponse(data)
+        except Atividade.DoesNotExist:
+            return JsonResponse({'error': 'Atividade não encontrada'}, status=404)
+    return JsonResponse({'error': 'ID do responsável não fornecido'}, status=400)
+

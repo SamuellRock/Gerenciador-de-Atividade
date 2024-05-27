@@ -1,0 +1,79 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<link rel="stylesheet" href="{% static 'css/cadastro_externo/cadastro_externo.css'%}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    {% if messages %}
+        <br>
+            {% for message in messages%}
+                <div class="alert {{message.tags}}">{{message}}</div>
+            {% endfor %}
+
+    {% endif %}
+
+
+    <!-- FRONTE GLENDINHA AQUI -->
+    <h2>Cadastro de Beneficiado</h2>
+    <form action="{% url 'cdE'%}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.nome.label_tag }}
+            {{ form.nome }}
+        </div>
+        <div class="form-group">
+            {{ form.cpf.label_tag }}
+            {{ form.cpf }}
+        </div>
+        <div class="form-group">
+            {{ form.nascimento.label_tag }}
+            {{ form.nascimento }}
+        </div>
+        <div class="form-group">
+            {{ form.telefone.label_tag }}
+            {{ form.telefone }}
+        </div>
+        <div class="form-group">
+            {{ form.endereco.label_tag }}
+            {{ form.endereco }}
+        </div>
+        <div class="form-group">
+            {{ form.cidade.label_tag }}
+            {{ form.cidade }}
+        </div>
+        <div class="form-group">
+            {{ form.estado.label_tag }}
+            {{ form.estado }}
+        </div>
+      <div id="guardianFields" class="form-group hidden">
+            <div class="form-group">
+                {{ form.responsavel_nome.label_tag }}
+                {{ form.responsavel_nome }}
+            </div>
+            <div class="form-group">
+                {{ form.responsavel_cpf.label_tag }}
+                {{ form.responsavel_cpf }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar Beneficiado</button>
+    </form>
+
+</div>
+    <script src="{% static 'js/cadastroExterno/cadastroExterno.js' %}"></script>
+
+        <!-- FRONT temina aqui -->
+
+</body>
+
+
+</html>

@@ -22,5 +22,6 @@ urlpatterns = [
     path('deletar/<int:id>/', deletar_cliente, name='deletarCli'),
     path('deletar_atividade/<int:id>/', deletar_atividade, name='deletarAti'),
     path('deletar_inscricao/<int:id>/', deletar_inscricao, name='deletar_inscricao'),
+    path('get_responsavel_data/', get_responsavel_data, name='get_responsavel_data'),
 ]
 

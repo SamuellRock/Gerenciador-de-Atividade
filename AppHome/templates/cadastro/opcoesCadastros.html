@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Gerenciamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<link rel="stylesheet" href="{% static 'css/cadastro/opcoes_cadastro.css'%}">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <div> <img class="logo" src="{% static 'img/login/logo.png' %}"> </div>
+        <ul class="menu">
+            <li class="pagina-inicial"><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+            <li>
+                <a href="#" onclick="toggleDropdown(event, 'atividades-dropdown')"><i class="fas fa-tasks"></i> Atividades <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
+                <ul id="atividades-dropdown">
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\aulas.html"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" onclick="toggleDropdown(event, 'usuarios-dropdown')"><i class="fas fa-users"></i> Usuários <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
+                <ul id="usuarios-dropdown">
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosInternos.html"><i class="fas fa-user-shield"></i> Funcionários e Voluntários </a></li>
+                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosExternos.html"><i class="fas fa-user-friends"></i> Beneficiados </a></li>
+                </ul>
+            </li>
+            <li><a href="cadastros/opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
+            <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
+        </ul>
+        <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
+    </div>
+
+    <div class="content">
+        <h1>Opções de Cadastro:</h1>
+        <div class="box-container">
+            <div class="box">
+                <h3>Cadastro de Atividades</h3>
+                <h5><a href="#" class="modal-link" data-url="cadastroAtividadesModal.html">Serviços\Aulas</a></h5>
+            </div>
+            <div class="box">
+                <h3>Cadastro de Usuários</h3>
+                <h5><a href="#" class="modal-link" data-url="cadastroUsuarioInternoModal.html">Funcionários e Voluntários</a></h5>
+                <h5><a href="#" class="modal-link" data-url="{% url 'cdE' %}">Beneficiado</a></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile">
+    <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture" id="profile-picture">
+    <a href="perfil.html" id="profile-name">Usuário</a> 
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <iframe id="modalIframe"></iframe>
+    </div>
+</div>
+
+<script src="{% static 'js/opcoesCadastro/opcoesCadastro.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</body>
+</html>

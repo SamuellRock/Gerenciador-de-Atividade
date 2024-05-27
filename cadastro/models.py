@@ -65,20 +65,15 @@ class Tipo_Atividade(models.Model):
     nome = models.CharField(max_length=10, blank=False, null=False, choices=tipo_lista)"""
 
 
-
 class Atividade(models.Model):
     nome_atividade = models.CharField(max_length=50, blank=False, null=False,validators=[validate_nome])
     tipo_atividade = models.ForeignKey(Tipo_Atividade, on_delete=models.SET_NULL, null=True)
     descricao = models.TextField(blank=True)
-    responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False} )
+    responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False})
     dia_atividade = models.ForeignKey(DiaAtividade, on_delete=models.SET_NULL, null=True)
     hora_atividade = models.TimeField(blank=False, null=False)
     Ativo = models.BooleanField(blank=False, null=False)
 
-    def __str__(self):
-        return self.nome_atividade
-    def __str__(self):
-        return self.hora_atividade.strftime('%H:%M')
 
 
 class Inscrever_na_Atividade(models.Model):
@@ -86,7 +81,24 @@ class Inscrever_na_Atividade(models.Model):
     usuario = models.ForeignKey(Usuario_Externo, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.usuario.nome}'
+        return f'{self.usuario} - {self.atividade}'
+
+    @property
+    def atividades_do_responsavel(self):
+        # Retorna todas as atividades do responsável pela atividade inscrita
+        return Atividade.objects.filter(responsavel=self.atividade.responsavel)
+
+    @property
+    def horas_das_atividades(self):
+        # Retorna as horas das atividades do responsável pela atividade inscrita
+        atividades = self.atividades_do_responsavel
+        return [atividade.hora_atividade for atividade in atividades]
+
+    @property
+    def email_do_responsavel(self):
+        # Retorna o e-mail do responsável pela atividade inscrita
+        return self.atividade.responsavel.email if self.atividade.responsavel else None
+
 
 
 class lista_precenca(models.Model):
