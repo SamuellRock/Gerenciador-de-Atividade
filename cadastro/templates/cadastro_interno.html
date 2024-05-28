@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário Interno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/cadastro_interno/cadastro_interno.css'%}">
+</head>
+
+<body>
+    <div class="form-container">
+            {% if messages %}
+            <br>
+            {% for message in messages%}
+                <div class="alert {{message.tags}}">{{message}}</div>
+            {% endfor %}
+
+        {% endif %}
+
+        <h2>Cadastro de Usuário Interno</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="userType">Tipo de Usuário:</label>
+               {{grupoForm.tipoUsuario}}
+
+            </div>
+            <div class="form-group">
+                <label for="funcao">Função:</label>
+                {{grupoForm.funcao}}
+
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="perfil">Tipo de Usuário:</label>
+                {{grupoForm.grupo_de_acesso}}
+
+            </div>
+            <div class="form-group">
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

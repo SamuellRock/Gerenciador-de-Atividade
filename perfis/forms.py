@@ -17,7 +17,7 @@ class UserCreationForm(forms.UserCreationForm):
 class UserFormTemplate(forms.UserChangeForm):
     class Meta(forms.UserChangeForm.Meta):
         model = Users
-        exclude = ['user_permissions', 'groups', 'password', 'is_superuser', 'is_staff','last_login', 'date_joined','last_name']
+        exclude = ['user_permissions', 'groups', 'password', 'is_superuser', 'is_staff','last_login', 'date_joined','last_name', '']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -28,6 +28,11 @@ class UserFormTemplate(forms.UserChangeForm):
             self.fields[field].widget.attrs.update({'placeholder': field})
 
         self.fields['grupo_de_acesso'].widget.attrs.update({'name': 'valor'})
+        self.fields['grupo_de_acesso'].widget.attrs.update({'id': 'userPerfil'})
+        self.fields['username'].widget.attrs.update({'id': 'nome'})
+        self.fields['tipoUsuario'].widget.attrs.update({'id':'userType'})
+        self.fields['funcao'].widget.attrs.update({'id':'funcao'})
+        self.fields['funcao'].widget.attrs.update({'id':'email'})
 
 
 class PasswordChangeFormTemplate(forms.PasswordChangeForm):

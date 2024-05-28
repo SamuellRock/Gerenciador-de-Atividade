@@ -1,6 +1,4 @@
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-
 from perfis.models import Users
 from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm
 from rolepermissions.decorators import has_permission_decorator
@@ -106,9 +104,6 @@ def update_atividade(request, pk):
 #ATÈ AQUI
 
 
-
-@login_required(login_url='login')
-@has_permission_decorator('cadastro_inscricao')
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_inscricao')
 def inscricao(request):

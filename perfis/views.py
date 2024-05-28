@@ -11,16 +11,18 @@ from rolepermissions.decorators import has_permission_decorator
 from django.core.mail import send_mail
 from gerenciador.gerardor import gerar_senha
 from django.contrib import messages
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 
+@xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
 def cadastro_usuario(request):
     if request.method == "GET":
         grupoForm = UserFormTemplate
 
-        return render(request, 'cadastro_usuario.html', {"grupoForm": grupoForm})
+        return render(request, 'cadastro_interno.html', {"grupoForm": grupoForm})
 
     elif request.method == 'POST':
         email = request.POST.get('email')
@@ -40,7 +42,7 @@ def cadastro_usuario(request):
 
         if user.exists():
             messages.add_message(request, messages.ERROR, 'Email ja existe!')
-            return render(request, 'cadastro_usuario.html', {"grupoForm": form, 'nome': nome, 'sobrenome':sobrenome})
+            return render(request, 'cadastro_interno.html', {"grupoForm": form, 'nome': nome, 'sobrenome':sobrenome})
 
 
         #caso o usuario não exista crie ele
