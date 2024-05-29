@@ -12,20 +12,14 @@ from rolepermissions.roles import assign_role
 @receiver(post_save, sender=Users)
 def definindo_permisoes(sender, instance, created, **kwargs):
     if created:
-        if instance.grupo_de_acesso == "CE":
-            assign_role(instance, 'cadastro_externo')
-
-        elif instance.grupo_de_acesso == "ADM":
+        if instance.grupo_de_acesso == "ADM":
             assign_role(instance, 'administrador')
 
-        elif instance.grupo_de_acesso == "CI":
-            assign_role(instance, 'cadastro_inscricao')
+        elif instance.grupo_de_acesso == "UI":
+            assign_role(instance, 'usuario_interno')
 
-        elif instance.grupo_de_acesso == "CA":
-            assign_role(instance, 'cadastro_atividade')
-        
-        elif instance.grupo_de_acesso == "LP":
-            assign_role(instance, 'lista_presenca')
+        elif instance.grupo_de_acesso == "RA":
+            assign_role(instance, 'responsavel_atividade')
 
 
 

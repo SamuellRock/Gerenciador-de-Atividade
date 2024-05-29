@@ -9,8 +9,6 @@ from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 
 
-
-
 # TODO Fazer Update e Delete dos usuarios Internos e Externo
 @xframe_options_exempt
 @login_required(login_url='login')
@@ -130,7 +128,7 @@ def menu_atividade(request):
 
 
 @login_required(login_url='login')
-@has_permission_decorator('lista_presenca')
+@has_permission_decorator('lista_de_atividade')
 def lista_presenca(request, atividade_id):
     atividade = get_object_or_404(Atividade, pk=atividade_id, responsavel=request.user)
     alunos = Inscrever_na_Atividade.objects.filter(atividade=atividade)
@@ -161,7 +159,9 @@ def lista_inscricao(request):
 
 
 # Delete---------------------------------------------------------------
+
 @login_required(login_url='login')
+@has_permission_decorator('cadastro_interno')
 def deletar_cliente(request, id):
     usuario = get_object_or_404(Usuario_Externo, pk=id)
     form = Usuario_ExternoForm(request.POST or None, instance=usuario)
@@ -175,6 +175,7 @@ def deletar_cliente(request, id):
 
 
 @login_required(login_url='login')
+@has_permission_decorator('cadastro_interno')
 def deletar_atividade(request, id):
     atividade = get_object_or_404(Atividade, pk=id)
     form = AtividadeForm(request.POST or None, instance=atividade)
@@ -187,6 +188,7 @@ def deletar_atividade(request, id):
     return render(request, 'delete/deletar_atividade.html', {'form': form})
 
 
+@has_permission_decorator('cadastro_interno')
 @login_required(login_url='login')
 def deletar_inscricao(request, id):
     inscricao = get_object_or_404(Inscrever_na_Atividade, pk=id)
@@ -202,6 +204,7 @@ def deletar_inscricao(request, id):
 
 
 # Ajax request---------------------------------------------------------------
+@has_permission_decorator('cadastro_atividade')
 def get_responsavel_data(request):
     responsavel_id = request.GET.get('responsavel_id')
     if responsavel_id:

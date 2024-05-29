@@ -17,7 +17,7 @@ class UserCreationForm(forms.UserCreationForm):
 class UserFormTemplate(forms.UserChangeForm):
     class Meta(forms.UserChangeForm.Meta):
         model = Users
-        exclude = ['user_permissions', 'groups', 'password', 'is_superuser', 'is_staff','last_login', 'date_joined','last_name', '']
+        exclude = ['user_permissions', 'groups', 'password', 'is_superuser', 'is_staff','last_login', 'date_joined']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

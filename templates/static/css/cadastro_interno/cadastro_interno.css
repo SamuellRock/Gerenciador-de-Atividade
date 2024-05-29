@@ -1,73 +1,76 @@
-        :root {
-            --azul-claro: #4AA0CD;
-            --azul-escuro: #041241;
-            --rosa: #D155A4;
-            --amarelo: #FFD500;
-            --branco: #FFFFFF;
-            --fonte: "Nunito", sans-serif;
-        }
+:root {
+--azul-claro: #4AA0CD;
+--azul-escuro: #041241;
+--rosa: #D155A4;
+--amarelo: #FFD500;
+--branco: #FFFFFF;
+--fonte: "Nunito", sans-serif;
+}
 
-        body {
-            font-family: var(--fonte);
-            margin: 0;
-            padding: 0;
-            background-color: var(--branco);
-        }
+body {
+font-family: var(--fonte);
+margin: 0;
+padding: 0;
+background-color: var(--branco);
+}
 
-        .form-container {
-            max-width: 600px;
-            margin: 0px auto;
-            padding: 10px;
-            background-color: var(--branco);
-        }
+.form-container {
+max-width: 600px;
+margin: 0px auto;
+padding: 10px;
+background-color: var(--branco);
+}
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.form-group {
+margin-bottom: 20px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--azul-escuro);
-            font-weight: bold;
-            font-family: var(--fonte);
-        }
+label {
+display: block;
+margin-bottom: 10px;
+color: var(--azul-escuro);
+font-weight: bold;
+font-family: var(--fonte);
+}
 
-        input[type="text"],
-        textarea,
-        select,
-        input[type="time"],
-        input[type="email"] {
-            width: calc(100% - 16px);
-            padding: 8px;
-            border: 1px solid var(--azul-claro);
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+input[type="text"],
+textarea,
+select,
+input[type="time"],
+input[type="email"] {
+width: calc(100% - 16px);
+padding: 8px;
+border: 1px solid var(--azul-claro);
+border-radius: 5px;
+box-sizing: border-box;
+}
 
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--azul-escuro);
-            color: var(--branco);
-            cursor: pointer;
-            font-size: 16px;
-            margin-bottom: 15px;
-            font-family: var(--fonte);
-        }
+button {
+padding: 10px 15px;
+border: none;
+border-radius: 5px;
+background-color: var(--azul-escuro);
+color: var(--branco);
+cursor: pointer;
+font-size: 16px;
+margin-bottom: 15px;
+font-family: var(--fonte);
+}
 
-        button:hover {
-            background-color: var(--azul-claro);
-            color: var(--azul-escuro);
-        }
+button:hover {
+background-color: var(--azul-claro);
+color: var(--azul-escuro);
+}
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 0px;
-            color: var(--azul-escuro);
-            font-family: var(--fonte);
-            text-decoration: underline;
-            text-decoration-color: var(--azul-claro);
-            text-align: center;
-        }
+h2 {
+margin-top: 0;
+margin-bottom: 0px;
+color: var(--azul-escuro);
+font-family: var(--fonte);
+text-decoration: underline;
+text-decoration-color: var(--azul-claro);
+text-align: center;
+}
+a {
+    text-decoration: none;
+}

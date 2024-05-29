@@ -3,13 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from cadastro.validator import *
 
 
-
 class Users(AbstractUser):
     choices_grupo_de_acesso = (('ADM', 'Administrador'),
-                               ('CE', 'Cadastro Externo'),
-                               ('CA', 'Cadastro Atividade'),
-                               ('CI', 'Cadastro Inscrição'),
-                               ('LP', 'Lista de Presença'))
+                               ('UI', 'Usuario Interno'),
+                               ('RA', 'Responsavel da atividade'))
     grupo_de_acesso = models.CharField(max_length=3, choices=choices_grupo_de_acesso)
 
     tipoUsuarioChoices = (

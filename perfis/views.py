@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import auth
@@ -12,7 +11,6 @@ from django.core.mail import send_mail
 from gerenciador.gerardor import gerar_senha
 from django.contrib import messages
 from django.views.decorators.clickjacking import xframe_options_exempt
-
 
 
 @xframe_options_exempt
@@ -36,19 +34,23 @@ def cadastro_usuario(request):
         nome = request.POST.get('nome')
         sobrenome = request.POST.get('sobrenome')
         grupo = request.POST.get('grupo_de_acesso')
+        tipoUsuario = request.POST.get('tipoUsuario')
+        funcao = request.POST.get('funcao')
+
+        print(grupo)
 
         #pegando do user da model e verficando se o email é igual
         user = Users.objects.filter(email=email)
 
         if user.exists():
             messages.add_message(request, messages.ERROR, 'Email ja existe!')
-            return render(request, 'cadastro_interno.html', {"grupoForm": form, 'nome': nome, 'sobrenome':sobrenome})
+            return render(request, 'cadastro_interno.html', {"grupoForm": form, 'nome': nome, 'sobrenome': sobrenome})
 
 
         #caso o usuario não exista crie ele
         #o username é obrigatorio ou seja como nossa inscrição é pelo email coloquei o email no username
         user = Users.objects.create_user(username=email, email=email, password=senha, grupo_de_acesso=grupo,
-                                         first_name=nome, last_name=sobrenome)
+                                         first_name=nome, last_name=sobrenome, tipoUsuario=tipoUsuario, funcao=funcao)
         user.save()
         send_mail(f'Senha do Cadastro Avante', f'Sua conta no sistema avante foi cadastrada com sucesso!.\nSua senha é: {senha} \nentre e mude a sua senha para uma personalizada', 'pedro@programador.com.br',[f'{email}'])
         messages.add_message(request, messages.SUCCESS, 'Usuario Cadastrado com sucesso!')
