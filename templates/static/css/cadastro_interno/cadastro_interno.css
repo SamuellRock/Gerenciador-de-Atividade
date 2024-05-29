@@ -62,15 +62,12 @@ background-color: var(--azul-claro);
 color: var(--azul-escuro);
 }
 
-h2 {
-margin-top: 0;
-margin-bottom: 0px;
-color: var(--azul-escuro);
-font-family: var(--fonte);
-text-decoration: underline;
-text-decoration-color: var(--azul-claro);
-text-align: center;
-}
-a {
-    text-decoration: none;
+        h2 {
+            margin-top: 0;
+            margin-bottom: 0px;
+            color: var(--azul-escuro);
+            font-family: var(--fonte);
+            text-decoration: underline;
+            text-decoration-color: var(--azul-claro);
+            text-align: center;
 }
