@@ -37,7 +37,6 @@
             color: var(--azul-escuro);
             font-weight: bold;
             font-family: var(--fonte);
-            color: var(--azul-escuro);
         }
 
         input[type="text"],
@@ -45,7 +44,8 @@
         select,
         input[type="time"],
         input[type="date"],
-        input[type="number"] {
+        input[type="number"],
+        input[type="checkbox"] {
             width: calc(100% - 16px); 
             padding: 8px;
             margin-bottom: 15px; 
@@ -77,13 +77,13 @@
             font-weight: bold;
         }
 
-        .add-day-btn {
+        .add-time-btn {
             margin-top: 10px;
             background-color: var(--azul-escuro);
             color: var(--azul-claro);
         }
 
-        .activity-day {
+        .activity-time {
             margin-bottom: 20px;
         }
 
@@ -95,7 +95,7 @@
             text-decoration: underline;
             text-decoration-color: var(--azul-claro);
             text-align: center;
-            padding: 1,5%;
+            padding: 1.5%;
         }
     </style>
 </head>
@@ -105,18 +105,11 @@
         <h2>Cadastro de Atividades</h2>
         <form id="activityForm">
             <div class="form-group">
-                <label for="activityName">Nome da Atividade:</label>
+                <label for="activityName">Nome do Serviço:</label>
                 <input type="text" id="activityName" name="activityName" required>
             </div>
             <div class="form-group">
-                <label for="activityType">Tipo de Atividade:</label>
-                <select id="activityType" name="activityType" required>
-                    <option value="Aulas">Aulas</option>
-                    <option value="Serviços">Serviços</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="activityDescription">Descrição da Atividade:</label>
+                <label for="activityDescription">Descrição do Serviço:</label>
                 <textarea id="activityDescription" name="activityDescription" rows="4" required></textarea>
             </div>
             <div class="form-group">
@@ -127,81 +120,49 @@
                 <label for="activityLimit">Limite de Alunos:</label>
                 <input type="number" id="activityLimit" name="activityLimit" required>
             </div>
-            <div id="activityDaysContainer">
-                <div class="activity-day">
+            <div class="form-group">
+                <label for="activityDay">Dia da Semana do Serviço:</label>
+                <select id="activityDay" name="activityDay" required>
+                    <option value="Segunda-feira">Segunda-feira</option>
+                    <option value="Terça-feira">Terça-feira</option>
+                    <option value="Quarta-feira">Quarta-feira</option>
+                    <option value="Quinta-feira">Quinta-feira</option>
+                    <option value="Sexta-feira">Sexta-feira</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
+                </select>
+            </div>
+            <div id="activityTimesContainer">
+                <div class="activity-time">
                     <div class="form-group">
-                        <label for="activityDate"> Dia da Atividade:</label>
-                        <input type="date" class="activityDate" name="activityDate[]" required>
-                        <div class="day-of-week"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="activityTime">Hora da Atividade:</label>
+                        <label for="activityTime">Hora do Serviço:</label>
                         <input type="time" class="activityTime" name="activityTime[]" required>
                     </div>
                 </div>
             </div>
-            <button type="button" class="add-day-btn" id="addDayBtn">Adicionar Dia</button>
-            <button type="submit">Cadastrar Atividade</button>
+            <button type="button" class="add-time-btn" id="addTimeBtn">Adicionar Horário</button>
+            <button type="submit">Cadastrar Serviço</button>
         </form>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const addDayBtn = document.getElementById('addDayBtn');
-            const activityDaysContainer = document.getElementById('activityDaysContainer');
+            const addTimeBtn = document.getElementById('addTimeBtn');
+            const activityTimesContainer = document.getElementById('activityTimesContainer');
 
-            addDayBtn.addEventListener('click', function () {
-                const activityDay = document.createElement('div');
-                activityDay.classList.add('activity-day');
-                activityDay.innerHTML = `
-                    <div class="form-group">
-                        <label for="activityDate">Data da Atividade:</label>
-                        <input type="date" class="activityDate" name="activityDate[]" required>
-                        <div class="day-of-week"></div>
-                    </div>
+            addTimeBtn.addEventListener('click', function () {
+                const activityTime = document.createElement('div');
+                activityTime.classList.add('activity-time');
+                activityTime.innerHTML = `
                     <div class="form-group">
                         <label for="activityTime">Hora da Atividade:</label>
                         <input type="time" class="activityTime" name="activityTime[]" required>
                     </div>
                 `;
-                activityDaysContainer.appendChild(activityDay);
-
-                const dateInputs = activityDay.querySelectorAll('.activityDate');
-                dateInputs.forEach(input => {
-                    input.addEventListener('change', function () {
-                        const dayOfWeekDiv = this.nextElementSibling;
-                        const dateValue = this.value;
-                        if (dateValue) {
-                            const dayOfWeek = getDayOfWeek(dateValue);
-                            dayOfWeekDiv.textContent = `Dia da Semana: ${dayOfWeek}`;
-                        } else {
-                            dayOfWeekDiv.textContent = '';
-                        }
-                    });
-                });
-            });
-            function getDayOfWeek(dateString) {
-                const date = new Date(dateString);
-                const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-                return days[date.getDay()];
-            }
-
-            const initialDateInputs = document.querySelectorAll('.activityDate');
-            initialDateInputs.forEach(input => {
-                input.addEventListener('change', function () {
-                    const dayOfWeekDiv = this.nextElementSibling;
-                    const dateValue = this.value;
-                    if (dateValue) {
-                        const dayOfWeek = getDayOfWeek(dateValue);
-                        dayOfWeekDiv.textContent = `Dia da Semana: ${dayOfWeek}`;
-                    } else {
-                        dayOfWeekDiv.textContent = '';
-                    }
-                });
+                activityTimesContainer.appendChild(activityTime);
             });
         });
     </script>
 </body>
 
 </html>
-
