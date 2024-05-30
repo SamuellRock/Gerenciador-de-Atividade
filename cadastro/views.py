@@ -7,6 +7,7 @@ from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.cache import cache_page
 
 
 # TODO Fazer Update e Delete dos usuarios Internos e Externo
@@ -137,6 +138,7 @@ def lista_presenca(request, atividade_id):
 
 
 # lista---------------------------------------------------------------
+@cache_page(60)
 @login_required(login_url='login')
 def lista_usuario(request):
     usuario = Usuario_Externo.objects.all()
@@ -162,8 +164,8 @@ def lista_inscricao(request):
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
-def deletar_cliente(request, id):
-    usuario = get_object_or_404(Usuario_Externo, pk=id)
+def deletar_cliente(request, slug):
+    usuario = get_object_or_404(Usuario_Externo, slug=slug)
     form = Usuario_ExternoForm(request.POST or None, instance=usuario)
 
     if request.method == 'POST':
@@ -176,8 +178,8 @@ def deletar_cliente(request, id):
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
-def deletar_atividade(request, id):
-    atividade = get_object_or_404(Atividade, pk=id)
+def deletar_atividade(request, slug):
+    atividade = get_object_or_404(Atividade, slug=slug)
     form = AtividadeForm(request.POST or None, instance=atividade)
 
     if request.method == 'POST':

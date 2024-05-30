@@ -32,7 +32,7 @@
 {% for usuario in usuarios%}
     <tr>
       <th scope="row">1</th>
-        <td><a href="{% url 'deletarCli' usuario.id %}">{{usuario.nome}}</a></td>
+        <td><a href="{% url 'deletarCli' usuario.slug %}">{{usuario.nome}}</a></td>
       <td>{{usuario.cpf}}</td>
 
     </tr>

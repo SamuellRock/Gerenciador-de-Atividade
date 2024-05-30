@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-
     <title>Lista de usuario</title>
 </head>
 <body>
@@ -32,7 +31,7 @@
 {% for atividade in atividades%}
     <tr>
       <th scope="row">{{atividade.nome_atividade}}</th>
-        <td><a href="{% url 'deletarAti' atividade.id %}">{{atividade.responsavel}}</a></td>
+        <td><a href="{% url 'deletarAti' atividade.slug %}">{{atividade.responsavel}}</a></td>
       <td>{{atividade.dia_atividade}}</td>
 
     </tr>

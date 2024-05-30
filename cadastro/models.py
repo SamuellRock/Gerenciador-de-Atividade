@@ -1,8 +1,8 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+
 from .choices import ChoicesAtividades
-from django.contrib.auth.models import User
 from django.conf import settings
-from datetime import datetime
 from .validator import *
 
 
@@ -42,11 +42,12 @@ class Tipo_Atividade(models.Model):
     def __str__(self):
         return self.tipo_atividade
 
+
 #TODO API CEP
 class Usuario_Externo(models.Model):
-    nome = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome])
+
+    nome = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome],unique=True)
     cpf = models.CharField(max_length=14, blank=False, null=False, validators=[validate_cpf])
-    #TODO DIA
     nascimento = models.DateField(blank=False, null=False)
     responsavel_nome = models.CharField(max_length=50, null=True, blank=True, validators=[validate_nome])
     responsavel_cpf = models.CharField(max_length=14, null=True, blank=True, validators=[validate_cpf])
@@ -55,10 +56,16 @@ class Usuario_Externo(models.Model):
     cidade = models.CharField(max_length=30)
     estado = models.CharField(max_length=30)
     data_cadastro = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=60, blank=True, null=True, unique=True)
 
     def __str__(self):
         return f'{self.nome}'
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nome)
+
+        return super().save(*args, **kwargs)
 
 """tipo_lista = ('Aula', 'Serviço')
 class Tipo_Atividade(models.Model):
@@ -66,14 +73,23 @@ class Tipo_Atividade(models.Model):
 
 
 class Atividade(models.Model):
-    nome_atividade = models.CharField(max_length=50, blank=False, null=False,validators=[validate_nome])
+    nome_atividade = models.CharField(max_length=50, blank=False, null=False,validators=[validate_nome], unique=True)
     tipo_atividade = models.ForeignKey(Tipo_Atividade, on_delete=models.SET_NULL, null=True)
     descricao = models.TextField(blank=True)
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False})
     dia_atividade = models.ForeignKey(DiaAtividade, on_delete=models.SET_NULL, null=True)
     hora_atividade = models.TimeField(blank=False, null=False)
     Ativo = models.BooleanField(blank=False, null=False)
+    slug = models.SlugField(max_length=30, blank=True, null=True, unique=True)
 
+    def __str__(self):
+        return f'{self.nome_atividade}'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nome_atividade)
+
+        return super().save(*args, **kwargs)
 
 
 class Inscrever_na_Atividade(models.Model):
@@ -100,7 +116,6 @@ class Inscrever_na_Atividade(models.Model):
         return self.atividade.responsavel.email if self.atividade.responsavel else None
 
 
-
 class lista_precenca(models.Model):
     data = models.DateField(blank=False, null=False, auto_now_add=True)
     aluno = models.ForeignKey(Inscrever_na_Atividade, on_delete=models.CASCADE)
@@ -108,6 +123,8 @@ class lista_precenca(models.Model):
 
     def __str__(self):
         return f'{self.aluno} {self.data}'
+
+    #TODO SLUG A COLOCAR LISTA PRECENCA
 
 
 
