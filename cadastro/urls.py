@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('cadastro_externo/', cadastro_externo, name='cdE'),
     path('cadastro_atividade/', cadastro_atividade, name='cdA'),
+    path('cadastro_atividade_servico/', cadastro_servico, name='cdS'),
     path('inscricao/', inscricao, name='insc'),
     path('menu_atividade/', menu_atividade, name='menuAt'),
     path('lista_precenca/<int:atividade_id>/', lista_presenca, name='listP'),
@@ -20,6 +21,6 @@ urlpatterns = [
     path('deletar/<slug:slug>/', deletar_cliente, name='deletarCli'),
     path('deletar_atividade/<slug:slug>/', deletar_atividade, name='deletarAti'),
     path('deletar_inscricao/<int:id>/', deletar_inscricao, name='deletar_inscricao'),
-    path('get_responsavel_data/', get_responsavel_data, name='get_responsavel_data'),
+
 ]
 

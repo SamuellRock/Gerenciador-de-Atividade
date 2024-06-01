@@ -1,4 +1,4 @@
-{% load cache %}
+<!--{% load cache %}-->
 {% load static%}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -73,7 +73,8 @@
     </form>
 
 </div>
-{% cache 60 'script' %}<script src="{% static 'js/cadastroExterno/cadastroExterno.js' %}"></script>{% endcache %}
+<!--{% cache 60 'script' %}<script src="{% static 'js/cadastroExterno/cadastroExterno.js' %}"></script>{% endcache %}-->
+<script src="{% static 'js/cadastroExterno/cadastroExterno.js' %}"></script>
 
         <!-- FRONT temina aqui -->
 
