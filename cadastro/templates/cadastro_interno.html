@@ -1,4 +1,4 @@
-{% load cache %}
+<!--{% load cache %}-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,7 +16,7 @@
 
 <body>
     <div class="form-container">
-            {% if messages %}
+        {% if messages %}
             <br>
             {% for message in messages%}
                 <div class="alert {{message.tags}}">{{message}}</div>

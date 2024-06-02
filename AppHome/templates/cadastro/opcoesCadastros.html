@@ -15,7 +15,7 @@
 
 <div class="container">
     <div class="sidebar">
-        <div> <img class="logo" src="{% static 'img/login/logo.png' %}"> </div>
+        <div> <img class="logo" src="{% static 'img/login/logo.png'%}"> </div>
         <ul class="menu">
             <li class="pagina-inicial"><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
             <li>
@@ -43,12 +43,13 @@
         <div class="box-container">
             <div class="box">
                 <h3>Cadastro de Atividades</h3>
-                <h5><a href="#" class="modal-link" data-url="cadastroAtividadesModal.html">Serviços\Aulas</a></h5>
+                <h5><a href="#" class="modal-link" data-url="{% url 'cdS'%}">Serviços</a></h5>
+                <h5><a href="#" class="modal-link" data-url="{% url 'cdA' %}">Aulas</a></h5>
             </div>
             <div class="box">
                 <h3>Cadastro de Usuários</h3>
-                <h5><a href="#" class="modal-link" data-url="{% url 'cadastro_usuario' %}">Funcionários e Voluntários</a></h5>
-                <h5><a href="#" class="modal-link" data-url="{% url 'cdE' %}">Beneficiado</a></h5>
+                <h5><a href="#" class="modal-link" data-url="{%url 'cadastro_usuario'%}">Funcionários e Voluntários</a></h5>
+                <h5><a href="#" class="modal-link" data-url="{% url 'cdE'%}">Beneficiado</a></h5>
             </div>
         </div>
     </div>
@@ -56,7 +57,7 @@
 
 <div class="profile">
     <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture" id="profile-picture">
-    <a href="perfil.html" id="profile-name">Usuário</a> 
+    <a href="perfil.html" id="profile-name">Usuário</a>
 </div>
 
 <!-- Modal -->

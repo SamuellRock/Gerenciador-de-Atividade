@@ -1,15 +1,12 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-
 from .choices import ChoicesAtividades
 from django.conf import settings
 from .validator import *
 
 
-
 User = settings.AUTH_USER_MODEL
 
-#Alteração
 
 class DiaAtividade(models.Model):
     SEGUNDA = 'Segunda-feira'
@@ -34,13 +31,6 @@ class DiaAtividade(models.Model):
 
     def __str__(self):
         return self.dia_semana
-
-
-class Tipo_Atividade(models.Model):
-    tipo_atividade = models.CharField(max_length=5, choices=ChoicesAtividades.choices)
-
-    def __str__(self):
-        return self.tipo_atividade
 
 
 #TODO API CEP
@@ -73,23 +63,40 @@ class Tipo_Atividade(models.Model):
 
 
 class Atividade(models.Model):
-    nome_atividade = models.CharField(max_length=50, blank=False, null=False,validators=[validate_nome], unique=True)
-    tipo_atividade = models.ForeignKey(Tipo_Atividade, on_delete=models.SET_NULL, null=True)
+    nome_atividade = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome])
+    #tipo_atividade = models.ForeignKey(Tipo_Atividade, on_delete=models.SET_NULL, null=True)
     descricao = models.TextField(blank=True)
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False})
-    dia_atividade = models.ForeignKey(DiaAtividade, on_delete=models.SET_NULL, null=True)
-    hora_atividade = models.TimeField(blank=False, null=False)
-    Ativo = models.BooleanField(blank=False, null=False)
-    slug = models.SlugField(max_length=30, blank=True, null=True, unique=True)
+    limite_alunos = models.IntegerField(blank=False, null=False, verbose_name='Limite de Alunos', validators=[quantidade_turma])
+    hora_atividade = models.TimeField(blank=False, null=False, verbose_name='Hora da Aula')
+    dia_atividade = models.ManyToManyField(DiaAtividade)
+    #slug = models.SlugField(max_length=30, blank=True, null=True, unique=True)
 
     def __str__(self):
         return f'{self.nome_atividade}'
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.nome_atividade)
+#TODO ADICIONA DEPOIS SLUG ATIVIDADE
+"""    def save(self, *args, **kwargs):
+        # Gera o slug baseado no nome da atividade
+        self.slug = slugify(self.nome_atividade)
 
-        return super().save(*args, **kwargs)
+        # Se o slug já existe, adiciona o ID da atividade para garantir unicidade
+        if Atividade.objects.filter(slug=self.slug).exists():
+            self.slug = f"{self.slug}-{self.id}"
+
+        super().save(*args, **kwargs)"""
+
+
+class Servico(models.Model):
+    nome_servico = models.CharField(max_length=30, verbose_name='Nome do Servico', blank=False, null=False)
+    descricao = models.TextField(blank=False, null=False, verbose_name='Descrição do Serviço')
+    responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='UserService', limit_choices_to={'is_superuser': False})
+    dia_atividade = models.DateField(null=True, blank=True)
+    hora_inicio = models.TimeField(blank=False, null=False, verbose_name='Hora Inicio')
+    hora_fim_atividade = models.TimeField(blank=False, null=False, verbose_name='Hora Fim')
+
+    def __str__(self):
+        return self.nome_servico
 
 
 class Inscrever_na_Atividade(models.Model):

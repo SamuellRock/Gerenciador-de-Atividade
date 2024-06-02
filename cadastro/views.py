@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from perfis.models import Users
-from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm
+from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm, ServicoAtividadeForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
-from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo
+from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo,Servico
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.cache import cache_page
+from django.core.exceptions import ValidationError
+
 
 
 # TODO Fazer Update e Delete dos usuarios Internos e Externo
@@ -48,7 +50,6 @@ def lista_externa(request):
     return render(request, 'lista_avante.html', {'usuarios': usuarios})
 
 
-
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
 def update_usuario_externo(request, pk):
@@ -65,25 +66,51 @@ def update_usuario_externo(request, pk):
 #ATÈ AQUI
 
 
+@xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_atividade')
 def cadastro_atividade(request):
     if request.method == 'GET':
         form = AtividadeForm()
-        return render(request, 'cadastro_atividade.html', {'form': form})
+        return render(request, 'cadastro_atividade_aula/cadastro_atividade_aula.html', {'form': form})
 
     elif request.method == 'POST':
         form = AtividadeForm(request.POST)
+
         if form.is_valid():
-            atividade = form.save(commit=False)
-            atividade.responsavel = form.cleaned_data['responsavel']
-            atividade.save()
+            form.save()
 
             messages.add_message(request, messages.SUCCESS, 'Atividade cadastrada com sucesso!')
             return redirect(reverse('cdA'))
         else:
             messages.add_message(request, messages.ERROR, 'Ocorreu algum erro ao cadastrar')
-            return render(request, 'cadastro_atividade.html', {'form': form})
+            return render(request, 'cadastro_atividade_aula/cadastro_atividade_aula.html', {'form': form})
+
+
+@xframe_options_exempt
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_atividade')
+def cadastro_servico(request):
+    if request.method == 'GET':
+        form = ServicoAtividadeForm()
+        return render(request, 'cadastro_atividade_servicos/cadastro_atividade_servicos.html', {'form': form})
+
+    elif request.method == 'POST':
+        form = ServicoAtividadeForm(request.POST)
+        if form.is_valid():
+
+            dia_atividade = form.cleaned_data['dia_atividade']
+            responsavel = form.cleaned_data['responsavel']
+            if Servico.objects.filter(dia_atividade=dia_atividade, responsavel=responsavel).exists():
+                messages.add_message(request, messages.ERROR, 'Já existe um serviço cadastrado para esse responsável nesse dia')
+                return render(request, 'cadastro_atividade_servicos/cadastro_atividade_servicos.html', {'form': form})
+
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Atividade cadastrada com sucesso!')
+            return redirect(reverse('cdS'))
+        else:
+            messages.add_message(request, messages.ERROR, 'Ocorreu algum erro ao cadastrar')
+            return render(request, 'cadastro_atividade_servicos/cadastro_atividade_servicos.html', {'form': form})
 
 
 '''SAMUEL ESTEVE AQUI atualizar atividade'''
@@ -120,6 +147,8 @@ def inscricao(request):
         else:
             messages.add_message(request, messages.ERROR, 'Erro ao realizar inscrição. Verifique os dados e tente novamente.')
             return render(request, 'inscricao.html', {'form': form})
+
+
 
 @login_required(login_url='login')
 @has_permission_decorator('lista_presenca')
@@ -204,31 +233,4 @@ def deletar_inscricao(request, id):
 
 # ---------------------------------------------------------------------
 
-
-# Ajax request---------------------------------------------------------------
-@has_permission_decorator('cadastro_atividade')
-def get_responsavel_data(request):
-    responsavel_id = request.GET.get('responsavel_id')
-    if responsavel_id:
-        try:
-            atividades_responsaveis = Atividade.objects.filter(responsavel_id=responsavel_id)
-
-            atividades = [
-                {
-                    'id': atividade.id,
-                    'nome_atividade': atividade.nome_atividade,
-                    'hora_atividade': atividade.hora_atividade,
-                    'dia_atividade': atividade.dia_atividade.dia_semana
-                }
-                for atividade in atividades_responsaveis
-            ]
-
-            data = {
-                'atividades_do_responsavel': atividades,
-                'email_do_responsavel': atividades_responsaveis[0].responsavel.email if atividades_responsaveis else ''
-            }
-            return JsonResponse(data)
-        except Atividade.DoesNotExist:
-            return JsonResponse({'error': 'Atividade não encontrada'}, status=404)
-    return JsonResponse({'error': 'ID do responsável não fornecido'}, status=400)
 
