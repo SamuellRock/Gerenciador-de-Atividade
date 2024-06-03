@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Aula</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --azul-claro: #4AA0CD;
+            --azul-escuro: #041241;
+            --rosa: #D155A4;
+            --amarelo: #FFD500;
+            --branco: #FFFFFF;
+            --fonte: "Nunito", sans-serif;
+            --verde: #2E8B57;
+        }
+
+        body {
+            font-family: var(--fonte);
+            margin: 0;
+            padding: 0;
+            background-color: var(--branco);
+        }
+
+        .form-container {
+            display: flex;
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: var(--branco);
+        }
+
+        .left-column,
+        .right-column {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .left-column {
+            border-right: 1px solid var(--azul-claro);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--azul-escuro);
+            font-weight: bold;
+            font-family: var(--fonte);
+        }
+
+        input[type="text"],
+        textarea,
+        select,
+        input[type="time"],
+        input[type="date"],
+        input[type="number"],
+        input[type="checkbox"] {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid var(--azul-claro);
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            pointer-events: none;
+        }
+
+        .enrolled-names-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .enrolled-names-list li {
+            margin-bottom: 5px;
+        }
+
+        .activity-day {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--azul-escuro);
+            font-family: var(--fonte);
+            text-decoration: underline;
+            text-decoration-color: var(--azul-claro);
+            text-align: center;
+        }
+
+        .notification {
+            display: none;
+            padding: 10px;
+            background-color: var(--verde);
+            color: var(--branco);
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: var(--fonte);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="left-column">
+            <form id="activityForm">
+                <div class="form-group">
+                    <label for="activityName">Nome da Aula:</label>
+                    <input type="text" id="activityName" name="activityName" value="Aula de Matemática" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityDescription">Descrição da Aula:</label>
+                    <textarea id="activityDescription" name="activityDescription" rows="4" readonly>Aula sobre álgebra e geometria</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="activityResponsible">Responsável:</label>
+                    <input type="text" id="activityResponsible" name="activityResponsible" value="Prof. João" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityLimit">Limite de Alunos:</label>
+                    <input type="number" id="activityLimit" name="activityLimit" value="30" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityStatus">Status:</label>
+                    <input type="text" id="activityStatus" name="activityStatus" value="Ativa" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityTime">Hora da Aula:</label>
+                    <input type="time" id="activityTime" name="activityTime" value="10:00" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityDays">Dias da Aula:</label>
+                    <div id="activityDaysContainer">
+                        <div class="activity-day">
+                            <select name="activityDay[]" required disabled>
+                                <option value="Segunda-feira" selected>Segunda-feira</option>
+                                <option value="Terça-feira">Terça-feira</option>
+                                <option value="Quarta-feira">Quarta-feira</option>
+                                <option value="Quinta-feira">Quinta-feira</option>
+                                <option value="Sexta-feira">Sexta-feira</option>
+                                <option value="Sábado">Sábado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="right-column">
+            <div class="form-group">
+                <label for="activityEnrollment">Alunos Inscritos:</label>
+                <input type="text" id="activityEnrollment" name="activityEnrollment" value="20/30" readonly>
+            </div>
+            <div class="form-group">
+                <label for="activityEnrolledNames">Nomes dos Alunos:</label>
+                <ul id="enrolledNamesList" class="enrolled-names-list">
+                    <li>João</li>
+                    <li>Maria</li>
+                    <li>José</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+</body>
+
+</html>
