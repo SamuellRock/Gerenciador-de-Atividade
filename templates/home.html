@@ -1,26 +1,38 @@
+<!-- 3 block como base 
+{ block title  /  block content_space  /  block modals }
+{ block style  / block script } -->
+
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block 'title'%}Sistema de Gerenciamento{% endblock %}</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="{% static 'css/base/navbar.css'%}">
 
+<title>{% block title %}Sistema de Gerenciamento{% endblock title %}</title>
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base/navbar.css'%}">
+{% endblock style %}
 </head>
+
+
+
 <body>
 <div class="container">
+<!--NavBar (In Bloco)-->
     <div class="sidebar">
         <div> <img class="logo" src="{% static 'img/login/logo.png' %}"> </div>
         <ul class="menu">
-            <li class="pagina-inicial"><a href="home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+            <li class="pagina-inicial"><a href="{% url 'home' %}"><i class="fas fa-home"></i> Página Inicial</a></li>
             <li>
                 <a href="#" onclick="toggleDropdown(event, 'atividades-dropdown')"><i class="fas fa-tasks"></i> Atividades <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
                 <ul id="atividades-dropdown">
-                    <li><a href="listagens/aulas.html"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
-                    <li><a href="listagens/servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+                    <li><a href="{% url 'lista_aula' %}"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
+                    <li><a href="{% url 'lista_servico' %}"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
                 </ul>
             </li>
             <li>
@@ -33,15 +45,18 @@
             <li><a href="{% url 'opcoes_cadastro'%}"><i class="fas fa-address-card"></i> Cadastros</a></li>
             <li><a href="inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
         </ul>
-        <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
+        <div class="logout"><a href="{% url 'sair'%}"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
     </div>
+<!--NavBar (In Bloco)-->
 
+
+{% block content_space %}
     <div class="content">
         <h1>Sistema de Gerenciamento Avante</h1>
         <div class="content">
             <div class="box-container">
                 <div class="box">
-                   <h1> Box 1 (teste) </h1>
+                    <h1> Box 1 (teste) </h1>
                    <p> Conteúdo da primeira caixa </p>
                 </div>
                 <div class="box">
@@ -51,15 +66,22 @@
             </div>
         </div>
     </div>
+{% endblock content_space %}
 </div>
+
+
+{% block modals %}
 
 <div class="profile">
     <img src="{% static 'img/login/perfil.jpg' %}" alt="Profile Picture" id="profile-picture">
     <a href="perfil.html" id="profile-name">Usuário</a>
 </div>
 
+{% endblock modals %}
+
+
+{% block script %}
 <script src="{% static 'js/home/home.js' %}"></script>
-
-
+{% endblock script %}
 </body>
 </html>

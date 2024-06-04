@@ -2,6 +2,12 @@
 usuario: admin
 senha: pedro272
 
+usuario: admin
+senha: admin272
+
+email: samuel@admin.com
+senha: administrador272
+
 ---- L O G I N S -----  
 /login/
 

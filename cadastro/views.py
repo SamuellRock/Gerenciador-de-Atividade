@@ -3,7 +3,7 @@ from perfis.models import Users
 from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm, ServicoAtividadeForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
-from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo,Servico
+from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo,Servico,DiaAtividade
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -165,7 +165,7 @@ def lista_presenca(request, atividade_id):
     form = Lista_PrecencaForm()
     return render(request, 'precenca.html', {'form': form, 'alunos': alunos})
 
-
+#TODO Ver as permissões
 # lista---------------------------------------------------------------
 @cache_page(60)
 @login_required(login_url='login')
@@ -175,9 +175,14 @@ def lista_usuario(request):
 
 
 @login_required(login_url='login')
-def lista_atividade(request):
-    atividade = Atividade.objects.all()
-    return render(request, 'lista/lista_atividade.html', {'atividades': atividade})
+def lista_aula(request):
+    aulaList = Atividade.objects.all()
+    return render(request, 'lista/listagemAulas.html', {'aulaList': aulaList})
+
+@login_required(login_url='login')
+def lista_servico(request):
+    servicoList = Servico.objects.all()
+    return render(request, 'lista/listagemServicos.html', {'servicoList': servicoList})
 
 
 @login_required(login_url='login')

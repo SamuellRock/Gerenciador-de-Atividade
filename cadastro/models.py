@@ -57,14 +57,9 @@ class Usuario_Externo(models.Model):
 
         return super().save(*args, **kwargs)
 
-"""tipo_lista = ('Aula', 'Serviço')
-class Tipo_Atividade(models.Model):
-    nome = models.CharField(max_length=10, blank=False, null=False, choices=tipo_lista)"""
-
 
 class Atividade(models.Model):
     nome_atividade = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome])
-    #tipo_atividade = models.ForeignKey(Tipo_Atividade, on_delete=models.SET_NULL, null=True)
     descricao = models.TextField(blank=True)
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='User', limit_choices_to={'is_superuser': False})
     limite_alunos = models.IntegerField(blank=False, null=False, verbose_name='Limite de Alunos', validators=[quantidade_turma])
