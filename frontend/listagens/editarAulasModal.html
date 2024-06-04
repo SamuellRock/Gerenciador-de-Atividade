@@ -112,6 +112,7 @@
 
         .notification {
             display: none;
+            align-items: end;
             padding: 10px;
             background-color: var(--verde);
             color: var(--branco);
@@ -126,7 +127,7 @@
         .confirmation-box {
             display: none;
             position: fixed;
-            top: 50%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: var(--branco);
@@ -282,7 +283,7 @@
             function saveChanges() {
                 const activityForm = document.getElementById('activityForm');
                 if (activityForm.checkValidity()) {
-                    // Aqui você pode adicionar o código para salvar os dados no backend
+                    // Adicionar o código para salvar os dados no backend
                     showNotification('Alterações salvas com sucesso!');
                 } else {
                     showNotification('Por favor, preencha todos os campos obrigatórios.');
@@ -291,7 +292,7 @@
 
             // Função para finalizar aulas
             function finalizeClasses() {
-                // Aqui você pode adicionar o código para finalizar as aulas no backend
+                // Adicionar o código para finalizar as aulas no backend
                 showNotification('Aulas finalizadas com sucesso!');
             }
 
