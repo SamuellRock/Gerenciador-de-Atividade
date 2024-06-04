@@ -1,6 +1,6 @@
 <!-- 3 block como base 
-{ block title  /  block content_space  /  block modals }
-{ block style  / block script } -->
+{ block title /  block content_space  /  block modals }
+{ block script } -->
 
 {% load static %}
 
@@ -12,11 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<title>{% block title %}Sistema de Gerenciamento{% endblock title %}</title>
-
-{% block style %}
+<title>{% block title %} Sistema de Gerenciamento {% endblock title %}</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/base/navbar.css'%}">
-{% endblock style %}
+{% block head %} {% endblock head %}
 </head>
 
 

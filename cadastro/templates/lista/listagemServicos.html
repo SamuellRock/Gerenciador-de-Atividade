@@ -1,41 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<title>Sistema de Gerenciamento</title>
+{% extends 'home.html' %}
+{% load static %}
+
+<!-- HEAD herdada do Template home.html -->
+{% block head %}
+<title>{% block title %} Sistema de Gerenciamento {% endblock title %}</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemServicos.css'%}">
+{% endblock head %}
 
-</head>
-<body>
+<!-- NAVBAR herdada do Template home.html -->
 
-<div class="container">
-    <div class="sidebar">
-        <div> <img class="logo" src="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\img\logo (1).png"> </div>
-        <ul class="menu">
-            <li class="pagina-inicial"><a href="home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
-            <li>
-                <a href="#" onclick="toggleDropdown(event, 'atividades-dropdown')"><i class="fas fa-tasks"></i> Atividades <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
-                <ul id="atividades-dropdown">
-                    <li><a href="listagens/aulas.html"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
-                    <li><a href="listagens/servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" onclick="toggleDropdown(event, 'usuarios-dropdown')"><i class="fas fa-users"></i> Usuários <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
-                <ul id="usuarios-dropdown">
-                    <li><a href="listagens/usuariosInternos.html"><i class="fas fa-user-shield"></i> Usuário Interno</a></li>
-                    <li><a href="listagens/usuariosExternos.html"><i class="fas fa-user-friends"></i> Usuário Externo</a></li>
-                </ul>
-            </li>
-            <li><a href="cadastros/opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
-            <li><a href="inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
-        </ul>
-        <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
-    </div>
-    
+
+{% block content_space %}
     <div class="content">
         <h1>Atividades</h1>
         <div class="box-container">
@@ -58,25 +33,31 @@
                         <th>Ações</th>
                     </tr>
                     <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
+                    {% for servico in servicoList %}
                     <tr>
-                        <td>Psicologo</td>
-                        <td>28/07/2024</td>
-                        <td>08:00 - 17:00</td>
-                        <td>Glenda Rangel</td>
-                        <td>Ativo</td>
+                        <td>{{ servico.nome_servico }}</td>
+                        <td>{{ servico.dia_atividade }}</td>
+                        <td>{{ servico.hora_inicio }} até {{ servico.hora_fim_atividade }}</td>
+                        <td>{{ servico.responsavel }}</td>
+                        <td>Ativo or Not</td>
                         <td>
                             <button class="btn-editar" onclick="openExternalModal('editarServicosModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
                             <button class="btn-visualizar" onclick="openExternalModal('visualizarServicosModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
                             <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>
+                    {% endfor %}
                     <!-- Fim exemplo de linha de tabela -->
                 </table>
             </div>
         </div>
     </div>
-</div>
+{% endblock content_space %}
 
+
+
+
+{% block modals %}
 <div class="profile">
     <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Profile Picture" id="profile-picture">
     <a href="perfil.html" id="profile-name">Usuário</a> 
@@ -102,8 +83,10 @@
 
 <!-- Notificação -->
 <div id="notification" class="notification">Item deletado com sucesso!</div>
+{% endblock modals %}
 
 
+
+{% block script %}
 <script src="{% static 'js/listagem/listagemServicos.js' %}"></script>
-</body>
-</html>
+{% endblock script %}

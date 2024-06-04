@@ -6,7 +6,11 @@
 <head>
 {% cache 60 'head' %}
 <link rel="stylesheet" href="{% static 'css/cadastro_externo/cadastro_externo.css'%}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+<!-- 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+-->
+
 <title>Cadastro Externo</title>
 {% endcache %}
 
@@ -69,7 +73,7 @@
                 {{ form.responsavel_cpf }}
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Cadastrar Beneficiado</button>
+        <button type="submit">Cadastrar Beneficiado</button>
     </form>
 
 </div>

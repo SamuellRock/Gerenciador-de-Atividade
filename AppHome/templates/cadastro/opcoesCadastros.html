@@ -1,43 +1,16 @@
+{% extends 'home.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Gerenciamento</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<!-- HEAD herdada do Template home.html -->
+{% block head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<title>{% block title %}Sistema de Gerenciamento{% endblock title %}</title>
 <link rel="stylesheet" href="{% static 'css/cadastro/opcoes_cadastro.css'%}">
-</head>
+{% endblock head %}
 
-<body>
+<!-- NAVBAR herdada da home.html -->
 
-<div class="container">
-    <div class="sidebar">
-        <div> <img class="logo" src="{% static 'img/login/logo.png'%}"> </div>
-        <ul class="menu">
-            <li class="pagina-inicial"><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
-            <li>
-                <a href="#" onclick="toggleDropdown(event, 'atividades-dropdown')"><i class="fas fa-tasks"></i> Atividades <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
-                <ul id="atividades-dropdown">
-                    <li><a href="{% url 'lista_aula' %}"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" onclick="toggleDropdown(event, 'usuarios-dropdown')"><i class="fas fa-users"></i> Usuários <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
-                <ul id="usuarios-dropdown">
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosInternos.html"><i class="fas fa-user-shield"></i> Funcionários e Voluntários </a></li>
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosExternos.html"><i class="fas fa-user-friends"></i> Beneficiados </a></li>
-                </ul>
-            </li>
-            <li><a href="cadastros/opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
-            <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
-        </ul>
-        <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
-    </div>
-
+{% block content_space %}
     <div class="content">
         <h1>Opções de Cadastro:</h1>
         <div class="box-container">
@@ -53,8 +26,11 @@
             </div>
         </div>
     </div>
-</div>
+{% endblock content_space %}
 
+
+
+{% block modals %}
 <div class="profile">
     <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture" id="profile-picture">
     <a href="perfil.html" id="profile-name">Usuário</a>
@@ -67,9 +43,11 @@
         <iframe id="modalIframe"></iframe>
     </div>
 </div>
+{% endblock modals %}
 
-<script src="{% static 'js/opcoesCadastro/opcoesCadastro.js' %}"></script>
+
+
+{% block script %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-</body>
-</html>
+<script src="{% static 'js/opcoesCadastro/opcoesCadastro.js' %}"></script>
+{% endblock script %}
