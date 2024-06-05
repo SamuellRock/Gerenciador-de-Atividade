@@ -72,22 +72,6 @@
             color: var(--azul-escuro);
         }
 
-        .day-of-week {
-            margin-top: 5px;
-            color: var(--azul-escuro);
-            font-weight: bold;
-        }
-
-        .add-day-btn {
-            margin-top: 10px;
-            background-color: var(--azul-escuro);
-            color: var(--azul-claro);
-        }
-
-        .activity-day {
-            margin-bottom: 20px;
-        }
-
         h2 {
             margin-top: 0;
             margin-bottom: 0px;
@@ -177,11 +161,7 @@
                     <option value="Responsável da Atividade"> Responsável da Atividade </option>
                 </select>
             </div>
-            <div class="form-group">
-
-            <button type="button" class="add-day-btn" id="addDayBtn">Adicionar Dia</button>
             <button type="button" id="saveChangesBtn">Salvar Alterações</button>
-            <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Turma</button>
         </form>
     </div>
 
@@ -189,12 +169,6 @@
         <p>Você tem certeza que deseja salvar as alterações?</p>
         <button id="confirmSaveBtn">Sim</button>
         <button id="cancelSaveBtn">Não</button>
-    </div>
-
-    <div id="finalizeConfirmation" class="confirmation-box">
-        <p>Você tem certeza que deseja finalizar as aulas?</p>
-        <button id="confirmFinalizeBtn">Sim</button>
-        <button id="cancelFinalizeBtn">Não</button>
     </div>
 
     <div id="notification" class="notification"></div>
@@ -261,7 +235,6 @@
                 activityDaysContainer.appendChild(activityDay);
             });
 
-            // Função para exibir notificações
             function showNotification(message) {
                 const notification = document.getElementById('notification');
                 notification.innerText = message;
@@ -270,34 +243,6 @@
                     notification.style.display = 'none';
                 }, 3000);
             }
-
-            // Função para salvar alterações
-            function saveChanges() {
-                const activityForm = document.getElementById('activityForm');
-                if (activityForm.checkValidity()) {
-                    // Adicionar o código para salvar os dados no backend
-                    showNotification('Alterações salvas com sucesso!');
-                } else {
-                    showNotification('Por favor, preencha todos os campos obrigatórios.');
-                }
-            }
-
-            // Exibir a confirmação de salvar alterações
-            document.getElementById('saveChangesBtn').addEventListener('click', function () {
-                document.getElementById('saveConfirmation').style.display = 'block';
-            });
-
-            // Confirmar salvar alterações
-            document.getElementById('confirmSaveBtn').addEventListener('click', function () {
-                saveChanges();
-                document.getElementById('saveConfirmation').style.display = 'none';
-            });
-
-            // Cancelar salvar alterações
-            document.getElementById('cancelSaveBtn').addEventListener('click', function () {
-                document.getElementById('saveConfirmation').style.display = 'none';
-            });
-
         });
     </script>
 </body>
