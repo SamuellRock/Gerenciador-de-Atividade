@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualização de Aula</title>
+    <title>Visualização de Usuário Externo</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -53,10 +53,11 @@
         input[type="text"],
         textarea,
         select,
-        input[type="time"],
-        input[type="date"],
+        input[type="email"],
         input[type="number"],
-        input[type="checkbox"] {
+        input[type="checkbox"],
+        input[type="date"],
+        input[type="tel"] {
             width: calc(100% - 16px);
             padding: 8px;
             margin-bottom: 15px;
@@ -67,13 +68,13 @@
             pointer-events: none;
         }
 
-        .enrolled-names-list {
+        .activity-list {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
 
-        .enrolled-names-list li {
+        .activity-list li {
             margin-bottom: 5px;
             padding: 10px;
             background-color: #f1f1f1;
@@ -81,10 +82,6 @@
             border-radius: 5px;
             color: var(--azul-escuro);
             font-family: var(--fonte);
-        }
-
-        .activity-day {
-            margin-bottom: 20px;
         }
 
         h2 {
@@ -96,96 +93,126 @@
             text-decoration-color: var(--azul-claro);
             text-align: center;
         }
-
-        .notification {
-            display: none;
-            padding: 10px;
-            background-color: var(--verde);
-            color: var(--branco);
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-family: var(--fonte);
-        }
     </style>
 </head>
 
 <body>
-    <h2>Visualização de Usuario</h2>
+    <h2>Visualização de Usuário Externo</h2>
     <div class="form-container">
         <div class="left-column">
-            <form id="activityForm">
+            <form id="userForm">
                 <div class="form-group">
-                    <label for="activityName">Nome:</label>
+                    <label for="beneficiaryName">Nome:</label>
                     <input type="text" id="beneficiaryName" name="beneficiaryName" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="activityDescription">CPF:</label>
-                    <textarea id="beneficiaryCpf" name="beneficiaryCpf" rows="4" readonly></textarea>
+                    <label for="beneficiaryCpf">CPF:</label>
+                    <input type="text" id="beneficiaryCpf" name="beneficiaryCpf" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="activityResponsible">Nascimento:</label>
-                    <input type="text" id="beneficiaryDob" name="beneficiaryDob" readonly>
+                    <label for="beneficiaryDob">Data de Nascimento:</label>
+                    <input type="date" id="beneficiaryDob" name="beneficiaryDob" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="activityLimit">Telefone:</label>
-                    <input type="number" id="beneficiaryPhone" name="beneficiaryPhone" readonly>
+                    <label for="beneficiaryPhone">Telefone:</label>
+                    <input type="tel" id="beneficiaryPhone" name="beneficiaryPhone" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryAddress">Endereço:</label>
+                    <input type="text" id="beneficiaryAddress" name="beneficiaryAddress" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryCity">Cidade:</label>
+                    <input type="text" id="beneficiaryCity" name="beneficiaryCity" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="beneficiaryState">Estado:</label>
+                    <input type="text" id="beneficiaryState" name="beneficiaryState" readonly>
+                </div>
+                <div class="form-group hidden" id="guardianFields">
+                    <div class="form-group">
+                        <label for="guardianName">Nome do Responsável:</label>
+                        <input type="text" id="guardianName" name="guardianName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="guardianCpf">CPF do Responsável:</label>
+                        <input type="text" id="guardianCpf" name="guardianCpf" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="guardianPhone">Contato do Responsável:</label>
+                        <input type="tel" id="guardianPhone" name="guardianPhone" readonly>
+                    </div>
                 </div>
             </form>
         </div>
-
+        <div class="right-column">
+            <div class="form-group">
+                <label for="registeredActivities">Atividades Cadastradas:</label>
+                <ul id="activityList" class="activity-list"></ul>
+            </div>
+        </div>
     </div>
 
-    <div id="notification" class="notification"></div>
-
     <script>
-        // Função para carregar dados da aula do banco de dados
-        function loadActivityData() {
-            // Simulação de chamada a uma API para obter os dados da aula
+        // Função para carregar dados do usuário do banco de dados
+        function loadUserData() {
+            // Simulação de chamada para obter os dados do usuário
             // Chamada real para o backend
-            const activityData = {
-                name: "Aula de Matemática",
-                description: "Aula sobre álgebra e geometria",
-                responsible: "Prof. João",
-                limit: 30,
-                status: "Ativa",
-                time: "10:00",
-                days: ["Segunda-feira", "Quarta-feira"],
-                enrolled: 20,
-                students: ["João", "Maria", "José"]
+            const userData = {
+                beneficiaryName: "Maria da Silva",
+                beneficiaryCpf: "123.456.789-00",
+                beneficiaryDob: "2006-05-15",
+                beneficiaryPhone: "11999999999",
+                beneficiaryAddress: "Rua Exemplo, 123",
+                beneficiaryCity: "São Paulo",
+                beneficiaryState: "SP",
+                guardianName: "João da Silva",
+                guardianCpf: "987.654.321-00",
+                guardianPhone: "11988888888",
+                activities: [
+                    { name: "Aula de Matemática", date: "25/05/2025", time: "10:00" },
+                    { name: "Reunião Pedagógica", date: "26/05/2025", time: "14:00" },
+                    { name: "Workshop de Ciências", date: "27/05/2025", time: "09:00" }
+                ]
             };
 
             // Preenchendo os dados no formulário
-            document.getElementById('activityName').value = activityData.name;
-            document.getElementById('activityDescription').value = activityData.description;
-            document.getElementById('activityResponsible').value = activityData.responsible;
-            document.getElementById('activityLimit').value = activityData.limit;
-            document.getElementById('activityStatus').value = activityData.status;
-            document.getElementById('activityTime').value = activityData.time;
-            document.getElementById('activityEnrollment').value = `${activityData.enrolled}/${activityData.limit}`;
+            document.getElementById('beneficiaryName').value = userData.beneficiaryName;
+            document.getElementById('beneficiaryCpf').value = userData.beneficiaryCpf;
+            document.getElementById('beneficiaryDob').value = userData.beneficiaryDob;
+            document.getElementById('beneficiaryPhone').value = userData.beneficiaryPhone;
+            document.getElementById('beneficiaryAddress').value = userData.beneficiaryAddress;
+            document.getElementById('beneficiaryCity').value = userData.beneficiaryCity;
+            document.getElementById('beneficiaryState').value = userData.beneficiaryState;
 
-            // Preenchendo os dias da aula
-            const daysContainer = document.getElementById('activityDaysContainer');
-            activityData.days.forEach(day => {
-                const dayElement = document.createElement('div');
-                dayElement.classList.add('activity-day');
-                dayElement.textContent = day;
-                daysContainer.appendChild(dayElement);
-            });
+            // Verificando se a pessoa é menor de idade ao carregar a página
+            const dob = new Date(userData.beneficiaryDob);
+            const age = getAge(dob);
+            if (age < 18) {
+                document.getElementById('guardianFields').classList.remove('hidden');
+                document.getElementById('guardianName').value = userData.guardianName;
+                document.getElementById('guardianCpf').value = userData.guardianCpf;
+                document.getElementById('guardianPhone').value = userData.guardianPhone;
+            }
 
-            // Preenchendo os nomes dos alunos
-            const namesList = document.getElementById('enrolledNamesList');
-            activityData.students.forEach(student => {
-                const studentElement = document.createElement('li');
-                studentElement.textContent = student;
-                namesList.appendChild(studentElement);
+            // Preenchendo a lista de atividades
+            const activityList = document.getElementById('activityList');
+            userData.activities.forEach(activity => {
+                const activityItem = document.createElement('li');
+                activityItem.textContent = `${activity.name} - ${activity.date} - ${activity.time}`;
+                activityList.appendChild(activityItem);
             });
         }
 
+        // Função para calcular a idade
+        function getAge(dob) {
+            const diff = Date.now() - dob.getTime();
+            const ageDate = new Date(diff);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
+        }
+
         // Carregar os dados ao carregar a página
-        document.addEventListener('DOMContentLoaded', loadActivityData);
+        document.addEventListener('DOMContentLoaded', loadUserData);
     </script>
 </body>
 

@@ -16,9 +16,10 @@
         --vermelho: #E40101;
         --azul: #007BFF;
         --verde: #2E8B57;
+        --fonte: "Nunito", sans-serif;
     }
     body {
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin: 0;
         padding: 0;
     }
@@ -116,7 +117,7 @@
 
     a {
         text-decoration: none;
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         color: var(--azul-escuro);
     }
 
@@ -144,7 +145,7 @@
         margin-right: 10px;
     }
     h1{
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         color: var(--azul-escuro);
     }
     .box-container {
@@ -211,7 +212,7 @@
         background-color: var(--verde);
         color: var(--branco);
         cursor: pointer;
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin-top: 10px;
     }
 
@@ -222,7 +223,7 @@
         background-color: var(--azul);
         color: var(--branco);
         cursor: pointer;
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin-top: 10px;
     }
 
@@ -233,7 +234,7 @@
         background-color: var(--vermelho);
         color: var(--branco);
         cursor: pointer;
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin-top: 10px;
     }
 
@@ -244,8 +245,15 @@
         background-color: var(--azul-escuro);
         color: var(--branco);
         cursor: pointer;
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin-top: 10px;
+        margin-right: 10px; 
+    }
+
+    .btn-container {
+        display: flex;
+        align-items: center;
+        justify-content: center; 
     }
 
     table {
@@ -262,7 +270,7 @@
 
     th {
         background-color: var(--azul-escuro);
-        color: var(br);
+        color: var(--branco);
         font-family: var(--fonte);
     }
 
@@ -497,16 +505,19 @@
     </div>
 
     <div class="content">
-        <h1>Informações Usuario</h1>
+        <h1>Usuários</h1>
         <div class="box-container">
             <div class="box">
                 <div class="box-header">
-                    <h3>DADOS</h3>
+                    <h3>Usuários Externo</h3>
                     <div class="search-container">
                         <input type="text" id="search-input" placeholder="Localizar...">
                         <button type="button" id="search-button"><i class="fas fa-search"></i></button>
                     </div>
-                    <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aluno </button>
+                    <div class="btn-container">
+                        <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aula </button>
+                        <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Serviço </button>
+                    </div>
                 </div>
                 <table>
                     <tr>
@@ -518,12 +529,12 @@
                     </tr>
                     <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Jadie Rangel</td>
+                        <td>15025875836</td>
+                        <td>(21) 98843-1938</td>
                         <td>
-                            <button class="btn-editar" onclick="openExternalModal('editarAulasModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
-                            <button class="btn-visualizar" onclick="openExternalModal('visualizarAulasModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
+                            <button class="btn-editar" onclick="openExternalModal('editarUsuarioExternosModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-visualizar" onclick="openExternalModal('visualizarUsuariosExternosModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
                             <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>

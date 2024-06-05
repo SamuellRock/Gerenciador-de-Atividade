@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualização de Aula</title>
+    <title>Visualização de Usuário Interno</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -53,8 +53,7 @@
         input[type="text"],
         textarea,
         select,
-        input[type="time"],
-        input[type="date"],
+        input[type="email"],
         input[type="number"],
         input[type="checkbox"] {
             width: calc(100% - 16px);
@@ -67,13 +66,13 @@
             pointer-events: none;
         }
 
-        .enrolled-names-list {
+        .activity-list {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
 
-        .enrolled-names-list li {
+        .activity-list li {
             margin-bottom: 5px;
             padding: 10px;
             background-color: #f1f1f1;
@@ -96,76 +95,76 @@
 </head>
 
 <body>
-    <h2>Visualização de Usuario</h2>
+    <h2>Visualização de Usuário Interno</h2>
     <div class="form-container">
         <div class="left-column">
-            <form id="activityForm">
+            <form id="userForm">
                 <div class="form-group">
-                    <label for="activityName">Nome:</label>
+                    <label for="nome">Nome:</label>
                     <input type="text" id="nome" name="nome" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="activityDescription">Email:</label>
-                    <input id="email" name="email"  readonly>
+                    <label for="userType">Tipo de Usuário:</label>
+                    <input type="text" id="userType" name="userType" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="activityLimit">CPF:</label>
-                    <input type="number" id="beneficiaryCpf" name="beneficiaryCpf" readonly>
+                    <label for="funcao">Função:</label>
+                    <input type="text" id="funcao" name="funcao" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="userPerfil">Tipo de Perfil:</label>
+                    <input type="text" id="userPerfil" name="userPerfil" readonly>
+                </div>
             </form>
         </div>
         <div class="right-column">
-
+            <div class="form-group">
+                <label for="responsibleActivities">Atividades Responsável:</label>
+                <ul id="activityList" class="activity-list"></ul>
+            </div>
         </div>
     </div>
 
-    <div id="notification" class="notification"></div>
-
     <script>
-        // Função para carregar dados da aula do banco de dados
-        function loadActivityData() {
-            // Simulação de chamada a uma API para obter os dados da aula
+        // Função para carregar dados do usuário do banco de dados
+        function loadUserData() {
+            // Simulação de chamada para obter os dados do usuário
             // Chamada real para o backend
-            const activityData = {
-                name: "Aula de Matemática",
-                description: "Aula sobre álgebra e geometria",
-                responsible: "Prof. João",
-                limit: 30,
-                status: "Ativa",
-                time: "10:00",
-                days: ["Segunda-feira", "Quarta-feira"],
-                enrolled: 20,
-                students: ["João", "Maria", "José"]
+            const userData = {
+                nome: "Glenda Rangel",
+                userType: "Funcionário",
+                funcao: "Coordenador",
+                email: "glenda.rangel@hotmail.com",
+                userPerfil: "Administrador",
+                activities: [
+                    { name: "Aula de Matemática", date: "25/05/2025", time: "10:00" },
+                    { name: "Reunião Pedagógica", date: "26/05/2025", time: "14:00" },
+                    { name: "Workshop de Ciências", date: "27/05/2025", time: "09:00" }
+                ]
             };
 
             // Preenchendo os dados no formulário
-            document.getElementById('activityName').value = activityData.name;
-            document.getElementById('activityDescription').value = activityData.description;
-            document.getElementById('activityResponsible').value = activityData.responsible;
-            document.getElementById('activityLimit').value = activityData.limit;
-            document.getElementById('activityStatus').value = activityData.status;
-            document.getElementById('activityTime').value = activityData.time;
-            document.getElementById('activityEnrollment').value = `${activityData.enrolled}/${activityData.limit}`;
+            document.getElementById('nome').value = userData.nome;
+            document.getElementById('userType').value = userData.userType;
+            document.getElementById('funcao').value = userData.funcao;
+            document.getElementById('email').value = userData.email;
+            document.getElementById('userPerfil').value = userData.userPerfil;
 
-            // Preenchendo os dias da aula
-            const daysContainer = document.getElementById('activityDaysContainer');
-            activityData.days.forEach(day => {
-                const dayElement = document.createElement('div');
-                dayElement.classList.add('activity-day');
-                dayElement.textContent = day;
-                daysContainer.appendChild(dayElement);
-            });
-
-            // Preenchendo os nomes dos alunos
-            const namesList = document.getElementById('enrolledNamesList');
-            activityData.students.forEach(student => {
-                const studentElement = document.createElement('li');
-                studentElement.textContent = student;
-                namesList.appendChild(studentElement);
+            // Preenchendo a lista de atividades
+            const activityList = document.getElementById('activityList');
+            userData.activities.forEach(activity => {
+                const activityItem = document.createElement('li');
+                activityItem.textContent = `${activity.name} - ${activity.date} - ${activity.time}`;
+                activityList.appendChild(activityItem);
             });
         }
 
         // Carregar os dados ao carregar a página
-        document.addEventListener('DOMContentLoaded', loadActivityData);
+        document.addEventListener('DOMContentLoaded', loadUserData);
     </script>
 </body>
 

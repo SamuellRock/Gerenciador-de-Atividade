@@ -5,6 +5,7 @@
     --amarelo: #FFD500;
     --branco: #FFFFFF;
     --cinza-claro: #f4f4f4;
+    --fonte: "Nunito", sans-serif;
 
 }
 body {
@@ -107,7 +108,7 @@ body {
 
 a {
     text-decoration: none;
-    font-family: "Nunito", sans-serif;
+    font-family: var(fonte);
     color: var(--azul-escuro);
 }
 
@@ -136,7 +137,7 @@ a {
 }
 
 h1{
-    font-family: "Nunito", sans-serif;
+    font-family: var(fonte);
     color: var(--azul-escuro);
 }
 .box-container {
@@ -228,7 +229,7 @@ iframe {
 }
 h3 {
     color: var(--azul-escuro);
-    font-family: "Nunito", sans-serif;
+    font-family: var(fonte);
     padding-top: 0%;
     margin-top: 0%;
 }

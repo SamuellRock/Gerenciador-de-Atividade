@@ -16,7 +16,7 @@
             --branco: #FFFFFF;
             --fonte: "Nunito", sans-serif;
             --verde: #2E8B57;
-    }
+        }
 
         body {
             font-family: var(--fonte);
@@ -46,7 +46,9 @@
         input[type="time"],
         input[type="date"],
         input[type="number"],
-        input[type="checkbox"] {
+        input[type="tel"],
+        input[type="checkbox"],
+        input[type="email"] {
             width: calc(100% - 16px);
             padding: 8px;
             margin-bottom: 15px;
@@ -73,25 +75,13 @@
         }
 
         h2 {
-            margin-top: 0;
-            margin-bottom: 0px;
+            margin: 0;
+            padding: 10px 0;
             color: var(--azul-escuro);
             font-family: var(--fonte);
             text-decoration: underline;
             text-decoration-color: var(--azul-claro);
             text-align: center;
-            padding: 1.5%;
-        }
-
-        .finalize-btn {
-            background-color: var(--rosa);
-            color: var(--azul-escuro);
-            font-family: var(--fonte);
-        }
-
-        .finalize-btn:hover {
-            background-color: var(--azul-claro);
-            color: var (--azul-escuro);
         }
 
         .notification {
@@ -132,9 +122,10 @@
 </head>
 
 <body>
+    <h2>Edição de Usuário Interno</h2>
     <div class="form-container">
-        <h2>Edição de Aula</h2>
-          <div class="form-group">
+        <form id="beneficiaryForm">
+            <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
             </div>
@@ -173,67 +164,44 @@
 
     <div id="notification" class="notification"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Simulação de dados existentes
-            const existingData = {
-                activityName: "Aula de Matemática",
-                activityDescription: "Aula sobre álgebra e geometria",
-                activityResponsible: "Prof. João",
-                activityLimit: 30,
-                activityTime: "10:00",
-                activityDays: ["Segunda-feira", "Quarta-feira", "Sexta-feira"]
-            };
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiUrl = 'URL_DA_SUA_API';
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Preencher o formulário com os dados obtidos
+                    document.getElementById('nome').value = data.nome;
+                    document.getElementById('userType').value = data.userType;
+                    document.getElementById('funcao').value = data.funcao;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('userPerfil').value = data.userPerfil;
+                })
 
-            // Preenchendo os campos com os dados existentes
-            document.getElementById('activityName').value = existingData.activityName;
-            document.getElementById('activityDescription').value = existingData.activityDescription;
-            document.getElementById('activityResponsible').value = existingData.activityResponsible;
-            document.getElementById('activityLimit').value = existingData.activityLimit;
-            document.getElementById('activityTime').value = existingData.activityTime;
-
-            const activityDaysContainer = document.getElementById('activityDaysContainer');
-            activityDaysContainer.innerHTML = ''; // Limpar dias padrão
-
-            existingData.activityDays.forEach(day => {
-                const activityDay = document.createElement('div');
-                activityDay.classList.add('activity-day');
-                activityDay.innerHTML = `
-                    <div class="form-group">
-                        <label for="activityDay">Dia da Semana da Aula:</label>
-                        <select name="activityDay[]" required>
-                            <option value="Segunda-feira"${day === "Segunda-feira" ? ' selected' : ''}>Segunda-feira</option>
-                            <option value="Terça-feira"${day === "Terça-feira" ? ' selected' : ''}>Terça-feira</option>
-                            <option value="Quarta-feira"${day === "Quarta-feira" ? ' selected' : ''}>Quarta-feira</option>
-                            <option value="Quinta-feira"${day === "Quinta-feira" ? ' selected' : ''}>Quinta-feira</option>
-                            <option value="Sexta-feira"${day === "Sexta-feira" ? ' selected' : ''}>Sexta-feira</option>
-                            <option value="Sábado"${day === "Sábado" ? ' selected' : ''}>Sábado</option>
-                            <option value="Domingo"${day === "Domingo" ? ' selected' : ''}>Domingo</option>
-                        </select>
-                    </div>
-                `;
-                activityDaysContainer.appendChild(activityDay);
+            document.getElementById('saveChangesBtn').addEventListener('click', function() {
+                document.getElementById('saveConfirmation').style.display = 'block';
             });
 
-            document.getElementById('addDayBtn').addEventListener('click', function () {
-                const activityDay = document.createElement('div');
-                activityDay.classList.add('activity-day');
-                activityDay.innerHTML = `
-                    <div class="form-group">
-                        <label for="activityDay">Dia da Semana da Aula:</label>
-                        <select name="activityDay[]" required>
-                            <option value="Segunda-feira">Segunda-feira</option>
-                            <option value="Terça-feira">Terça-feira</option>
-                            <option value="Quarta-feira">Quarta-feira</option>
-                            <option value="Quinta-feira">Quinta-feira</option>
-                            <option value="Sexta-feira">Sexta-feira</option>
-                            <option value="Sábado">Sábado</option>
-                            <option value="Domingo">Domingo</option>
-                        </select>
-                    </div>
-                `;
-                activityDaysContainer.appendChild(activityDay);
+            document.getElementById('confirmSaveBtn').addEventListener('click', function() {
+                saveChanges();
+                document.getElementById('saveConfirmation').style.display = 'none';
             });
+
+            document.getElementById('cancelSaveBtn').addEventListener('click', function() {
+                document.getElementById('saveConfirmation').style.display = 'none';
+            });
+
+            function saveChanges() {
+                const formData = new FormData(document.getElementById('beneficiaryForm'));
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+                console.log(data);
+                showNotification('Alterações salvas com sucesso!');
+                // Enviar os dados para o backend 
+            }
 
             function showNotification(message) {
                 const notification = document.getElementById('notification');
