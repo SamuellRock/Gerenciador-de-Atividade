@@ -1,0 +1,92 @@
+{% extends 'home.html' %}
+{% load static %}
+
+<!-- HEAD herdada do Template home.html -->
+{% block head %}
+<title>{% block title %} Sistema de Gerenciamento {% endblock title %}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemUsuariosInternos.css'%}">
+{% endblock head %}
+
+
+<!-- NAVBAR herdada do Template home.html -->
+
+
+{% block content_space %}
+    <div class="content">
+        <h1>Usuários</h1>
+        <div class="box-container">
+            <div class="box">
+                <div class="box-header">
+                    <h3>Usuários Interno</h3>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Localizar...">
+                        <button type="button" id="search-button"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="btn-container">
+                        <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aula </button>
+                        <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Serviço </button>
+                    </div>
+                </div>
+                <table>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo de Usuário</th>
+                        <th>E-mail</th>
+                        <th>Ações</th>
+
+                    </tr>
+                    <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
+                    <tr>
+                        <td>Glenda Rangel</td>
+                        <td>Funcionário</td>
+                        <td>glenda.rangel@hotmail.com</td>
+                        <td>
+                            <button class="btn-editar" onclick="openExternalModal('editarUsuariosInternoModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-visualizar" onclick="openExternalModal('visualizarUsuarioInternoModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
+                            <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
+                        </td>
+                    </tr>
+                    <!-- Fim exemplo de linha de tabela -->
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content_space %}
+
+
+
+
+{% block modals %}
+<div class="profile">
+    <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Profile Picture" id="profile-picture">
+    <a href="perfil.html" id="profile-name">Usuário</a>
+</div>
+
+<!-- Modal do Delete -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Tem certeza que deseja deletar este item?</h2>
+    <button class="modal-btn modal-btn-confirm" onclick="confirmDeletion()">Deletar</button>
+    <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Modal Externa -->
+<div id="externalModal" class="modal">
+  <div id="externalModalContent" class="modal-content">
+    <span class="close" onclick="closeExternalModal()">&times;</span>
+    <iframe id="externalModalIframe" src="" frameborder="0" style="width: 100%; height: 80vh;"></iframe>
+  </div>
+</div>
+
+<!-- Notificação -->
+<div id="notification" class="notification">Item deletado com sucesso!</div>
+{% endblock modals %}
+
+
+
+
+{% block script %}
+<script src="{% static 'js/listagem/listagemUsuariosInternos.js' %}"></script>
+{% endblock script %}

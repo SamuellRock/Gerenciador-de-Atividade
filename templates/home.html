@@ -36,8 +36,8 @@
             <li>
                 <a href="#" onclick="toggleDropdown(event, 'usuarios-dropdown')"><i class="fas fa-users"></i> Usuários <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
                 <ul id="usuarios-dropdown">
-                    <li><a href="listagens/usuariosInternos.html"><i class="fas fa-user-shield"></i> Usuário Interno</a></li>
-                    <li><a href="listagens/usuariosExternos.html"><i class="fas fa-user-friends"></i> Usuário Externo</a></li>
+                    <li><a href="{% url 'lista_usuario_interno' %}"><i class="fas fa-user-shield"></i> Usuário Interno</a></li>
+                    <li><a href="{% url 'lista_usuario_externo' %}"><i class="fas fa-user-friends"></i> Usuário Externo</a></li>
                 </ul>
             </li>
             <li><a href="{% url 'opcoes_cadastro'%}"><i class="fas fa-address-card"></i> Cadastros</a></li>
@@ -68,8 +68,8 @@
 </div>
 
 
-{% block modals %}
 
+{% block modals %}
 <div class="profile">
     <img src="{% static 'img/login/perfil.jpg' %}" alt="Profile Picture" id="profile-picture">
     <a href="perfil.html" id="profile-name">Usuário</a>

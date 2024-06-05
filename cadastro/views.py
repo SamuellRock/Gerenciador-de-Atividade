@@ -45,13 +45,6 @@ def cadastro_externo(request):
 '''SAMUEL ESTEVE AQUI  Atualizar usuario Externo'''
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
-def lista_externa(request):
-    usuarios = Usuario_Externo.objects.all()
-    return render(request, 'lista_avante.html', {'usuarios': usuarios})
-
-
-@login_required(login_url='login')
-@has_permission_decorator('cadastro_externo')
 def update_usuario_externo(request, pk):
     usuario = get_object_or_404(Usuario_Externo, pk=pk)
     if request.method == 'POST':
@@ -167,11 +160,26 @@ def lista_presenca(request, atividade_id):
 
 #TODO Ver as permissões
 # lista---------------------------------------------------------------
+
+# @cache_page(60)
+# @login_required(login_url='login')
+# def lista_usuario(request):
+#     usuario = Usuario_Externo.objects.all()
+#     return render(request, 'lista/lista_usuario.html', {'usuarios': usuario})
+
 @cache_page(60)
 @login_required(login_url='login')
-def lista_usuario(request):
-    usuario = Usuario_Externo.objects.all()
-    return render(request, 'lista/lista_usuario.html', {'usuarios': usuario})
+def lista_usuario_interno(request):
+    internoList = Usuario_Externo.objects.all()
+    return render(request, 'lista/listagemUsuariosInternos.html', {'internoList': internoList})
+
+
+
+@cache_page(60)
+@login_required(login_url='login')
+def lista_usuario_externo(request):
+    externoList = Usuario_Externo.objects.all()
+    return render(request, 'lista/listagemUsuariosExternos.html', {'externoList': externoList})
 
 
 @login_required(login_url='login')
