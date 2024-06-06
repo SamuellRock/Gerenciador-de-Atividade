@@ -184,12 +184,31 @@ def lista_usuario_externo(request):
 
 @login_required(login_url='login')
 def lista_aula(request):
-    aulaList = Atividade.objects.all()
+    pesquisa = request.GET.get('pesquisa')
+
+    if pesquisa:
+        aulaList = Atividade.objects.all()
+        aulaList = aulaList.filter(nome_atividade__icontains=pesquisa)
+
+
+    else:
+        aulaList = Atividade.objects.all()
+
     return render(request, 'lista/listagemAulas.html', {'aulaList': aulaList})
+
 
 @login_required(login_url='login')
 def lista_servico(request):
-    servicoList = Servico.objects.all()
+    pesquisa = request.GET.get('pesquisa')
+
+    if pesquisa:
+
+        servicoList = Servico.objects.all()
+        servicoList = servicoList.filter(nome_servico__icontains=pesquisa)
+
+    else:
+        servicoList = Servico.objects.all()
+
     return render(request, 'lista/listagemServicos.html', {'servicoList': servicoList})
 
 

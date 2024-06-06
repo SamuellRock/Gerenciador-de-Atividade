@@ -43,8 +43,6 @@ class AtividadeForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'placeholder': field})
 
         self.fields['nome_atividade'].widget.attrs.update({'id': 'activityName'})
         self.fields['descricao'].widget.attrs.update({'id': 'activityDescription'})
@@ -94,13 +92,6 @@ class ServicoAtividadeForm(forms.ModelForm):
         self.fields['hora_inicio'].widget = forms.DateInput(attrs={'type': 'time'})
         self.fields['hora_fim_atividade'].widget = forms.DateInput(attrs={'type': 'time'})
         self.fields['dia_atividade'].widget = forms.DateInput(attrs={'type': 'date'})
-
-        #TODO TYPE TIME
-
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'placeholder': field})
-
-
 
 
 # Inscrever Atividade
