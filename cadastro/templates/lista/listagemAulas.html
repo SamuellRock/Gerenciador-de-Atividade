@@ -20,8 +20,12 @@
                 <div class="box-header">
                     <h3>Aulas</h3>
                     <div class="search-container">
-                        <input type="text" id="search-input" placeholder="Pesquisar...">
+
+                    <form method="GET" action="{% url 'lista_aula' %}">
+                        <input type="text" id="search-input" placeholder="Pesquisar..." name="pesquisa" value="pesquisa">
                         <button type="button" id="search-button"><i class="fas fa-search"></i></button>
+                    </form>
+
                     </div>
                     <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aluno </button>
                 </div>

@@ -4,14 +4,17 @@
     --rosa: #D155A4;
     --amarelo: #FFD500;
     --branco: #FFFFFF;
+    --vermelho: #E40101;
+    --azul: #007BFF;
+    --verde: #2E8B57;
     --cinza-claro: #f4f4f4;
+    --fonte: "Nunito", sans-serif;
 }
 body {
-    font-family: "Nunito", sans-serif;
+    font-family: var(--fonte);
     margin: 0;
     padding: 0;
     background-color: var(--cinza-claro);
-
 }
 
 .container {

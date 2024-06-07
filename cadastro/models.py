@@ -37,7 +37,7 @@ class DiaAtividade(models.Model):
 class Usuario_Externo(models.Model):
 
     nome = models.CharField(max_length=50, blank=False, null=False, validators=[validate_nome],unique=True)
-    cpf = models.CharField(max_length=14, blank=False, null=False, validators=[validate_cpf])
+    cpf = models.CharField(max_length=14, blank=False, null=False, validators=[validate_cpf], verbose_name='CPF')
     nascimento = models.DateField(blank=False, null=False)
     responsavel_nome = models.CharField(max_length=50, null=True, blank=True, validators=[validate_nome])
     responsavel_cpf = models.CharField(max_length=14, null=True, blank=True, validators=[validate_cpf])

@@ -4,51 +4,48 @@
 <!-- HEAD herdada do Template home.html -->
 {% block head %}
 <title>{% block title %} Sistema de Gerenciamento {% endblock title %}</title>
-<link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemServicos.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemUsuariosInternos.css'%}">
 {% endblock head %}
+
 
 <!-- NAVBAR herdada do Template home.html -->
 
 
 {% block content_space %}
     <div class="content">
-        <h1>Atividades</h1>
+        <h1>Usuários</h1>
         <div class="box-container">
             <div class="box">
                 <div class="box-header">
-                    <h3>Serviços</h3>
+                    <h3>Usuários Interno</h3>
                     <div class="search-container">
-                        <form action="#" method="GET">
-                            <input type="text" id="search-input" placeholder="Pesquisar..." name="pesquisa">
-                            <button type="button" id="search-button"><i class="fas fa-search"></i></button>
-                        </form>
+                        <input type="text" id="search-input" placeholder="Localizar...">
+                        <button type="button" id="search-button"><i class="fas fa-search"></i></button>
                     </div>
-                    <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aluno </button>
+                    <div class="btn-container">
+                        <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aula </button>
+                        <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Serviço </button>
+                    </div>
                 </div>
                 <table>
                     <tr>
                         <th>Nome</th>
-                        <th>Dia</th>
-                        <th>Horários</th>
-                        <th>Responsável</th>
-                        <th>Status</th>
+                        <th>Tipo de Usuário</th>
+                        <th>E-mail</th>
                         <th>Ações</th>
+
                     </tr>
                     <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
-                    {% for servico in servicoList %}
                     <tr>
-                        <td>{{ servico.nome_servico }}</td>
-                        <td>{{ servico.dia_atividade }}</td>
-                        <td>{{ servico.hora_inicio }} até {{ servico.hora_fim_atividade }}</td>
-                        <td>{{ servico.responsavel }}</td>
-                        <td>Ativo or Not</td>
+                        <td>Glenda Rangel</td>
+                        <td>Funcionário</td>
+                        <td>glenda.rangel@hotmail.com</td>
                         <td>
-                            <button class="btn-editar" onclick="openExternalModal('editarServicosModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
-                            <button class="btn-visualizar" onclick="openExternalModal('visualizarServicosModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
+                            <button class="btn-editar" onclick="openExternalModal('editarUsuariosInternoModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-visualizar" onclick="openExternalModal('visualizarUsuarioInternoModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
                             <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>
-                    {% endfor %}
                     <!-- Fim exemplo de linha de tabela -->
                 </table>
             </div>
@@ -62,7 +59,7 @@
 {% block modals %}
 <div class="profile">
     <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Profile Picture" id="profile-picture">
-    <a href="perfil.html" id="profile-name">Usuário</a> 
+    <a href="perfil.html" id="profile-name">Usuário</a>
 </div>
 
 <!-- Modal do Delete -->
@@ -89,6 +86,7 @@
 
 
 
+
 {% block script %}
-<script src="{% static 'js/listagem/listagemServicos.js' %}"></script>
+<script src="{% static 'js/listagem/listagemUsuariosInternos.js' %}"></script>
 {% endblock script %}

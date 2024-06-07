@@ -1,4 +1,4 @@
-/admin/
+ /admin/
 usuario: admin
 senha: pedro272
 

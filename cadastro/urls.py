@@ -14,13 +14,14 @@ urlpatterns = [
     path('lista_precenca/<int:atividade_id>/', lista_presenca, name='listP'),
     
     path('update_atividade/<int:pk>/', update_atividade, name='update_atividade'),
-    path('lista_avante/', lista_externa, name='lista_externa'),
-    path('lista/', lista_usuario, name='lista'),
+    #path('lista/', lista_usuario, name='lista'),
     path('lista_inscricao/', lista_inscricao, name='lista_inscricao'),
 
     #feito
     path('lista_aula/', lista_aula, name='lista_aula'),
     path('lista_servico/', lista_servico, name='lista_servico'),
+    path('lista_usuario_externo/', lista_usuario_externo, name='lista_usuario_externo'),
+    path('lista_usuario_interna/', lista_usuario_interno, name='lista_usuario_interno'),
 
     path('deletar/<slug:slug>/', deletar_cliente, name='deletarCli'),
     path('deletar_atividade/<slug:slug>/', deletar_atividade, name='deletarAti'),
