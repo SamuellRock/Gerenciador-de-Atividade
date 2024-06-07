@@ -93,6 +93,8 @@ class ServicoAtividadeForm(forms.ModelForm):
         self.fields['hora_fim_atividade'].widget = forms.DateInput(attrs={'type': 'time'})
         self.fields['dia_atividade'].widget = forms.DateInput(attrs={'type': 'date'})
 
+        self.fields['responsavel'].label_from_instance = lambda obj: "{:<30}{:<30}{:>30}".format(obj.first_name, obj.last_name, obj.email)
+
 
 # Inscrever Atividade
 class Inscrever_na_AtividadeForm(forms.ModelForm):

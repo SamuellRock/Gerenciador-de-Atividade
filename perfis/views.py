@@ -20,7 +20,7 @@ def cadastro_usuario(request):
     if request.method == "GET":
         grupoForm = UserFormTemplate
 
-        return render(request, 'cadastro_interno.html', {"grupoForm": grupoForm})
+        return render(request, 'cadastro/cadastro_interno.html', {"grupoForm": grupoForm})
 
     elif request.method == 'POST':
         email = request.POST.get('email')
