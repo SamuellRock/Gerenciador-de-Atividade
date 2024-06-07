@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Gerenciamento</title>
+<title>Visualização de Perfil</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 <style>
     :root {
         --azul-claro: #4AA0CD;
@@ -14,10 +13,15 @@
         --rosa: #D155A4;
         --amarelo: #FFD500;
         --branco: #FFFFFF;
+        --vermelho: #E40101;
+        --azul: #007BFF;
+        --verde: #2E8B57;
         --cinza-claro: #f4f4f4;
+        --cinza-escuro: #333;
+        --fonte: "Nunito", sans-serif;
     }
     body {
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin: 0;
         padding: 0;
         background-color: var(--cinza-claro);
@@ -93,7 +97,7 @@
     .pagina-inicial {
         margin-bottom: 20px;
         border-top: 1px solid var(--azul-escuro);
-        border-bottom: 1px solid var(--azul-escuro);
+        border-bottom: 1px solid var (--azul-escuro);
         padding: 10px 0;
     }
 
@@ -116,13 +120,14 @@
 
     a {
         text-decoration: none;
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         color: var(--azul-escuro);
     }
 
     .content {
         flex: 1;
-        padding: 20px;
+        padding: 40px;
+        background-color: var(--cinza-claro);
     }
 
     .profile {
@@ -143,17 +148,20 @@
         border-radius: 50%;
         margin-right: 10px;
     }
-    
-    h1{
-        font-family: "Nunito", sans-serif;
+
+    h1 {
+        font-family: var(--fonte);
         color: var(--azul-escuro);
+        margin-bottom: 20px;
     }
+
     .box-container {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
+        justify-content: center;
     }
-    
+
     .box {
         background-color: var(--branco);
         border: 1px solid var(--azul-claro);
@@ -162,32 +170,99 @@
         padding: 20px;
         flex: 1 1 calc(50% - 20px);
         box-sizing: border-box;
-        text-align: center;
+        max-width: 400px;
     }
-    .box h3 {
-        margin-top: 10px; /* Reduz o espaço superior */
+
+    .box h1 {
+        margin-top: 0;
         color: var(--azul-escuro);
         border-bottom: 2px solid var(--azul-claro);
         padding-bottom: 10px;
         font-size: 25px;
     }
-    .box h5 {
-        color: var(--azul-escuro);
-        margin: 10px 0;
-        padding: 5px 10px;
+
+    .profile-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-details .profile-picture-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-details img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-details img:hover {
+        transform: scale(1.05);
+    }
+
+    .profile-details .edit-icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
         background-color: var(--azul-claro);
-        border-radius: 5px;
-        display: inline-block;
-        font-size: 15px;
-    }
-    .box h5 a {
         color: var(--azul-escuro);
-        text-decoration: none;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
-    .box h5 a:hover {
-        text-decoration: underline;
+
+    .profile-details ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        width: 100%;
     }
-    /* Estilos da Modal */
+
+    .profile-details ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--azul-claro);
+        font-size: 18px;
+        color: var(--cinza-escuro);
+    }
+
+    .profile-details ul li:last-child {
+        border-bottom: none;
+    }
+
+    .edit-button {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--azul-escuro);
+        color: var(--branco);
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 15px;
+        font-family: var(--fonte);
+    }
+
+    .edit-button:hover {
+        background-color: var(--azul-claro);
+        color: var(--azul-escuro);
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    strong {
+        color: var(--azul-escuro);
+    }
+
+    /* Estilo da modal */
     .modal {
         display: none; 
         position: fixed; 
@@ -215,11 +290,10 @@
     }
 
     .close {
-        color: var(--azul-escuro);
+        color: var(--cinza-escuro);
+        float: right;
         font-size: 28px;
         font-weight: bold;
-        align-self: flex-end; 
-        margin-bottom: 10px;
     }
 
     .close:hover,
@@ -235,65 +309,66 @@
         border: none;
         flex: 1; 
     }
-    h3 { 
-        color: var(--azul-escuro);
-        font-family: "Nunito", sans-serif;
-        padding-top: 0%;
-        margin-top: 0%;
-    }
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="sidebar">
-        <div> <img class="logo" src="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\img\logo (1).png"> </div>
+        <div> <img class="logo" src="D:/DocumentosHD/Gerenciador-de-Atividade/frontend/img/logo (1).png"> </div>
         <ul class="menu">
-            <li class="pagina-inicial"><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+            <li class="pagina-inicial"><a href="home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
             <li>
                 <a href="#" onclick="toggleDropdown(event, 'atividades-dropdown')"><i class="fas fa-tasks"></i> Atividades <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
                 <ul id="atividades-dropdown">
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\aulas.html"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
+                    <li><a href="listagens/aulas.html"><i class="fas fa-chalkboard-teacher"></i> Aulas</a></li>
+                    <li><a href="listagens/servicos.html"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#" onclick="toggleDropdown(event, 'usuarios-dropdown')"><i class="fas fa-users"></i> Usuários <i class="fas fa-chevron-down" style="margin-left:auto;"></i></a>
                 <ul id="usuarios-dropdown">
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosInternos.html"><i class="fas fa-user-shield"></i> Funcionários e Voluntários </a></li>
-                    <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\listagens\usuariosExternos.html"><i class="fas fa-user-friends"></i> Beneficiados </a></li>
+                    <li><a href="listagens/usuariosInternos.html"><i class="fas fa-user-shield"></i> Usuário Interno</a></li>
+                    <li><a href="listagens/usuariosExternos.html"><i class="fas fa-user-friends"></i> Usuário Externo</a></li>
                 </ul>
             </li>
             <li><a href="cadastros/opcoesCadastros.html"><i class="fas fa-address-card"></i> Cadastros</a></li>
-            <li><a href="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
+            <li><a href="inscricao.html"><i class="fas fa-file-signature"></i> Inscrição</a></li>
         </ul>
         <div class="logout"><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
     </div>
 
     <div class="content">
-        <h1>Opções de Cadastro:</h1>
         <div class="box-container">
             <div class="box">
-                <h3>Cadastro de Atividades</h3>
-                <h5><a href="#" class="modal-link" data-url="cadastroServicosModal.html">Serviços</a></h5>
-                <h5><a href="#" class="modal-link" data-url="cadastroAulasModal.html">Aulas</a></h5>
-            </div>
-            <div class="box">
-                <h3>Cadastro de Usuários</h3>
-                <h5><a href="#" class="modal-link" data-url="cadastroUsuarioInternoModal.html">Funcionários e Voluntários</a></h5>
-                <h5><a href="#" class="modal-link" data-url="cadastroUsuarioExternoModal.html">Beneficiado</a></h5>
+                <div class="profile-details">
+                    <div class="profile-picture-container">
+                        <label for="file-input">
+                            <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Foto do Perfil" id="profile-picture">
+                            <i class="fas fa-camera edit-icon"></i>
+                        </label>
+                        <input id="file-input" type="file" class="file-input" accept="image/*" onchange="changeProfilePicture(event)" />
+                    </div>
+                    <ul>
+                        <li><strong>Nome:</strong> Samuel</li>
+                        <li><strong>Email:</strong> samuel@example.com</li>
+                        <li><strong>Tipo de Usuário:</strong> Administrador</li>
+                        <li><strong>Função:</strong> Coordenador</li>
+                        <li><strong>Tipo de Perfil:</strong> Completo</li>
+                    </ul>
+                    <button class="edit-button" data-url="editarPerfilModal.html">Editar Usuário</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="profile">
-    <img src="D:\DocumentosHD\PROJETO WEB3\img\perfil.jpg" alt="Profile Picture" id="profile-picture">
-    <a href="perfil.html" id="profile-name">Usuário</a> 
+    <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Profile Picture" id="profile-thumbnail">
+    <a href="perfil.html" id="profile-name">Samuel</a>
 </div>
 
-<!-- Modal -->
-<div id="myModal" class="modal">
+<div id="editModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <iframe id="modalIframe"></iframe>
@@ -307,44 +382,65 @@
         dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
     }
 
-    // Simulação de carregamento de dados do usuário
-    document.addEventListener("DOMContentLoaded", function() {
-        // Exemplo de dados do usuário, que seriam carregados dinamicamente
+    document.addEventListener("DOMContentLoaded", function () {
         var userProfile = {
             name: "Samuel",
-            picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" // Caminho da imagem
+            email: "samuel@example.com",
+            picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg"
         };
 
         document.getElementById("profile-name").textContent = userProfile.name;
-        document.getElementById("profile-picture").src = userProfile.picture;
+        document.getElementById("profile-thumbnail").src = userProfile.picture;
     });
 
+    function changeProfilePicture(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('profile-picture', file);
+
+            fetch('/upload-profile-picture', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("profile-picture").src = data.filepath;
+                    document.getElementById("profile-thumbnail").src = data.filepath;
+                } else {
+                    alert('Erro ao fazer upload da imagem');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-        // Modal
-        var modal = document.getElementById("myModal");
+        var modal = document.getElementById("editModal");
         var modalIframe = document.getElementById("modalIframe");
-        var modalLinks = document.querySelectorAll(".modal-link");
+        var editButton = document.querySelector(".edit-button");
         var closeModal = document.getElementsByClassName("close")[0];
 
-        modalLinks.forEach(function(link) {
-            link.onclick = function(event) {
-                event.preventDefault();
-                modalIframe.src = link.getAttribute("data-url");
-                modal.style.display = "block";
-            }
-        });
+        editButton.onclick = function(event) {
+            event.preventDefault();
+            modalIframe.src = editButton.getAttribute("data-url");
+            modal.style.display = "block";
+        };
 
         closeModal.onclick = function() {
             modal.style.display = "none";
             modalIframe.src = ""; // Clear the iframe src to stop the video/audio
-        }
+        };
 
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
                 modalIframe.src = ""; // Clear the iframe src to stop the video/audio
             }
-        }
+        };
     });
 </script>
 
