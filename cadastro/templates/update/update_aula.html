@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Atividades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/update_aula/update_aula.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edição de Aula</h2>
+        {% if messages %}
+        <br>
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        <form id="activityForm" method="post" action="{% url 'update_aula' atividade.id %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }} <!-- Exibe erros não associados a campos específicos -->
+            <div class="form-group">
+                <label for="activityName">Nome da Aula:</label>
+                {{ form.nome_atividade }}
+                {% if form.nome_atividade.errors %}
+                <div class="text-danger">
+                    {% for error in form.nome_atividade.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="activityDescription">Descrição da Aula:</label>
+                {{ form.descricao }}
+                {% if form.descricao.errors %}
+                <div class="text-danger">
+                    {% for error in form.descricao.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="activityResponsible">Responsável:</label>
+                {{ form.responsavel }}
+                {% if form.responsavel.errors %}
+                <div class="text-danger">
+                    {% for error in form.responsavel.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="activityLimit">Limite de Alunos:</label>
+                {{ form.limite_alunos }}
+                {% if form.limite_alunos.errors %}
+                <div class="text-danger">
+                    {% for error in form.limite_alunos.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="activityTime">Hora da Aula:</label>
+                {{ form.hora_atividade }}
+                {% if form.hora_atividade.errors %}
+                <div class="text-danger">
+                    {% for error in form.hora_atividade.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div id="activityDaysContainer">
+                <div class="activity-day">
+                    <div class="form-group">
+                        <label for="activityDay">Dia da Semana da Aula:</label>
+                        {{ form.dia_atividade }}
+                        {% if form.dia_atividade.errors %}
+                        <div class="text-danger">
+                            {% for error in form.dia_atividade.errors %}
+                            <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="add-day-btn" id="addDayBtn">Adicionar Dia</button>
+            <button type="button" id="saveChangesBtn">Salvar Alterações</button>
+            <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Turma</button>
+        </form>
+    </div>
+
+    <div id="saveConfirmation" class="confirmation-box" style="display: none;">
+        <p>Você tem certeza que deseja salvar as alterações?</p>
+        <button id="confirmSaveBtn">Sim</button>
+        <button id="cancelSaveBtn">Não</button>
+    </div>
+
+    <div id="finalizeConfirmation" class="confirmation-box" style="display: none;">
+        <p>Você tem certeza que deseja finalizar as aulas?</p>
+        <button id="confirmFinalizeBtn">Sim</button>
+        <button id="cancelFinalizeBtn">Não</button>
+    </div>
+
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    {% block script %}
+    <script src="{% static 'js/update_aula/update_aula.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

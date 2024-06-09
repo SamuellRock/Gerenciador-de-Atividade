@@ -21,8 +21,10 @@
         {% if messages %}
             <br>
             {% for message in messages%}
-                <div class="alert {{message.tags}}">{{message}}</div>
+                <div class="notification {{message.tags}}">{{message}}</div>
             {% endfor %}
+
+            <div id="notification" class="notification">Item deletado com sucesso!</div>
 
         {% endif %}
 
@@ -38,7 +40,7 @@
                 <input type="text" id="sobrenome" name="sobrenome" required>
             </div>
             <div class="form-group">
-                <label for="userType">Tipo de Usuário:</label>
+                <label for="userType">Perfil:</label>
                {{grupoForm.tipoUsuario}}
 
             </div>
@@ -63,6 +65,7 @@
 
         </form>
     </div>
+<script src="{% static 'js/listagem/listagemUsuariosExternos.js' %}"></script>
 </body>
 
 </html>

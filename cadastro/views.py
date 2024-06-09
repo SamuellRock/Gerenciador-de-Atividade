@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.cache import cache_page
+from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
 
 
@@ -71,8 +72,9 @@ def cadastro_atividade(request):
         form = AtividadeForm(request.POST)
 
         if form.is_valid():
-            form.save()
-
+            atividade = form.save(commit=False)
+            form.save_m2m()
+            atividade.save()
             messages.add_message(request, messages.SUCCESS, 'Atividade cadastrada com sucesso!')
             return redirect(reverse('cdA'))
         else:
@@ -106,21 +108,39 @@ def cadastro_servico(request):
             return render(request, 'cadastro_atividade_servicos/cadastro_atividade_servicos.html', {'form': form})
 
 
-'''SAMUEL ESTEVE AQUI atualizar atividade'''
+# UPDATE---------------------------------------------------------------
+@xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
-def update_atividade(request, pk):
-    atividade = get_object_or_404(Atividade, pk=pk)
+def update_aula(request, id):
+    atividade = get_object_or_404(Atividade, pk=id)
     if request.method == 'POST':
         form = AtividadeForm(request.POST, instance=atividade)
+        print(form)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Atividade atualizada com sucesso!')
-            return redirect(reverse('update_atividade', args=[pk]))
+            return redirect(reverse('update_aula', args=[id]))
     else:
         form = AtividadeForm(instance=atividade)
-    return render(request, 'update/update_atividade.html', {'form': form, 'atividade': atividade})
-#ATÈ AQUI
+    return render(request, 'update/update_aula.html', {'form': form, 'atividade': atividade})
+
+
+@xframe_options_exempt
+@login_required(login_url='login')
+def update_servico(request,id):
+    servico = get_object_or_404(Servico, pk=id)
+    if request.method == 'POST':
+        form = ServicoAtividadeForm(request.POST, instance=servico)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse(update_servico, args=[id]))
+    else:
+        form = ServicoAtividadeForm(instance=servico)
+
+    return render(request, 'update/update_servico.html', {'form': form, 'servico': servico})
+
+# ---------------------------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -161,12 +181,6 @@ def lista_presenca(request, atividade_id):
 #TODO Ver as permissões
 # lista---------------------------------------------------------------
 
-# @cache_page(60)
-# @login_required(login_url='login')
-# def lista_usuario(request):
-#     usuario = Usuario_Externo.objects.all()
-#     return render(request, 'lista/lista_usuario.html', {'usuarios': usuario})
-
 @cache_page(60)
 @login_required(login_url='login')
 def lista_usuario_interno(request):
@@ -182,6 +196,7 @@ def lista_usuario_externo(request):
     return render(request, 'lista/listagemUsuariosExternos.html', {'externoList': externoList})
 
 
+@xframe_options_exempt
 @login_required(login_url='login')
 def lista_aula(request):
     pesquisa = request.GET.get('pesquisa')
@@ -197,6 +212,7 @@ def lista_aula(request):
     return render(request, 'lista/listagemAulas.html', {'aulaList': aulaList})
 
 
+@xframe_options_exempt
 @login_required(login_url='login')
 def lista_servico(request):
     pesquisa = request.GET.get('pesquisa')
@@ -239,16 +255,20 @@ def deletar_cliente(request, slug):
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
-def deletar_atividade(request, slug):
-    atividade = get_object_or_404(Atividade, slug=slug)
-    form = AtividadeForm(request.POST or None, instance=atividade)
+@require_POST
+def deletar_aula(request, id):
+    atividade = get_object_or_404(Atividade, id=id)
+    atividade.delete()
+    return JsonResponse({'message': 'Aula deletada com sucesso!'})
 
-    if request.method == 'POST':
-        atividade.delete()
-        messages.add_message(request, messages.SUCCESS, 'Atividade deletada com Sucesso')
-        return redirect(reverse('lista_atividade'))
 
-    return render(request, 'delete/deletar_atividade.html', {'form': form})
+@login_required(login_url='login')
+@has_permission_decorator('cadastro_interno')
+@require_POST
+def deletar_servico(request, id):
+    servico = get_object_or_404(Servico, id=id)
+    servico.delete()
+    return JsonResponse({'message': 'Serviço deletado com sucesso!'})
 
 
 @has_permission_decorator('cadastro_interno')

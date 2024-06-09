@@ -1,29 +1,20 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Atividades</title>
+    <title>Edição de Atividades</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/cadastro_atividade_servico/cadastro_atividade_servico.css' %}">
+    <link rel="stylesheet" href="{% static 'css/update_servico/update_servico.css'%}">
 </head>
 
 <body>
+    <h2>Edição de Serviço</h2>
     <div class="form-container">
-
-        {% if messages %}
-        <br>
-        {% for message in messages %}
-        <div class="alert {{message.tags}}">{{message}}</div>
-        {% endfor %}
-        {% endif %}
-
-        <h2>Cadastro de Atividades</h2>
-        <form id="activityForm" action="{% url 'cdS' %}" method="POST">{% csrf_token %}
-            {{ form.non_field_errors }}
+            <form id="activityForm" action="{% url 'update_servico' servico.id %}" method="POST">{% csrf_token %}
             <div class="form-group">
                 <label for="activityName">Nome do Serviço:</label>
                 {{ form.nome_servico }}
@@ -35,10 +26,10 @@
             <div class="form-group">
                 <label for="activityResponsible">Responsável:</label>
                 {{ form.responsavel }}
-            </div>
+
             <div class="form-group">
                 <label for="timeIntervalStart">Início do Intervalo:</label>
-                {{ form.hora_inicio }}
+                {{ form.hora_inicio  }}
             </div>
             <div class="form-group">
                 <label for="timeSlotDuration">Duração de cada horário (em minutos):</label>
@@ -54,11 +45,26 @@
             </div>
             <button type="button" id="generateTimeSlotsBtn" class="small-button">Gerar Horários</button>
             <div id="timeSlotsContainer"></div>
-            <button type="submit" id="saveChangesBtn">Cadastrar Servico</button>
-        </form>
+            <button type="button" id="saveChangesBtn">Salvar Alterações</button>
+            <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Serviço</button>
+                </form>
     </div>
 
-    <script src="{% static 'js/cadastro_atividade_servico.js' %}"></script>
+    <div id="saveConfirmation" class="confirmation-box">
+        <p>Você tem certeza que deseja salvar as alterações?</p>
+        <button id="confirmSaveBtn">Sim</button>
+        <button id="cancelSaveBtn">Não</button>
+    </div>
+
+    <div id="finalizeConfirmation" class="confirmation-box">
+        <p>Você tem certeza que deseja finalizar o serviço?</p>
+        <button id="confirmFinalizeBtn">Sim</button>
+        <button id="cancelFinalizeBtn">Não</button>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+<script src="{% static 'js/update_servico/update_servico.js'%}"></script>
 </body>
 
 </html>

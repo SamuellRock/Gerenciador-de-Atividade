@@ -4,19 +4,62 @@ function toggleDropdown(event, dropdownId) {
     dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
 }
 
-function openModal() {
+function openModal(button) {
     document.getElementById("deleteModal").style.display = "block";
+    var id = button.getAttribute("data-id");
+    var confirmButton = document.getElementById("confirmDeleteButton");
+    confirmButton.setAttribute("data-id", id);
 }
+
 
 function closeModal() {
     document.getElementById("deleteModal").style.display = "none";
 }
 
 function confirmDeletion() {
-    closeModal();
-    showNotification();
-    //adicionar o código para deletar o item
+    var confirmButton = document.getElementById("confirmDeleteButton");
+    var id = confirmButton.getAttribute("data-id");
+    var url = `/deletar_aula/${id}/`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCookie('csrftoken') // Função para pegar o token CSRF
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            closeModal();
+            showNotification();
+            // Remover a linha da tabela
+            var row = document.querySelector(`button[data-id='${id}']`).closest('tr');
+            row.parentNode.removeChild(row);
+        } else {
+            alert('Erro ao deletar a aula.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
 
 function showNotification() {
     var notification = document.getElementById("notification");

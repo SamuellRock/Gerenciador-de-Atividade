@@ -88,6 +88,7 @@ class Servico(models.Model):
     responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='UserService', limit_choices_to={'is_superuser': False})
     dia_atividade = models.DateField(null=True, blank=True)
     hora_inicio = models.TimeField(blank=False, null=False, verbose_name='Hora Inicio')
+    hora_intervalo = models.TimeField(blank=False, null=False, verbose_name='Hora Intervalo')
     hora_fim_atividade = models.TimeField(blank=False, null=False, verbose_name='Hora Fim')
 
     def __str__(self):

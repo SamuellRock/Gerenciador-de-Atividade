@@ -1,13 +1,12 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from .models import Inscrever_na_Atividade
 from .models import Atividade
 from .models import Usuario_Externo
 from .models import lista_precenca
 from .models import Servico
-from .models import DiaAtividade
 from django import forms
-from datetime import timedelta, datetime, date
 from django.core.exceptions import ValidationError
+from django.forms import TimeInput
 
 
 #Cadastro usuario externo
@@ -36,28 +35,33 @@ class Usuario_ExternoForm(ModelForm):
 
 # Cadastro Atividade
 
-class AtividadeForm(ModelForm):
+class AtividadeForm(forms.ModelForm):
     class Meta:
         model = Atividade
         exclude = ['slug']
 
+        #isso ja converte direto o input
+        widgets = {
+            'hora_atividade': TimeInput(format='%H:%M', attrs={'type': 'time', 'id': 'activityTime'})
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.initial_hora_atividade = self.instance.hora_atividade if self.instance.pk else None
+        self.initial_responsavel = self.instance.responsavel if self.instance.pk else None
+        self.initial_dia_atividade = self.instance.dia_atividade.all() if self.instance.pk else []
 
         self.fields['nome_atividade'].widget.attrs.update({'id': 'activityName'})
         self.fields['descricao'].widget.attrs.update({'id': 'activityDescription'})
         self.fields['responsavel'].widget.attrs.update({'id': 'activityResponsible'})
         self.fields['limite_alunos'].widget.attrs.update({'id': 'activityLimit'})
-        self.fields['hora_atividade'].widget.attrs.update({'id': 'activityTime'})
-        self.fields['hora_atividade'].widget = forms.DateInput(attrs={'type': 'time'})
         self.fields['dia_atividade'].widget.attrs.update({'id': 'activityDay'})
-
 
         self.fields['responsavel'].label_from_instance = lambda obj: "{:<30}{:<30}{:>30}".format(obj.first_name,
                                                                                                    obj.last_name,
                                                                                                    obj.email)
 
-    #Ver se a atividade esta cadastrada em certo horario
     def clean(self):
         cleaned_data = super().clean()
         responsavel = cleaned_data.get('responsavel')
@@ -69,29 +73,40 @@ class AtividadeForm(ModelForm):
                 outras_atividades = Atividade.objects.filter(responsavel=responsavel, dia_atividade=dia)
 
                 for atividade in outras_atividades:
+                    if self.instance.pk and atividade.pk == self.instance.pk:
+                        continue
                     if abs(atividade.hora_atividade.hour - hora_atividade.hour) < 5:
                         raise ValidationError('Deve haver um intervalo de 5 horas entre as atividades do mesmo responsável no mesmo dia.')
 
         return cleaned_data
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if commit:
+            instance.save()
+            self.save_m2m()
+        else:
+            instance.save()
+        return instance
 
 
 class ServicoAtividadeForm(forms.ModelForm):
     class Meta:
         model = Servico
         fields = '__all__'
+        widgets = {
+            'hora_inicio': TimeInput(format='%H:%M', attrs={'type': 'time', 'id': 'timeIntervalStart'}),
+            'hora_fim_atividade': TimeInput(format='%H:%M', attrs={'type': 'time', 'id': 'timeIntervalEnd'}),
+            'dia_atividade': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'id': 'activityDay'}),
+            'hora_intervalo': DateInput(format='%H:%M', attrs={'type': 'time', 'id': 'timeSlotDuration'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.fields['nome_servico'].widget.attrs.update({'id': 'activityName'})
         self.fields['descricao'].widget.attrs.update({'id': 'activityDescription'})
         self.fields['responsavel'].widget.attrs.update({'id': 'activityResponsible'})
-        self.fields['dia_atividade'].widget.attrs.update({'id': 'activityDay'})
-        self.fields['hora_inicio'].widget.attrs.update({'id': 'activityTime'})
-        self.fields['hora_fim_atividade'].widget.attrs.update({'id': 'activityTime'})
-        self.fields['hora_inicio'].widget = forms.DateInput(attrs={'type': 'time'})
-        self.fields['hora_fim_atividade'].widget = forms.DateInput(attrs={'type': 'time'})
-        self.fields['dia_atividade'].widget = forms.DateInput(attrs={'type': 'date'})
+        self.fields['responsavel'].label_from_instance = lambda obj: "{:<30}{:<30}{:>30}".format(obj.first_name, obj.last_name, obj.email)
 
 
 # Inscrever Atividade

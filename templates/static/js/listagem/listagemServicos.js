@@ -4,8 +4,14 @@ function toggleDropdown(event, dropdownId) {
     dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
 }
 
-function openModal() {
+function openModal(button) {
+    console.log("openModal called"); // Log de depuração
+    console.log("Button:", button); // Log de depuração
+    var id = button.getAttribute("data-id");
+    console.log("ID:", id); // Log de depuração
     document.getElementById("deleteModal").style.display = "block";
+    var confirmButton = document.getElementById("confirmDeleteButton");
+    confirmButton.setAttribute("data-id", id);
 }
 
 function closeModal() {
@@ -13,9 +19,45 @@ function closeModal() {
 }
 
 function confirmDeletion() {
-    closeModal();
-    showNotification();
-    //adicionar o código para deletar o item
+    var confirmButton = document.getElementById("confirmDeleteButton");
+    var id = confirmButton.getAttribute("data-id");
+    var url = `/deletar_servico/${id}/`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            closeModal();
+            showNotification();
+            var row = document.querySelector(`button[data-id='${id}']`).closest('tr');
+            row.parentNode.removeChild(row);
+        } else {
+            alert('Erro ao deletar o serviço.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 function showNotification() {
@@ -44,17 +86,16 @@ function closeExternalModal() {
     modal.style.display = "none";
 }
 
-// Simulação de carregamento de dados do usuário
 document.addEventListener("DOMContentLoaded", function() {
-    // Exemplo de dados do usuário, que seriam carregados dinamicamente
     var userProfile = {
         name: "Samuel",
-        picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" // Caminho da imagem
+        picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg"
     };
 
     document.getElementById("profile-name").textContent = userProfile.name;
     document.getElementById("profile-picture").src = userProfile.picture;
 });
+
 document.getElementById('search-button').addEventListener('click', function() {
     var input = document.getElementById('search-input').value.toLowerCase();
     var rows = document.querySelectorAll('.box');

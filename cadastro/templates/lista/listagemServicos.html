@@ -4,11 +4,10 @@
 <!-- HEAD herdada do Template home.html -->
 {% block head %}
 <title>{% block title %} Sistema de Gerenciamento {% endblock title %}</title>
-<link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemServicos.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemServicos.css' %}">
 {% endblock head %}
 
 <!-- NAVBAR herdada do Template home.html -->
-
 
 {% block content_space %}
     <div class="content">
@@ -34,7 +33,6 @@
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
-                    <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
                     {% for servico in servicoList %}
                     <tr>
                         <td>{{ servico.nome_servico }}</td>
@@ -43,26 +41,22 @@
                         <td>{{ servico.responsavel }}</td>
                         <td>Ativo or Not</td>
                         <td>
-                            <button class="btn-editar" onclick="openExternalModal('editarServicosModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn-editar" onclick="openExternalModal('{% url 'update_servico' servico.id%}', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
                             <button class="btn-visualizar" onclick="openExternalModal('visualizarServicosModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
-                            <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
+                            <button class="btn-deletar" onclick="openModal(this)" data-id="{{ servico.id }}"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>
                     {% endfor %}
-                    <!-- Fim exemplo de linha de tabela -->
                 </table>
             </div>
         </div>
     </div>
 {% endblock content_space %}
 
-
-
-
 {% block modals %}
 <div class="profile">
     <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Profile Picture" id="profile-picture">
-    <a href="perfil.html" id="profile-name">Usuário</a> 
+    <a href="perfil.html" id="profile-name">Usuário</a>
 </div>
 
 <!-- Modal do Delete -->
@@ -70,7 +64,7 @@
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
     <h2>Tem certeza que deseja deletar este item?</h2>
-    <button class="modal-btn modal-btn-confirm" onclick="confirmDeletion()">Deletar</button>
+    <button id="confirmDeleteButton" class="modal-btn modal-btn-confirm" onclick="confirmDeletion()">Deletar</button>
     <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancelar</button>
   </div>
 </div>
@@ -86,8 +80,6 @@
 <!-- Notificação -->
 <div id="notification" class="notification">Item deletado com sucesso!</div>
 {% endblock modals %}
-
-
 
 {% block script %}
 <script src="{% static 'js/listagem/listagemServicos.js' %}"></script>

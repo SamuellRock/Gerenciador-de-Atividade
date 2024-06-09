@@ -253,7 +253,7 @@ td {
 
 th {
     background-color: var(--azul-escuro);
-    color: var(br);
+    color: var(--branco);
     font-family: var(--fonte);
 }
 
@@ -261,8 +261,8 @@ tr:nth-child(even) {
     background-color: var(--branco);
 }
 tr:nth-child(odd) {
-    background-color: var(--azul-claro);
-    color: var(--branco);
+    background-color: var(--branco);
+
 }
 
 tr:hover {
