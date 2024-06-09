@@ -4,6 +4,8 @@ from .views import teste
 from cadastro import urls as cadastro_urls
 from perfis import urls as perfis_urls
 from AppHome import urls as appHome_urls
+from django.conf.urls import handler400, handler403, handler404
+
 
 #TODO Upgrade para home/
 urlpatterns = [
@@ -13,3 +15,7 @@ urlpatterns = [
     path('', include(perfis_urls)),
     path('', include(appHome_urls)),
 ]
+
+handler404 = "AppHome.views.erro_page"
+handler403 = "AppHome.views.erro_page"
+handler400 = "AppHome.views.erro_page"

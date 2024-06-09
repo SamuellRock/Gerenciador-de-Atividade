@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/erro/erro.css' %}">
+
+    <title>Erro!!</title>
+</head>
+
+
+<body>
+<div class="background"></div>
+
+<div class="container">
+
+    <div class="box" action="{% url 'login' %}" method="POST">
+
+        <div class="separate">
+            <div class="content-left">
+                <img src="{% static 'img/login/logo.png' %}">
+                <h3><strong> Ops!<br> Parece que houve um erro.</strong></h3>
+                <div class="box-text"><a>Você acessou uma página inválida, por favor retorne ao sistema.</a></div>
+
+                <a href="{% url 'home' %}"><button href="{% url 'home' %}">Voltar ao sistema</button></a>
+            </div>
+            <div class="content-right">
+                <img src="{% static 'img/figure-erro.png' %}">
+            </div>
+            
+        </div>
+    </div>
+    
+    <p>© 2024 Avante. Todos os direitos reservados – Desenvolvido por GOING FORYOU</p>
+
+</div>
+</body>
+</html>

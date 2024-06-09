@@ -13,3 +13,6 @@ def opcoes_cadastro(request):
     if request.method == 'GET':
         return render(request, 'cadastro/opcoesCadastros.html')
 
+
+def erro_page(request, exception):
+    return render(request, 'erro.html')
