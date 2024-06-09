@@ -14,10 +14,12 @@
         --amarelo: #FFD500;
         --branco: #FFFFFF;
         --cinza-claro: #f4f4f4;
-
+        --azul: #007BFF;
+        --verde: #2E8B57;
+        --fonte: "Nunito", sans-serif;
     }
     body {
-        font-family: "Nunito", sans-serif;
+        font-family: var(--fonte);
         margin: 0;
         padding: 0;
         background-color: var(--cinza-claro);
@@ -116,8 +118,8 @@
 
     a {
         text-decoration: none;
-        font-family: "Nunito", sans-serif;
-        color: var(--azul-escuro);
+        font-family: var(--fonte);
+        color: var (--azul-escuro);
     }
 
     .content {
@@ -143,16 +145,18 @@
         border-radius: 50%;
         margin-right: 10px;
     }
-    h1{
-        font-family: "Nunito", sans-serif;
+
+    h1 {
+        font-family: var(--fonte);
         color: var(--azul-escuro);
     }
+
     .box-container {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
     }
-    
+
     .box {
         background-color: var(--branco);
         border: 1px solid var(--azul-claro);
@@ -163,6 +167,7 @@
         box-sizing: border-box;
         text-align: center;
     }
+
     .box h1 {
         margin-top: 0;
         color: var(--azul-escuro);
@@ -170,14 +175,116 @@
         padding-bottom: 10px;
         font-size: 25px;
     }
-    
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid var(--azul-claro);
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: var(--azul-escuro);
+        color: var(--branco);
+    }
+
+    td button {
+        padding: 2px 4px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--verde);
+        color: var(--branco);
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+        margin-top: 10px;
+        margin-right: 5px;
+    }
+
+    .btn-visualizar {
+        background-color: var(--azul);
+    }
+    .btn-presenca {
+        background-color: var(--verde);
+    }
+
+    .calendar {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: var(--branco);
+        border: 1px solid var(--azul-claro);
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .calendar h2 {
+        margin: 0;
+        font-size: 20px;
+        color: var(--azul-escuro);
+    }
+
+    /* Estilo para as modais */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: var(--branco);
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid var(--azul-claro);
+        width: 80%;
+        max-width: 680px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .close {
+        color: var(--azul-claro);
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: var(--azul-escuro);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+    }
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="sidebar">
-        <div> <img class="logo" src="D:\DocumentosHD\Gerenciador-de-Atividade\frontend\img\logo (1).png"> </div>
+        <div><img class="logo" src="D:/DocumentosHD/Gerenciador-de-Atividade/frontend/img/logo (1).png" alt="Logo"></div>
         <ul class="menu">
             <li class="pagina-inicial"><a href="home.html"><i class="fas fa-home"></i> Página Inicial</a></li>
             <li>
@@ -202,15 +309,47 @@
 
     <div class="content">
         <h1>Sistema de Gerenciamento Avante</h1>
-        <div class="content">
-            <div class="box-container">
-                <div class="box">
-                   <h1> Box 1 (teste) </h1>
-                   <p> Conteúdo da primeira caixa </p>
+        <div class="calendar">
+            <h2>Calendário</h2>
+            <div id="current-date"></div>
+        </div>
+        <div class="box-container">
+            <div class="box">
+                <h1>Aulas do Dia</h1>
+                <div class="table-container">
+                    <table id="tabela-aulas">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Dia</th>
+                                <th>Horário</th>
+                                <th>Responsável</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- As aulas serão inseridas aqui  -->
+                        </tbody>
+                    </table>
                 </div>
-                <div class="box">
-                    <h1> Box 2 (teste) </h1>
-                    <p> Conteúdo da segunda caixa </p>
+            </div>
+            <div class="box">
+                <h1>Serviços do Dia</h1>
+                <div class="table-container">
+                    <table id="tabela-servicos">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Dia</th>
+                                <th>Horário</th>
+                                <th>Responsável</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Os serviços serão inseridos aqui  -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -219,7 +358,22 @@
 
 <div class="profile">
     <img src="D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" alt="Profile Picture" id="profile-picture">
-    <a href="perfil.html" id="profile-name">Usuário</a> 
+    <a href="perfil.html" id="profile-name">Usuário</a>
+</div>
+
+<!-- Modais -->
+<div id="visualizarModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal('visualizarModal')">&times;</span>
+        <iframe src="" id="visualizarIframe"></iframe>
+    </div>
+</div>
+
+<div id="presencaModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal('presencaModal')">&times;</span>
+        <iframe src="" id="presencaIframe"></iframe>
+    </div>
 </div>
 
 <script>
@@ -229,7 +383,6 @@
         dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
     }
 
-    // Simulação de carregamento de dados do usuário
     document.addEventListener("DOMContentLoaded", function() {
         // Exemplo de dados do usuário, que seriam carregados dinamicamente
         var userProfile = {
@@ -239,7 +392,72 @@
 
         document.getElementById("profile-name").textContent = userProfile.name;
         document.getElementById("profile-picture").src = userProfile.picture;
+
+        // Atualizar data atual
+        var currentDate = new Date();
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById("current-date").textContent = currentDate.toLocaleDateString('pt-BR', options);
+
+        // Carregar dados 
+        carregarAulas();
+        carregarServicos();
     });
+
+    function carregarAulas() {
+        // Exemplo de dados das aulas
+        var aulas = [
+            { nome: "Aula 1", dia: "Segunda-feira", horario: "10:00 - 11:00", responsavel: "Professor A" },
+            { nome: "Aula 2", dia: "Segunda-feira", horario: "11:00 - 12:00", responsavel: "Professor B" }
+        ];
+
+        var tabelaAulas = document.getElementById("tabela-aulas").getElementsByTagName('tbody')[0];
+        
+        aulas.forEach(function(aula) {
+            var row = tabelaAulas.insertRow();
+            row.insertCell(0).textContent = aula.nome;
+            row.insertCell(1).textContent = aula.dia;
+            row.insertCell(2).textContent = aula.horario;
+            row.insertCell(3).textContent = aula.responsavel;
+            var acoesCell = row.insertCell(4);
+            acoesCell.innerHTML = '<button class="btn-presenca" onclick="abrirModal(\'presencaModal\', \'presencaAulaModal.html\')"><i class="fas fa-check"></i> Presença </button>' +
+                                  '<button class="btn-visualizar" onclick="abrirModal(\'visualizarModal\', \'visualizarAulaHomeModal.html\')"><i class="fas fa-eye"></i> Visualizar </button>';
+        });
+    }
+
+    function carregarServicos() {
+        // Exemplo de dados dos serviços
+        var servicos = [
+            { nome: "Serviço 1", dia: "Segunda-feira", horario: "14:00 - 15:00", responsavel: "Assistente A" },
+            { nome: "Serviço 2", dia: "Segunda-feira", horario: "15:00 - 16:00", responsavel: "Assistente B" }
+        ];
+
+        var tabelaServicos = document.getElementById("tabela-servicos").getElementsByTagName('tbody')[0];
+        
+        servicos.forEach(function(servico) {
+            var row = tabelaServicos.insertRow();
+            row.insertCell(0).textContent = servico.nome;
+            row.insertCell(1).textContent = servico.dia;
+            row.insertCell(2).textContent = servico.horario;
+            row.insertCell(3).textContent = servico.responsavel;
+            var acoesCell = row.insertCell(4);
+            acoesCell.innerHTML = '<button class="btn-presenca" onclick="abrirModal(\'presencaModal\', \'presencaServicoModal.html\')"><i class="fas fa-check"></i> Presença </button>' +
+                                  '<button class="btn-visualizar" onclick="abrirModal(\'visualizarModal\', \'visualizarServicoHomeModal.html\')"><i class="fas fa-eye"></i> Visualizar </button>';
+        });
+    }
+
+    function abrirModal(modalId, iframeSrc) {
+        var modal = document.getElementById(modalId);
+        var iframe = modal.querySelector("iframe");
+        iframe.src = iframeSrc;
+        modal.style.display = "block";
+    }
+
+    function fecharModal(modalId) {
+        var modal = document.getElementById(modalId);
+        var iframe = modal.querySelector("iframe");
+        iframe.src = ""; 
+        modal.style.display = "none";
+    }
 </script>
 
 </body>
