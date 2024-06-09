@@ -4,7 +4,7 @@
 <!-- HEAD herdada do Template home.html -->
 {% block head %}
 <title>{% block title %}Sistema de Gerenciamento{% endblock title %}</title>
-<link rel="stylesheet" type="text/css" href="{% static 'css/listagem/listagemAulas.css'%}">
+<link rel="stylesheet" href="{% static 'css/listagem/listagemAulas.css' %}">
 {% endblock head %}
 
 
@@ -44,7 +44,11 @@
                     {% for aula in aulaList %}
                         <tr>
                             <td>{{ aula.nome_atividade }}</td>
-                            <td>{{ aula.dia_atividade}}</td>
+                            <td> <!-- loop para aparecer os dias de aula -->
+                                {% for dia in aula.dia_atividade.all %}
+                                    {{ dia }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
                             <td>{{ aula.hora_atividade}}</td>
                             <td>{{ aula.responsavel }}</td>
                             <td>Ativo or Not</td>
