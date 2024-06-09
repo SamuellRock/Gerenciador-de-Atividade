@@ -108,6 +108,8 @@ class ServicoAtividadeForm(forms.ModelForm):
         self.fields['responsavel'].widget.attrs.update({'id': 'activityResponsible'})
         self.fields['responsavel'].label_from_instance = lambda obj: "{:<30}{:<30}{:>30}".format(obj.first_name, obj.last_name, obj.email)
 
+        self.fields['responsavel'].label_from_instance = lambda obj: "{:<30}{:<30}{:>30}".format(obj.first_name, obj.last_name, obj.email)
+
 
 # Inscrever Atividade
 class Inscrever_na_AtividadeForm(forms.ModelForm):
