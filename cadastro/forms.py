@@ -1,8 +1,7 @@
-from django.forms import ModelForm, DateInput
-from .models import Inscrever_na_Atividade
+from django.forms import ModelForm, DateInput, Select
+from .models import Inscrever_Aula
 from .models import Atividade
 from .models import Usuario_Externo
-from .models import lista_precenca
 from .models import Servico
 from django import forms
 from django.core.exceptions import ValidationError
@@ -112,46 +111,13 @@ class ServicoAtividadeForm(forms.ModelForm):
 
 
 # Inscrever Atividade
-class Inscrever_na_AtividadeForm(forms.ModelForm):
+
+class Inscrever_AulaForm(forms.ModelForm):
     class Meta:
-        model = Inscrever_na_Atividade
-        fields = '__all__'
-
-    atividades_do_responsavel = forms.CharField(
-        label='Atividades do Responsável',
-        required=False,
-        widget=forms.Select(attrs={'readonly': 'readonly', 'class': 'form-control'})
-    )
-    horas_das_atividades = forms.CharField(
-        label='Horas das Atividades',
-        required=False,
-        widget=forms.Select(attrs={'readonly': 'readonly', 'class': 'form-control'})
-    )
-    email_do_responsavel = forms.EmailField(
-        label='Email do Responsável',
-        required=False,
-        widget=forms.EmailInput(attrs={'readonly': 'readonly', 'class': 'form-control'})
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
-            self.fields[field].widget.attrs.update({'placeholder': field})
-
-        self.fields['atividade'].label_from_instance = lambda obj: f"{obj.responsavel.first_name} {obj.responsavel.last_name} / {obj.responsavel.email}"
-
-
-
-# Lista_Precenca
-class Lista_PrecencaForm(ModelForm):
-    class Meta:
-        model = lista_precenca
+        model = Inscrever_Aula
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.fields['aluno'].widget.attrs.update({'class': 'form-control'})
-
-
+        self.fields['nome_aluno'].widget.attrs.update({'id': 'nomeAula'})
+        self.fields['nome_atividade'].widget.attrs.update({'id': 'aula'})

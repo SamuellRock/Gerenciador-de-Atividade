@@ -9,14 +9,16 @@ urlpatterns = [
     path('cadastro_externo/', cadastro_externo, name='cdE'),
     path('cadastro_atividade/', cadastro_atividade, name='cdA'),
     path('cadastro_atividade_servico/', cadastro_servico, name='cdS'),
-    path('inscricao/', inscricao, name='insc'),
-    path('menu_atividade/', menu_atividade, name='menuAt'),
-    path('lista_precenca/<int:atividade_id>/', lista_presenca, name='listP'),
-    path('lista_inscricao/', lista_inscricao, name='lista_inscricao'),
+    path('inscricao_aula/', inscricao_aula, name='inscricao_aula'),
+    path('api/horarios/<int:atividade_id>/', get_horarios, name='get_horarios'),
+    path('api/responsaveis/<int:atividade_id>/<str:horario>/',get_responsaveis, name='get_responsaveis'),
+
+    #path('inscricao/', inscricao, name='insc'),
 
 
     path('update_aula/<int:id>/', update_aula, name='update_aula'),
     path('update_servico/<int:id>/', update_servico, name='update_servico'),
+
 
     #feito
     path('lista_aula/', lista_aula, name='lista_aula'),
@@ -30,7 +32,8 @@ urlpatterns = [
     path('deletar_aula/<int:id>/', deletar_aula, name='deletar_aula'),
     path('deletar_servico/<int:id>/', deletar_servico, name='deletar_servico'),
     path('deletar/<slug:slug>/', deletar_cliente, name='deletarCli'),
-    path('deletar_inscricao/<int:id>/', deletar_inscricao, name='deletar_inscricao'),
+
+
 
 ]
 

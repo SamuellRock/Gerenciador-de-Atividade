@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from perfis.models import Users
-from .forms import Inscrever_na_AtividadeForm, AtividadeForm, Usuario_ExternoForm, Lista_PrecencaForm, ServicoAtividadeForm
+#from django.contrib.auth.models import User
+from .forms import Inscrever_AulaForm, AtividadeForm, Usuario_ExternoForm, ServicoAtividadeForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
-from .models import Inscrever_na_Atividade, Atividade, Usuario_Externo,Servico,DiaAtividade
+from .models import Inscrever_Aula, Atividade, Usuario_Externo, Servico, DiaAtividade
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -82,6 +83,51 @@ def cadastro_atividade(request):
             return render(request, 'cadastro_atividade_aula/cadastro_atividade_aula.html', {'form': form})
 
 
+def inscricao_aula(request):
+    if request.method == 'GET':
+        form = Inscrever_AulaForm()
+        return render(request, 'inscricao_aula/inscricao_aula.html', {'form': form})
+    elif request.method == 'POST':
+        form = Inscrever_AulaForm(request.POST)
+        if form.is_valid():
+            print(request.POST)
+            aluno = form.cleaned_data['nome_aluno']
+            ativida_nome = form.cleaned_data['nome_atividade']
+            horario = form.cleaned_data['horario_aula']
+            responsavel = form.cleaned_data['responsavel']
+
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Inscrição cadastrada com sucesso!')
+            return redirect(reverse('inscricao_aula'))
+        else:
+            messages.add_message(request, messages.ERROR, 'Ocorreu algum erro ao cadastrar')
+            return render(request, 'inscricao_aula/inscricao_aula.html', {'form': form})
+
+
+def get_horarios(request, atividade_id):
+    atividade = Atividade.objects.get(id=atividade_id)
+    horario = atividade.hora_atividade  # Diretamente o campo de hora
+    horarios_data = [{'hora': horario.strftime('%H:%M')}]
+    return JsonResponse({'horarios': horarios_data})
+
+
+def get_responsaveis(request, atividade_id, horario):
+    # Filtra a atividade com base no ID e no horário
+    atividade = get_object_or_404(Atividade, id=atividade_id, hora_atividade=horario)
+
+    # Obtém o responsável pela atividade
+    responsavel = atividade.responsavel
+
+    # Cria a resposta JSON com as informações do responsável
+    data = {
+        'id': responsavel.id,
+        'username': responsavel.username,
+        'email': responsavel.email,
+        'first_name': responsavel.first_name,
+        'last_name': responsavel.last_name,
+    }
+
+    return JsonResponse(data)
 @xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_atividade')
@@ -159,45 +205,7 @@ def vizualizar_servico(request, id):
     return render(request, 'vizualizar_servico/vizualizar_servico.html', {'vizualizar': vizualizar})
 
 # ---------------------------------------------------------------------
-# ---------------------------------------------------------------------
 
-
-@login_required(login_url='login')
-@has_permission_decorator('cadastro_inscricao')
-def inscricao(request):
-    if request.method == 'GET':
-        form = Inscrever_na_AtividadeForm()
-        responsaveis = Users.objects.filter(is_superuser=False)
-        return render(request, 'inscricao.html', {'form': form, 'responsaveis': responsaveis})
-
-    elif request.method == 'POST':
-        form = Inscrever_na_AtividadeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Inscrição realizada com sucesso!')
-            return redirect(reverse('lista_inscricao'))
-        else:
-            messages.add_message(request, messages.ERROR, 'Erro ao realizar inscrição. Verifique os dados e tente novamente.')
-            return render(request, 'inscricao.html', {'form': form})
-
-
-
-@login_required(login_url='login')
-@has_permission_decorator('lista_presenca')
-def menu_atividade(request):
-    atividades = Atividade.objects.filter(responsavel=request.user)
-    return render(request, 'menu_atividade.html', {'atividades': atividades})
-
-
-@login_required(login_url='login')
-@has_permission_decorator('lista_de_atividade')
-def lista_presenca(request, atividade_id):
-    atividade = get_object_or_404(Atividade, pk=atividade_id, responsavel=request.user)
-    alunos = Inscrever_na_Atividade.objects.filter(atividade=atividade)
-    form = Lista_PrecencaForm()
-    return render(request, 'precenca.html', {'form': form, 'alunos': alunos})
-
-#TODO Ver as permissões
 # lista---------------------------------------------------------------
 
 
@@ -247,13 +255,6 @@ def lista_servico(request):
 
     return render(request, 'lista/listagemServicos.html', {'servicoList': servicoList})
 
-
-@login_required(login_url='login')
-def lista_inscricao(request):
-    inscrito = Inscrever_na_Atividade.objects.all()
-    return render(request, 'lista/lista_inscricao.html', {'inscrito': inscrito})
-
-
 # ---------------------------------------------------------------------
 
 
@@ -291,18 +292,5 @@ def deletar_servico(request, id):
     return JsonResponse({'message': 'Serviço deletado com sucesso!'})
 
 
-@has_permission_decorator('cadastro_interno')
-@login_required(login_url='login')
-def deletar_inscricao(request, id):
-    inscricao = get_object_or_404(Inscrever_na_Atividade, pk=id)
-    form = Inscrever_na_AtividadeForm(request.POST or None, instance=inscricao)
-    if request.method == 'POST':
-        inscricao.delete()
-        messages.add_message(request, messages.SUCCESS, 'Inscricao deletada com Sucesso')
-        return redirect(reverse('deletar_inscricao'))
-
-    return render(request, 'delete/deletar_inscricao.html', {'form': form})
-
 # ---------------------------------------------------------------------
-
 
