@@ -1,155 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inscrever Aluno</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<style>
-    :root {
-        --azul-claro: #4AA0CD;
-        --azul-escuro: #041241;
-        --rosa: #D155A4;
-        --amarelo: #FFD500;
-        --branco: #FFFFFF;
-        --verde: #2E8B57;
-        --vermelho: #E40101;
-        --fonte: "Nunito", sans-serif;
-    }
-
-    body {
-        font-family: var(--fonte);
-        padding: 0;
-        background-color: var(--branco);
-    }
-
-    .container {
-        max-width: 1000px;
-        margin: 20px auto;
-        background-color: var(--branco);
-        padding: 20px;
-    }
-
-    h2 {
-        margin-top: 20px;
-        margin-bottom: 20px; 
-        color: var(--azul-escuro);
-        font-family: var(--fonte);
-        text-decoration: underline;
-        text-decoration-color: var(--azul-claro);
-        text-align: center;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 10px;
-        color: var(--azul-escuro);
-        font-weight: bold;
-        font-family: var(--fonte);
-    }
-
-    select {
-        width: calc(100% - 16px);
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid var(--azul-claro);
-        border-radius: 5px;
-        box-sizing: border-box;
-        background-color: #f9f9f9;
-    }
-
-    .btn-submit {
-        padding: 10px 15px;
-            border: none;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição em Aulas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --azul-claro: #4AA0CD;
+            --azul-escuro: #041241;
+            --rosa: #D155A4;
+            --amarelo: #FFD500;
+            --branco: #FFFFFF;
+            --cinza-claro: #f4f4f4;
+            --azul: #007BFF;
+            --verde: #2E8B57;
+            --fonte: "Nunito", sans-serif;
+        }
+        body {
+            font-family: var(--fonte);
+            margin: 0;
+            padding: 0;
+            background-color: var(--branco);
+            color: var(--azul-escuro);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--azul-escuro);
+            font-weight: bold;
+        }
+        .form-group select {
+            width: calc(100% - 16px);
+            padding: 8px;
+            border: 1px solid var(--azul-claro);
             border-radius: 5px;
+            box-sizing: border-box;
+            font-family: var(--fonte);
+        }
+        .btn-inscrever {
             background-color: var(--azul-escuro);
             color: var(--branco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            margin-bottom: 15px; 
-            font-family: var(--fonte);
-    }
-
-    .btn-submit:hover {
-        background-color: var(--azul-claro);
-        color: var(--azul-escuro);
-    }
-
-    .notification {
-        display: none;
-        padding: 10px;
-        color: var(--branco);
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-family: var(--fonte);
-        z-index: 1000;
-    }
-
-    .notification.success {
-        background-color: var(--verde);
-    }
-
-    .notification.error {
-        background-color: var(--vermelho);
-    }
-</style>
+            margin-top: 10px;
+        }
+        .btn-inscrever:hover {
+            background-color: var(--azul-claro);
+            color: var(--azul-escuro);
+        }
+        .notification {
+            display: none;
+            padding: 10px;
+            background-color: var(--verde);
+            color: var(--branco);
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
-
-<h2>Inscrever Aluno</h2>
 <div class="container">
-    <form id="enrollmentForm">
-        <label for="studentSelect">Selecione o Aluno:</label>
-        <select id="studentSelect" name="student">
-            <!-- Opções de alunos carregadas do banco de dados -->
-            <option value="1">João</option>
-            <option value="2">Maria</option>
-            <option value="3">José</option>
-        </select>
-
-        <label for="classSelect">Selecione a Aula:</label>
-        <select id="classSelect" name="class">
-            <!-- Opções de aulas carregadas do banco de dados -->
-            <option value="1">Matemática</option>
-            <option value="2">Português</option>
-            <option value="3">Ciências</option>
-        </select>
-
-        <button type="button" class="btn-submit" onclick="submitEnrollment()">Inscrever</button>
-    </form>
+    <div class="box">
+        <h2>Inscrição em Aulas</h2>
+        <form id="inscricaoAulaForm">
+            <div class="form-group">
+                <label for="nomeAluno">Nome do Aluno:</label>
+                <select id="nomeAluno" name="nomeAluno">
+                    <!-- Opções retiradas do banco de dados -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="aula">Aula:</label>
+                <select id="aula" name="aula">
+                    <!-- Opções retiradas do banco de dados -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="horarioAula">Horário:</label>
+                <select id="horarioAula" name="horarioAula">
+                    <!-- Opções retiradas do banco de dados -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="responsavelAula">Responsável:</label>
+                <select id="responsavelAula" name="responsavelAula">
+                    <!-- Opções retiradas do banco de dados -->
+                </select>
+            </div>
+            <button type="button" class="btn-inscrever" onclick="inscrever()">Inscrever</button>
+        </form>
+    </div>
 </div>
-
-<div id="notificationSuccess" class="notification success">Cadastrado com sucesso!</div>
-<div id="notificationError" class="notification error">Esse aluno já está cadastrado</div>
-
+<div id="notification" class="notification">Inscrição realizada com sucesso!</div>
 <script>
-    function submitEnrollment() {
-        var studentId = document.getElementById('studentSelect').value;
-        var classId = document.getElementById('classSelect').value;
-
-        // Simulação de verificação de inscrição no banco de dados
-        var alreadyEnrolled = false; // Verificação real no banco de dados
-
-        if (alreadyEnrolled) {
-            showNotification('notificationError');
-        } else {
-            // Código para cadastrar o aluno na aula no banco de dados
-            showNotification('notificationSuccess');
-        }
-    }
-
-    function showNotification(notificationId) {
-        var notification = document.getElementById(notificationId);
-        notification.style.display = 'block';
+    function mostrarNotificacao() {
+        var notificacao = document.getElementById('notification');
+        notificacao.style.display = 'block';
         setTimeout(function() {
-            notification.style.display = 'none';
+            notificacao.style.display = 'none';
         }, 3000);
     }
+    function inscrever() {
+        // Aqui você pode adicionar o código para enviar os dados para o backend
+        mostrarNotificacao();
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        carregarNomes();
+        carregarAulas();
+        carregarHorarios();
+        carregarResponsaveis();
+    });
+    function carregarNomes() {
+        var nomes = [
+            { id: 1, nome: "João" },
+            { id: 2, nome: "Maria" }
+        ];
+        var nomeAulaSelect = document.getElementById("nomeAula");
+        nomes.forEach(function(nome) {
+            var option = document.createElement("option");
+            option.value = nome.id;
+            option.textContent = nome.nome;
+            nomeAulaSelect.appendChild(option);
+        });
+    }
+    function carregarAulas() {
+        var aulas = [
+            { id: 1, nome: "Aula de Matemática" },
+            { id: 2, nome: "Aula de Português" }
+        ];
+        var aulaSelect = document.getElementById("aula");
+        aulas.forEach(function(aula) {
+            var option = document.createElement("option");
+            option.value = aula.id;
+            option.textContent = aula.nome;
+            aulaSelect.appendChild(option);
+        });
+    }
+    function carregarHorarios() {
+        var horarios = [
+            { id: 1, horario: "08:00" },
+            { id: 2, horario: "09:00" }
+        ];
+        var horarioAulaSelect = document.getElementById("horarioAula");
+        horarios.forEach(function(horario) {
+            var option = document.createElement("option");
+            option.value = horario.id;
+            option.textContent = horario.horario;
+            horarioAulaSelect.appendChild(option);
+        });
+    }
+    function carregarResponsaveis() {
+        var responsaveis = [
+            { id: 1, nome: "Prof. João" },
+            { id: 2, nome: "Prof. Maria" }
+        ];
+        var responsavelAulaSelect = document.getElementById("responsavelAula");
+        responsaveis.forEach(function(responsavel) {
+            var option = document.createElement("option");
+            option.value = responsavel.id;
+            option.textContent = responsavel.nome;
+            responsavelAulaSelect.appendChild(option);
+        });
+    }
 </script>
-
 </body>
 </html>
