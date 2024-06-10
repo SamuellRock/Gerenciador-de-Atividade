@@ -20,7 +20,10 @@ urlpatterns = [
 
     #feito
     path('lista_aula/', lista_aula, name='lista_aula'),
+    path('vizualizar_aula/<int:id>', vizualizar_aula, name='vizualizar_aula'),
     path('lista_servico/', lista_servico, name='lista_servico'),
+    path('vizualizar_servico/<int:id>', vizualizar_servico, name='vizualizar_servico'),
+
     path('lista_usuario_externo/', lista_usuario_externo, name='lista_usuario_externo'),
     path('lista_usuario_interna/', lista_usuario_interno, name='lista_usuario_interno'),
 

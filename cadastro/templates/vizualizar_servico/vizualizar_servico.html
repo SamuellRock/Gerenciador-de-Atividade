@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Serviço</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/vizualizar_servico/vizualizar_servico.css' %}">
+</head>
+
+<body>
+    <h2>Visualização de Serviço</h2>
+    <div class="form-container">
+        <div class="left-column">
+            <form id="activityForm">
+                <div class="form-group">
+                    <label for="activityName">Nome do Serviço:</label>
+                    <input type="text" id="activityName" name="activityName" value="{{ vizualizar.nome_servico }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityDescription">Descrição do Serviço:</label>
+                    <textarea id="activityDescription" name="activityDescription" rows="4" readonly>{{ vizualizar.descricao }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="activityResponsible">Responsável:</label>
+                    <input type="text" id="activityResponsible" name="activityResponsible" value="{{ vizualizar.responsavel.username }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityTimeStart">Início do Serviço:</label>
+                    <input type="time" id="activityTimeStart" name="activityTimeStart" value="{{ vizualizar.hora_inicio }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityTimeEnd">Fim do Serviço:</label>
+                    <input type="time" id="activityTimeEnd" name="activityTimeEnd" value="{{ vizualizar.hora_fim_atividade }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityDays">Dia do Serviço:</label>
+                    <input type="text" id="activityDay" name="activityDay" value="{{ vizualizar.dia_atividade }}" readonly>
+                </div>
+
+            </form>
+        </div>
+        <div class="right-column">
+            <div class="form-group">
+                <label for="activityEnrollment">Beneficiados Inscritos:</label>
+                <input type="text" id="activityEnrollment" name="activityEnrollment" value="{{ vizualizar.beneficiados.count }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="activityEnrolledNames">Nomes dos Beneficiados e Horário:</label>
+                <table id="enrolledNamesTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enrolledNamesList">
+                        {% for beneficiado in vizualizar.beneficiados.all %}
+                            <tr>
+                                <td>{{ beneficiado.nome }}</td>
+                                <td>{{ beneficiado.horario }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="{% static 'js/vizualizar_servico/vizualizar_servico.js' %}"></script>
+</body>
+
+</html>

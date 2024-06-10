@@ -17,9 +17,9 @@
                 <div class="box-header">
                     <h3>Serviços</h3>
                     <div class="search-container">
-                        <form action="#" method="GET">
-                            <input type="text" id="search-input" placeholder="Pesquisar..." name="pesquisa">
-                            <button type="button" id="search-button"><i class="fas fa-search"></i></button>
+                        <form action="{% url 'lista_servico'%}" method="GET">
+                            <input type="text" id="search-input" placeholder="Pesquisar..." name="pesquisa" value="{{ request.GET.pesquisa }}">
+                            <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
                         </form>
                     </div>
                     <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aluno </button>
@@ -42,7 +42,7 @@
                         <td>Ativo or Not</td>
                         <td>
                             <button class="btn-editar" onclick="openExternalModal('{% url 'update_servico' servico.id%}', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
-                            <button class="btn-visualizar" onclick="openExternalModal('visualizarServicosModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
+                            <button class="btn-visualizar" onclick="openExternalModal('{% url 'vizualizar_servico' servico.id %}', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
                             <button class="btn-deletar" onclick="openModal(this)" data-id="{{ servico.id }}"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>

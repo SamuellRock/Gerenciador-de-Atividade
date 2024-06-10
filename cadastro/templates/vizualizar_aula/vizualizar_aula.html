@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Aula</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/vizualizar_aula/vizualizar_aula.css' %}">
+</head>
+
+<body>
+    <h2>Visualização de Aula</h2>
+    <div class="form-container">
+        <div class="left-column">
+            <form id="activityForm">
+                <div class="form-group">
+                    <label for="activityName">Nome da Aula:</label>
+                    <input type="text" id="activityName" name="activityName" value="{{ vizualizar.nome_atividade }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityDescription">Descrição da Aula:</label>
+                    <textarea id="activityDescription" name="activityDescription" rows="4" readonly>{{ vizualizar.descricao }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="activityResponsible">Responsável:</label>
+                    <input type="text" id="activityResponsible" name="activityResponsible" value="{{ vizualizar.responsavel }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityLimit">Limite de Alunos:</label>
+                    <input type="number" id="activityLimit" name="activityLimit" value="{{ vizualizar.limite_alunos }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityTime">Hora da Aula:</label>
+                    <input type="time" id="activityTime" name="activityTime" value="{{ vizualizar.hora_atividade }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="activityDays">Dias da Aula:</label>
+                    <div id="activityDaysContainer">
+                        {% for dia in vizualizar.dia_atividade.all %}
+                            <span>{{ dia }}</span>{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="right-column">
+            <div class="form-group">
+                <label for="activityEnrollment">Alunos Inscritos:</label>
+                <input type="text" id="activityEnrollment" name="activityEnrollment" value="{{ vizualizar.alunos.count }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="activityEnrolledNames">Nomes dos Alunos:</label>
+                <ul id="enrolledNamesList" class="enrolled-names-list">
+                    {% for aluno in vizualizar.alunos.all %}
+                        <li>{{ aluno.nome }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+    <script src="{% static 'js/vizualizar_aula/vizualizar_aula.js' %}"></script>
+</body>
+
+</html>

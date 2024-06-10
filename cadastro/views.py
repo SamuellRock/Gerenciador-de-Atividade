@@ -142,6 +142,25 @@ def update_servico(request,id):
 
 # ---------------------------------------------------------------------
 
+# Vizualizar---------------------------------------------------------------
+
+
+@xframe_options_exempt
+@login_required(login_url='login')
+def vizualizar_aula(request, id):
+    vizualizar = get_object_or_404(Atividade, id=id)
+    return render(request, 'vizualizar_aula/vizualizar_aula.html', {'vizualizar': vizualizar})
+
+
+@xframe_options_exempt
+@login_required(login_url='login')
+def vizualizar_servico(request, id):
+    vizualizar = get_object_or_404(Servico, id=id)
+    return render(request, 'vizualizar_servico/vizualizar_servico.html', {'vizualizar': vizualizar})
+
+# ---------------------------------------------------------------------
+# ---------------------------------------------------------------------
+
 
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_inscricao')
@@ -181,12 +200,12 @@ def lista_presenca(request, atividade_id):
 #TODO Ver as permissões
 # lista---------------------------------------------------------------
 
+
 @cache_page(60)
 @login_required(login_url='login')
 def lista_usuario_interno(request):
     internoList = Usuario_Externo.objects.all()
     return render(request, 'lista/listagemUsuariosInternos.html', {'internoList': internoList})
-
 
 
 @cache_page(60)
@@ -208,6 +227,7 @@ def lista_aula(request):
 
     else:
         aulaList = Atividade.objects.all()
+        return render(request, 'lista/listagemAulas.html', {'aulaList': aulaList})
 
     return render(request, 'lista/listagemAulas.html', {'aulaList': aulaList})
 

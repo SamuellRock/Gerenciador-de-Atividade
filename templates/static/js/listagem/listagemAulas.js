@@ -118,3 +118,11 @@ document.getElementById('search-button').addEventListener('click', function() {
             }
         });
 });
+
+window.addEventListener('load', function() {
+            if (window.location.search.includes('pesquisa')) {
+                var url = new URL(window.location);
+                url.searchParams.delete('pesquisa');
+                window.history.replaceState({}, document.title, url.toString());
+            }
+});
