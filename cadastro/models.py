@@ -104,30 +104,13 @@ class Inscrever_Aula(models.Model):
     def __str__(self):
         return f'{self.nome_aluno} - {self.nome_atividade}'
 
-"""    @property
-    def atividades_do_responsavel(self):
-        # Retorna todas as atividades do responsável pela atividade inscrita
-        return Atividade.objects.filter(responsavel=self.atividade.responsavel)
 
-    @property
-    def horas_das_atividades(self):
-        # Retorna as horas das atividades do responsável pela atividade inscrita
-        atividades = self.atividades_do_responsavel
-        return [atividade.hora_atividade for atividade in atividades]
-
-    @property
-    def email_do_responsavel(self):
-        # Retorna o e-mail do responsável pela atividade inscrita
-        return self.atividade.responsavel.email if self.atividade.responsavel else None
-"""
-
-"""class lista_precenca(models.Model):
-    data = models.DateField(blank=False, null=False, auto_now_add=True)
-    aluno = models.ForeignKey(Inscrever_na_Atividade, on_delete=models.CASCADE)
-    precenca = models.BooleanField(blank=False, null=False)
-
-    def __str__(self):
-        return f'{self.aluno} {self.data}'"""
+class Inscrever_Servico(models.Model):
+    aluno = models.ForeignKey(Usuario_Externo, on_delete=models.CASCADE, verbose_name='Aluno')
+    servico_atividade = models.ForeignKey(Servico, on_delete=models.CASCADE, verbose_name='Nome do servico')
+    hora_servico = models.TimeField(blank=False, null=False, verbose_name='Hora do Serviço')
+    dia_servico = models.DateField(blank=False, null=False, verbose_name='Dia do Serviço')
+    responsavel = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     #TODO SLUG A COLOCAR LISTA PRECENCA
 

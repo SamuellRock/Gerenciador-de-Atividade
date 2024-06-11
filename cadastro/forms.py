@@ -1,5 +1,6 @@
-from django.forms import ModelForm, DateInput, Select
+from django.forms import ModelForm, DateInput, Select, DateTimeInput
 from .models import Inscrever_Aula
+from .models import Inscrever_Servico
 from .models import Atividade
 from .models import Usuario_Externo
 from .models import Servico
@@ -121,3 +122,18 @@ class Inscrever_AulaForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['nome_aluno'].widget.attrs.update({'id': 'nomeAula'})
         self.fields['nome_atividade'].widget.attrs.update({'id': 'aula'})
+
+
+class Inscrever_ServicoForm(forms.ModelForm):
+    class Meta:
+        model = Inscrever_Servico
+        fields = '__all__'
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['aluno'].widget.attrs.update({'id': 'nomeServico'})
+        self.fields['servico_atividade'].widget.attrs.update({'id': 'servico'})
+
+
+

@@ -225,3 +225,23 @@ h1 {
     box-sizing: border-box;
     font-family: var(--fonte);
 }
+
+#Dia{
+
+    width: calc(100% - 16px);
+    padding: 8px;
+    border: 1px solid var(--azul-claro);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: var(--fonte);
+}
+
+input{
+
+    width: calc(100% - 16px);
+    padding: 8px;
+    border: 1px solid var(--azul-claro);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: var(--fonte);
+}

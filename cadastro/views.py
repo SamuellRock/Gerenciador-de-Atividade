@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from perfis.models import Users
-#from django.contrib.auth.models import User
-from .forms import Inscrever_AulaForm, AtividadeForm, Usuario_ExternoForm, ServicoAtividadeForm
+from .forms import Inscrever_AulaForm, AtividadeForm, Usuario_ExternoForm, ServicoAtividadeForm, Inscrever_ServicoForm
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Inscrever_Aula, Atividade, Usuario_Externo, Servico, DiaAtividade
@@ -86,9 +84,11 @@ def cadastro_atividade(request):
 def inscricao_aula(request):
     if request.method == 'GET':
         form = Inscrever_AulaForm()
-        return render(request, 'inscricao_aula/inscricao_aula.html', {'form': form})
+        formu = Inscrever_ServicoForm()
+        return render(request, 'inscricao_aula_e_servico/inscricao_aula_e_servico.html', {'form': form, 'formu': formu})
     elif request.method == 'POST':
         form = Inscrever_AulaForm(request.POST)
+        formu = Inscrever_ServicoForm()
         if form.is_valid():
             print(request.POST)
             aluno = form.cleaned_data['nome_aluno']
@@ -101,7 +101,7 @@ def inscricao_aula(request):
             return redirect(reverse('inscricao_aula'))
         else:
             messages.add_message(request, messages.ERROR, 'Ocorreu algum erro ao cadastrar')
-            return render(request, 'inscricao_aula/inscricao_aula.html', {'form': form})
+            return render(request, 'inscricao_aula_e_servico/inscricao_aula_e_servico.html', {'form': form,'formu': formu })
 
 
 def get_horarios(request, atividade_id):
@@ -128,6 +128,65 @@ def get_responsaveis(request, atividade_id, horario):
     }
 
     return JsonResponse(data)
+
+
+def inscricao_servico(request):
+    if request.method == 'GET':
+        formu = Inscrever_ServicoForm()
+        form = Inscrever_AulaForm()
+        return render(request, 'inscricao_aula_e_servico/inscricao_aula_e_servico.html.html', {'formu': formu, 'form':form})
+    elif request.method == 'POST':
+        formu = Inscrever_ServicoForm(request.POST)
+        form = Inscrever_AulaForm(request.POST)
+
+        print('aqui')
+        if formu.is_valid():
+            aluno = formu.cleaned_data['aluno']
+            servico_atividade = formu.cleaned_data['servico_atividade']
+            hora_servico = formu.cleaned_data['hora_servico']
+            dia_servico = form.cleaned_data['dia_servico']
+            responsavel = form.cleaned_data['responsavel']
+
+            formu.save()
+            messages.success(request, 'Inscrição cadastrada com sucesso!')
+            return redirect('inscricao_aula')
+        else:
+            print(formu)
+            messages.error(request, 'Ocorreu algum erro ao cadastrar')
+            return render(request, 'inscricao_aula_e_servico/inscricao_aula_e_servico.html', {'formu': formu, 'form':form})
+
+
+def get_horarios_servico(request, servico_id):
+    servico = get_object_or_404(Servico, id=servico_id)
+    horarios = [servico.hora_inicio.strftime('%H:%M')]
+    return JsonResponse({'horarios': horarios})
+
+
+def get_responsaveis_servico(request, servico_id, horario):
+    # Filtra o serviço com base no ID
+    servico = get_object_or_404(Servico, id=servico_id)
+
+    # Obtém o responsável do serviço
+    responsavel = servico.responsavel
+
+    # Cria a resposta JSON com as informações do responsável
+    data = {
+        'id': responsavel.id,
+        'username': responsavel.username,
+        'email': responsavel.email,
+        'first_name': responsavel.first_name,
+        'last_name': responsavel.last_name,
+    }
+
+    return JsonResponse(data)
+
+
+def get_dia_atividade(request, servico_id):
+    servico = Servico.objects.get(id=servico_id)
+    dia_atividade = servico.dia_atividade.strftime('%Y-%m-%d')
+    return JsonResponse({'dia_atividade': dia_atividade})
+
+
 @xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_atividade')

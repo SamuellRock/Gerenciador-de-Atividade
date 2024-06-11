@@ -13,6 +13,11 @@ urlpatterns = [
     path('api/horarios/<int:atividade_id>/', get_horarios, name='get_horarios'),
     path('api/responsaveis/<int:atividade_id>/<str:horario>/',get_responsaveis, name='get_responsaveis'),
 
+    path('inscricao_servico/', inscricao_servico, name='inscricao_servico'),
+    path('api/horarios_servico/<int:servico_id>/', get_horarios_servico, name='get_horarios_servico'),
+    path('api/responsaveis_servico/<int:servico_id>/<str:horario>/', get_responsaveis_servico, name='get_responsaveis_servico'),
+    path('api/dia_atividade/<int:servico_id>/', get_dia_atividade, name='get_dia_atividade'),
+
     #path('inscricao/', inscricao, name='insc'),
 
 
