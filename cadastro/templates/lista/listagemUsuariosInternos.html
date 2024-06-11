@@ -22,10 +22,7 @@
                         <input type="text" id="search-input" placeholder="Localizar...">
                         <button type="button" id="search-button"><i class="fas fa-search"></i></button>
                     </div>
-                    <div class="btn-container">
-                        <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aula </button>
-                        <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Serviço </button>
-                    </div>
+
                 </div>
                 <table>
                     <tr>
@@ -37,6 +34,7 @@
                     </tr>
                     <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
                     {% for user in internoList %}
+                    {% if user.first_name != '' %}
                     <tr>
                         <td>{{user.first_name}}</td>
                         <td>{{user.tipoUsuario}}</td>
@@ -47,6 +45,7 @@
                             <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>
+                    {% endif %}
                     {% endfor %}
                     <!-- Fim exemplo de linha de tabela -->
                 </table>
