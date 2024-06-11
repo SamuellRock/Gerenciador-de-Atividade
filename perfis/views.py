@@ -13,6 +13,10 @@ from django.contrib import messages
 from django.views.decorators.clickjacking import xframe_options_exempt
 
 
+def perfil_user(request):
+    user_p = Users.objects.all()
+    return render(request, 'perfil.html', {'user_p': user_p})
+
 @xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_interno')
@@ -75,7 +79,7 @@ def update_usuario(request, pk):
     else:
         form = UserFormTemplate(instance=user)
     return render(request, 'update/update_usuario.html', {'form': form, 'user': user})
-#ATÈ AQUI
+#------------------- ver se ainda va ser aproveitado esse bloco
 
 
 def login(request):

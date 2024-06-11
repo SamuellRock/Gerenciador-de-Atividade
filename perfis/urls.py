@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import cadastro_usuario
+from .views import cadastro_usuario, perfil_user
 from .views import login, logout, alterar_senha, update_usuario
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    path('perfil/', perfil_user, name='perfil_user'),
+
     path('cadastro_usuario/', cadastro_usuario, name='cadastro_usuario'),
     path('login/', login, name='login'),
     path('', login, name='login'),
