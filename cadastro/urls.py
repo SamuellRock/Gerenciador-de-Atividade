@@ -32,6 +32,7 @@ urlpatterns = [
     path('vizualizar_servico/<int:id>', vizualizar_servico, name='vizualizar_servico'),
 
     path('lista_usuario_externo/', lista_usuario_externo, name='lista_usuario_externo'),
+    path('vizualizar_usuario_externo/<int:id>', visualizar_usuario_externo, name='vizualizar_usuario_externo'),
     path('lista_usuario_interna/', lista_usuario_interno, name='lista_usuario_interno'),
 
     path('deletar_aula/<int:id>/', deletar_aula, name='deletar_aula'),

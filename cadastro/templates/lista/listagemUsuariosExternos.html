@@ -39,7 +39,7 @@
                         <td>{{ user.telefone }}</td>
                         <td>
                             <button class="btn-editar" onclick="openExternalModal('editarUsuarioExternosModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
-                            <button class="btn-visualizar" onclick="openExternalModal('visualizarUsuariosExternosModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
+                            <button class="btn-visualizar" onclick="openExternalModal('{% url 'vizualizar_usuario_externo' user.id %}', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
                             <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>

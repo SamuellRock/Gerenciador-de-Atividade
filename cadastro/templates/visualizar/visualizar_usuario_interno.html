@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Usuário Interno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/vizualizar/visualizar_usuario_interno.css' %}">
+</head>
+
+<body>
+    <h2>Visualização de Usuário Interno</h2>
+    <div class="form-container">
+        <div class="left-column">
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" value="{{ userInterno.first_name }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="userType">Tipo de Usuário:</label>
+                    <input type="text" id="userType" name="userType" value="{{ userInterno.tipoUsuario }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="funcao">Função:</label>
+                    <input type="text" id="funcao" name="funcao" value="{{ userInterno.funcao }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ userInterno.email }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="userPerfil">Tipo de Perfil:</label>
+                    <input type="text" id="userPerfil" name="userPerfil" value="{{ userInterno.grupo_de_acesso }}" readonly>
+                </div>
+            </form>
+        </div>
+        <div class="right-column">
+            <div class="form-group">
+                <label for="responsibleActivities">Atividades Responsável:</label>
+                <ul id="activityList" class="activity-list"></ul>
+            </div>
+        </div>
+    </div>
+<script src="{% static 'js/vizualizar/visualizar_usuario_interno.js' %}" ></script>
+</body>
+</html>

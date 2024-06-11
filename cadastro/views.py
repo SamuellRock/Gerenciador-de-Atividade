@@ -3,6 +3,7 @@ from .forms import Inscrever_AulaForm, AtividadeForm, Usuario_ExternoForm, Servi
 from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Inscrever_Aula, Atividade, Usuario_Externo, Servico, DiaAtividade
+from perfis.models import Users
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -244,12 +245,11 @@ def update_servico(request,id):
         form = ServicoAtividadeForm(instance=servico)
 
     return render(request, 'update/update_servico.html', {'form': form, 'servico': servico})
-
 # ---------------------------------------------------------------------
 
+
+
 # Vizualizar---------------------------------------------------------------
-
-
 @xframe_options_exempt
 @login_required(login_url='login')
 def vizualizar_aula(request, id):
@@ -263,11 +263,22 @@ def vizualizar_servico(request, id):
     vizualizar = get_object_or_404(Servico, id=id)
     return render(request, 'vizualizar_servico/vizualizar_servico.html', {'vizualizar': vizualizar})
 
+@xframe_options_exempt
+@login_required(login_url='login')
+def visualizar_usuario_externo(request, id):
+    userExterno = get_object_or_404(Usuario_Externo, id=id)
+    return render(request, 'visualizar/visualizar_usuario_externo.html', {'userExterno': userExterno})
+
+@xframe_options_exempt
+@login_required(login_url='login')
+def visualizar_usuario_interno(request, id):
+    userInterno= get_object_or_404(Users, id=id)
+    return render(request, 'visualizar/visualizar_usuario_interno.html', {'userInterno': userInterno})
 # ---------------------------------------------------------------------
 
+
+
 # lista---------------------------------------------------------------
-
-
 @cache_page(60)
 @login_required(login_url='login')
 def lista_usuario_interno(request):
