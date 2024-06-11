@@ -212,7 +212,7 @@ def vizualizar_servico(request, id):
 @cache_page(60)
 @login_required(login_url='login')
 def lista_usuario_interno(request):
-    internoList = Usuario_Externo.objects.all()
+    internoList = Users.objects.all()
     return render(request, 'lista/listagemUsuariosInternos.html', {'internoList': internoList})
 
 

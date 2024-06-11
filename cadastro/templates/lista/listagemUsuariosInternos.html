@@ -36,16 +36,18 @@
 
                     </tr>
                     <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
+                    {% for user in internoList %}
                     <tr>
-                        <td>Glenda Rangel</td>
-                        <td>Funcionário</td>
-                        <td>glenda.rangel@hotmail.com</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.tipoUsuario}}</td>
+                        <td>{{user.email}}</td>
                         <td>
                             <button class="btn-editar" onclick="openExternalModal('editarUsuariosInternoModal.html', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
                             <button class="btn-visualizar" onclick="openExternalModal('visualizarUsuarioInternoModal.html', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
                             <button class="btn-deletar" onclick="openModal()"><i class="fas fa-trash-alt"></i> Deletar</button>
                         </td>
                     </tr>
+                    {% endfor %}
                     <!-- Fim exemplo de linha de tabela -->
                 </table>
             </div>

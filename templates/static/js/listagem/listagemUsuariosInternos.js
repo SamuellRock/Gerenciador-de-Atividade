@@ -44,17 +44,18 @@ function closeExternalModal() {
     modal.style.display = "none";
 }
 
-// Simulação de carregamento de dados do usuário
-document.addEventListener("DOMContentLoaded", function() {
-    // Exemplo de dados do usuário, que seriam carregados dinamicamente
-    var userProfile = {
-        name: "Samuel",
-        picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" // Caminho da imagem
-    };
+// // Simulação de carregamento de dados do usuário
+// document.addEventListener("DOMContentLoaded", function() {
+//     // Exemplo de dados do usuário, que seriam carregados dinamicamente
+//     var userProfile = {
+//         name: "Samuel",
+//         picture: "D:/DocumentosHD/PROJETO WEB3/img/perfil.jpg" // Caminho da imagem
+//     };
 
-    document.getElementById("profile-name").textContent = userProfile.name;
-    document.getElementById("profile-picture").src = userProfile.picture;
-});
+//     document.getElementById("profile-name").textContent = userProfile.name;
+//     document.getElementById("profile-picture").src = userProfile.picture;
+// });
+
 document.getElementById('search-button').addEventListener('click', function() {
         var input = document.getElementById('search-input').value.toLowerCase();
         var rows = document.querySelectorAll('.box');
