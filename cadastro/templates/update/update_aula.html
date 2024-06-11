@@ -93,7 +93,7 @@
             </div>
             <button type="button" class="add-day-btn" id="addDayBtn">Adicionar Dia</button>
             <button type="button" id="saveChangesBtn">Salvar Alterações</button>
-            <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Turma</button>
+            {% comment %} <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Turma</button> {% endcomment %}
         </form>
     </div>
 
@@ -103,11 +103,11 @@
         <button id="cancelSaveBtn">Não</button>
     </div>
 
-    <div id="finalizeConfirmation" class="confirmation-box" style="display: none;">
+    {% comment %} <div id="finalizeConfirmation" class="confirmation-box" style="display: none;">
         <p>Você tem certeza que deseja finalizar as aulas?</p>
         <button id="confirmFinalizeBtn">Sim</button>
         <button id="cancelFinalizeBtn">Não</button>
-    </div>
+    </div> {% endcomment %}
 
     <div id="notification" class="notification" style="display: none;"></div>
 

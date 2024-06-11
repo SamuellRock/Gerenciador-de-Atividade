@@ -46,7 +46,7 @@
             <button type="button" id="generateTimeSlotsBtn" class="small-button">Gerar Horários</button>
             <div id="timeSlotsContainer"></div>
             <button type="button" id="saveChangesBtn">Salvar Alterações</button>
-            <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Serviço</button>
+            {% comment %} <button type="button" class="finalize-btn" id="finalizeBtn">Finalizar Serviço</button> {% endcomment %}
                 </form>
     </div>
 
@@ -56,11 +56,11 @@
         <button id="cancelSaveBtn">Não</button>
     </div>
 
-    <div id="finalizeConfirmation" class="confirmation-box">
+    {% comment %} <div id="finalizeConfirmation" class="confirmation-box">
         <p>Você tem certeza que deseja finalizar o serviço?</p>
         <button id="confirmFinalizeBtn">Sim</button>
         <button id="cancelFinalizeBtn">Não</button>
-    </div>
+    </div> {% endcomment %}
 
     <div id="notification" class="notification"></div>
 

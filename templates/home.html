@@ -44,12 +44,15 @@
             <li><a href="{% url 'opcoes_cadastro'%}"><i class="fas fa-address-card"></i> Cadastros</a></li>
             <li><a href="{% url 'inscricao_aula' %}"><i class="fas fa-file-signature"></i> Inscrição</a></li>
         </ul>
-        <div class="logout"><a href="{% url 'sair'%}"><i class="fas fa-sign-out-alt"></i> Sair</a></div>
+        <div class="logout">
+            <a href="{% url 'sair'%}"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
     </div>
 <!--NavBar (In Bloco)-->
 
 
 {% block content_space %}
+
 {% endblock content_space %}
 
 
@@ -62,8 +65,8 @@
 </a>
 
 {% block modals %}{% endblock modals %}
-
-
+</div>
+ 
 {% block script %}
 <script src="{% static 'js/home/home.js' %}"></script>
 {% endblock script %}

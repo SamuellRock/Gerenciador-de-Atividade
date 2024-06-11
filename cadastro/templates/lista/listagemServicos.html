@@ -22,7 +22,7 @@
                             <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
                         </form>
                     </div>
-                    <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Beneficiado </button>
+                    {% comment %} <button class="btn-inscrever" onclick="openExternalModal('inscreverServicoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Beneficiado </button> {% endcomment %}
                 </div>
                 <table>
                     <tr>
@@ -30,7 +30,6 @@
                         <th>Dia</th>
                         <th>Horários</th>
                         <th>Responsável</th>
-                        <th>Status</th>
                         <th>Ações</th>
                     </tr>
                     {% for servico in servicoList %}

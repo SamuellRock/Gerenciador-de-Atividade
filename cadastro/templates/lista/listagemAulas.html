@@ -25,7 +25,7 @@
                             <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
                        </form>
                     </div>
-                    <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aluno </button>
+                    {% comment %} <button class="btn-inscrever" onclick="openExternalModal('inscreverAlunoModal.html', 'modal-content-inscrever')"><i class="fas fa-user-plus"></i> Inscrever Aluno </button> {% endcomment %}
                 </div>
 
                 <table>
@@ -34,7 +34,6 @@
                         <th>Dias</th>
                         <th>Horário</th>
                         <th>Responsável</th>
-                        <th>Status</th>
                         <th>Ações</th>
                     </tr>
                     <!-- Exemplo de linha de tabela, é pra ser tirado do BD -->
@@ -49,7 +48,6 @@
                             </td>
                             <td>{{ aula.hora_atividade}}</td>
                             <td>{{ aula.responsavel }}</td>
-                            <td>Ativo or Not</td>
                           <td>
                              <button class="btn-editar" onclick="openExternalModal('{% url 'update_aula' aula.id%}', 'modal-content-large')"><i class="fas fa-edit"></i> Editar</button>
                              <button class="btn-visualizar" onclick="openExternalModal('{% url 'vizualizar_aula' aula.id %}', 'modal-content-small')"><i class="fas fa-eye"></i> Visualizar</button>
