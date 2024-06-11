@@ -1,37 +1,78 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <title>Atualizar Usuário Externo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Atividades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "css/update/update_usuario_externo.css" %}">
 </head>
 
+
+
 <body>
+    <h2>Edição de Usuário Externo</h2>
+    <div class="form-container">
+        <form id="beneficiaryForm">
+            <div class="form-group">
+                <label for="beneficiaryName">Nome:</label>
+                <input type="text" id="beneficiaryName" name="beneficiaryName" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryCpf">CPF:</label>
+                <input type="text" id="beneficiaryCpf" name="beneficiaryCpf" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryDob">Data de Nascimento:</label>
+                <input type="date" id="beneficiaryDob" name="beneficiaryDob" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryPhone">Telefone:</label>
+                <input type="tel" id="beneficiaryPhone" name="beneficiaryPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryAddress">Endereço:</label>
+                <input type="text" id="beneficiaryAddress" name="beneficiaryAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryCity">Cidade:</label>
+                <input type="text" id="beneficiaryCity" name="beneficiaryCity" required>
+            </div>
+            <div class="form-group">
+                <label for="beneficiaryState">Estado:</label>
+                <input type="text" id="beneficiaryState" name="beneficiaryState" required>
+            </div>
+            <div class="form-group hidden" id="guardianFields">
+                <div class="form-group">
+                    <label for="guardianName">Nome do Responsável:</label>
+                    <input type="text" id="guardianName" name="guardianName">
+                </div>
+                <div class="form-group">
+                    <label for="guardianCpf">CPF do Responsável:</label>
+                    <input type="text" id="guardianCpf" name="guardianCpf">
+                </div>
+                <div class="form-group">
+                    <label for="guardianPhone">Contato do Responsável:</label>
+                    <input type="tel" id="guardianPhone" name="guardianPhone">
+                </div>
+            </div>
+            <button type="button" id="saveChangesBtn">Salvar Alterações</button>
+        </form>
+    </div>
 
-<div class="container">
-    <h1>Atualizar Usuário Externo</h1>
+    <div id="saveConfirmation" class="confirmation-box">
+        <p>Você tem certeza que deseja salvar as alterações?</p>
+        <button id="confirmSaveBtn">Sim</button>
+        <button id="cancelSaveBtn">Não</button>
+    </div>
 
-    {% if messages %}
-        <br>
-        {% for message in messages %}
-            <div class="alert {{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+    <div id="notification" class="notification"></div>
 
-    <form action="{% url 'update_usuario_externo' usuario.pk %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <br><br>
-        <input type="submit" value="Salvar" class="btn btn-success">
-        <a href="{% url 'lista_externa' %}" class="btn btn-primary">Voltar para Lista</a>
-        <a href="{% url 'cdE' %}" class="btn btn-secondary">Voltar para o cadastro</a>
-    </form>
-
-    <script src="{% static 'js/cadastroExterno/cadastroExterno.js' %}"></script>
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static "js/update/update_usuario_externo.js" %} %}"></script>
 </body>
 
 </html>
