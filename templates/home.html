@@ -70,13 +70,14 @@
 
 
 
-{% block modals %}
-<div class="profile">
-    <img src="{% static 'img/login/perfil.jpg' %}" alt="Profile Picture" id="profile-picture">
-    <a href="perfil.html" id="profile-name">Usuário</a>
-</div>
+<a href="{% url 'perfil_user' %}">
+    <div class="profile">
+        <img src="{{ user.imagem_thumb.url }}" alt="Profile Picture" id="profile-thumbnail">
+        <a href="{% url 'perfil_user' %}" id="profile-name">{{ user.first_name }}</a>
+    </div>
+</a>
 
-{% endblock modals %}
+{% block modals %}{% endblock modals %}
 
 
 {% block script %}
