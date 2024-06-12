@@ -39,6 +39,7 @@ def cadastro_externo(request):
             return redirect(reverse('cdE'))
 
         else:
+            print(form.errors)
             messages.add_message(request, messages.ERROR,
                                  'Erro ao cadastrar usuario externo. Verifique os dados e tente novamente.')
             return render(request, 'cadastro_UserExterno.html', {'form': form})
