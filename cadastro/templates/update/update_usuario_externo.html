@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,52 +16,47 @@
 <body>
     <h2>Edição de Usuário Externo</h2>
     <div class="form-container">
-
         <form id="beneficiaryForm"  method="POST">{% csrf_token %}
-
             <div class="form-group">
                 <label for="beneficiaryName">Nome:</label>
-                <input type="text" id="beneficiaryName" name="beneficiaryName" required>
+                {{ form.nome}}
             </div>
             <div class="form-group">
                 <label for="beneficiaryCpf">CPF:</label>
-                <input type="text" id="beneficiaryCpf" name="beneficiaryCpf" required>
+                {{form.cpf}}
             </div>
             <div class="form-group">
                 <label for="beneficiaryDob">Data de Nascimento:</label>
-                <input type="date" id="beneficiaryDob" name="beneficiaryDob" required>
+                {{form.nascimento}}
             </div>
             <div class="form-group">
                 <label for="beneficiaryPhone">Telefone:</label>
-                <input type="tel" id="beneficiaryPhone" name="beneficiaryPhone" required>
+                {{form.telefone}}
             </div>
             <div class="form-group">
                 <label for="beneficiaryAddress">Endereço:</label>
-                <input type="text" id="beneficiaryAddress" name="beneficiaryAddress" required>
+                {{form.endereco}}
             </div>
             <div class="form-group">
                 <label for="beneficiaryCity">Cidade:</label>
-                <input type="text" id="beneficiaryCity" name="beneficiaryCity" required>
+                {{form.cidade}}
             </div>
             <div class="form-group">
                 <label for="beneficiaryState">Estado:</label>
-                <input type="text" id="beneficiaryState" name="beneficiaryState" required>
+                {{form.estado}}
             </div>
             <div class="form-group hidden" id="guardianFields">
                 <div class="form-group">
                     <label for="guardianName">Nome do Responsável:</label>
-                    <input type="text" id="guardianName" name="guardianName">
+                    {{form.responsavel_nome}}
                 </div>
                 <div class="form-group">
                     <label for="guardianCpf">CPF do Responsável:</label>
-                    <input type="text" id="guardianCpf" name="guardianCpf">
+                    {{form.responsavel_cpf}}
                 </div>
-                <div class="form-group">
-                    <label for="guardianPhone">Contato do Responsável:</label>
-                    <input type="tel" id="guardianPhone" name="guardianPhone">
-                </div>
+
             </div>
-            <button type="button" id="saveChangesBtn">Salvar Alterações</button>
+            <button type="submit" id="saveChangesBtn">Salvar Alterações</button>
         </form>
     </div>
 
@@ -72,10 +68,6 @@
 
     <div id="notification" class="notification"></div>
 
-<<<<<<< Updated upstream
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-=======
->>>>>>> Stashed changes
 </body>
 
 </html>
