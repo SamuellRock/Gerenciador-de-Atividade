@@ -27,11 +27,10 @@
 
          {% csrf_token %}
 
-            <label>Enviado o token da caralho do teu E-mail</label>
+            <label>Token enviado para o E-mail registrado</label>
 
 
-            <!-- Fazer o esqueci minha senha -->
-            <a href="#">Voltar</a>
+            <a href="{% url 'update/login.html' %}">Voltar</a>
 
         </form>
 
