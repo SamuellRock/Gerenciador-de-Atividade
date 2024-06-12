@@ -24,7 +24,6 @@ class Usuario_ExternoForm(ModelForm):
 
         self.fields['telefone'].widget.attrs.update({'id': 'beneficiaryPhone'})
         self.fields['cpf'].widget.attrs.update({'id': 'beneficiaryCpf'})
-        self.fields['nascimento'].widget = forms.DateInput(attrs={'type': 'date', 'id': 'beneficiaryDob'})
         self.fields['nome'].widget.attrs.update({'id': 'beneficiaryName'})
         self.fields['endereco'].widget.attrs.update({'id': 'beneficiaryAddress'})
         self.fields['estado'].widget.attrs.update({'id': 'beneficiaryAddress'})

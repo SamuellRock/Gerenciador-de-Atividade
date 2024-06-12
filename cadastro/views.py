@@ -45,12 +45,12 @@ def cadastro_externo(request):
             return render(request, 'cadastro_UserExterno.html', {'form': form})
 
 
-'''SAMUEL ESTEVE AQUI  Atualizar usuario Externo'''
+
 @xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
 def update_usuario_externo(request, id):
-    usuario = get_object_or_404(Usuario_Externo, pk=id)
+    usuario = get_object_or_404(Usuario_Externo, id=id)
     if request.method == 'POST':
         form = Usuario_ExternoForm(request.POST, instance=usuario)
         print(form.errors)
@@ -60,7 +60,7 @@ def update_usuario_externo(request, id):
             return redirect(reverse('update_usuario_externo', args=[id]))
     else:
         form = Usuario_ExternoForm(instance=usuario)
-    return render(request, 'update/update_usuario_externo.html', {'form': form })
+    return render(request, 'update/update_usuario_externo.html', {'form': form})
 
 
 
@@ -77,7 +77,6 @@ def update_usuario_interno(request, id):
     else:
         form = UserFormTemplate(instance=usuario)
     return render(request, 'update/update_usuario_interno.html', {'form': form, 'usuario': usuario})
-#ATÈ AQUI
 
 
 @xframe_options_exempt

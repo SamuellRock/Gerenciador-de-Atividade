@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
     <title>Edição de Atividades</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static "css/update/update_usuario_externo.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/update/update_usuario_externo.css' %}">
 </head>
 
 
@@ -16,7 +15,9 @@
 <body>
     <h2>Edição de Usuário Externo</h2>
     <div class="form-container">
-        <form id="beneficiaryForm">
+
+        <form id="beneficiaryForm"  method="POST">{% csrf_token %}
+
             <div class="form-group">
                 <label for="beneficiaryName">Nome:</label>
                 <input type="text" id="beneficiaryName" name="beneficiaryName" required>
@@ -71,7 +72,10 @@
 
     <div id="notification" class="notification"></div>
 
+<<<<<<< Updated upstream
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+=======
+>>>>>>> Stashed changes
 </body>
 
 </html>
