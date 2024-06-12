@@ -16,7 +16,7 @@
 <body>
     <h2>Edição de Usuário Interno</h2>
     <div class="form-container">
-        <form id="beneficiaryForm" action="update_usuario_interno"  method="POST">
+        <form id="beneficiaryForm" method="POST">{% csrf_token%}
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 {{form.first_name}}
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                {{form.email}}
+                {{form.username}}
             </div>
             <div class="form-group">
                 <label for="perfil">Tipo de Perfil:</label>
@@ -50,6 +50,5 @@
     <div id="notification" class="notification"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{% static "update_usuario_interno.js" %} %}"></script>
 </body>
 </html>
