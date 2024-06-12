@@ -31,7 +31,7 @@
                         <li><strong>Função:</strong> {{user.tipoUsuario}}</li>
                     {% endif %}
                     </ul>
-                    <button class="edit-button" data-url="editarPerfilModal.html">Editar Usuário</button>
+                    <button class="edit-button" data-url="{% url 'update_usuario_interno' user.id%}">Editar Usuário</button>
                 </div>
             </div>
         </div>

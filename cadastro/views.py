@@ -53,6 +53,7 @@ def update_usuario_externo(request, id):
     usuario = get_object_or_404(Usuario_Externo, pk=id)
     if request.method == 'POST':
         form = Usuario_ExternoForm(request.POST, instance=usuario)
+        print(form.errors)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Usuário Externo atualizado com sucesso!')
