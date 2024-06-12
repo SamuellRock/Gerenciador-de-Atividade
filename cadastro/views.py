@@ -44,16 +44,17 @@ def cadastro_externo(request):
 
 
 '''SAMUEL ESTEVE AQUI  Atualizar usuario Externo'''
+@xframe_options_exempt
 @login_required(login_url='login')
 @has_permission_decorator('cadastro_externo')
-def update_usuario_externo(request, pk):
-    usuario = get_object_or_404(Usuario_Externo, pk=pk)
+def update_usuario_externo(request, id):
+    usuario = get_object_or_404(Usuario_Externo, pk=id)
     if request.method == 'POST':
         form = Usuario_ExternoForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Usuário Externo atualizado com sucesso!')
-            return redirect(reverse('update_usuario_externo', args=[pk]))
+            return redirect(reverse('update_usuario_externo', args=[id]))
     else:
         form = Usuario_ExternoForm(instance=usuario)
     return render(request, 'update/update_usuario_externo.html', {'form': form, 'usuario': usuario})
@@ -140,19 +141,20 @@ def inscricao_servico(request):
         formu = Inscrever_ServicoForm(request.POST)
         form = Inscrever_AulaForm(request.POST)
 
+
         print('aqui')
         if formu.is_valid():
             aluno = formu.cleaned_data['aluno']
             servico_atividade = formu.cleaned_data['servico_atividade']
             hora_servico = formu.cleaned_data['hora_servico']
-            dia_servico = form.cleaned_data['dia_servico']
-            responsavel = form.cleaned_data['responsavel']
+            dia_servico = formu.cleaned_data['dia_servico']
+            responsavel = formu.cleaned_data['responsavel']
 
             formu.save()
             messages.success(request, 'Inscrição cadastrada com sucesso!')
             return redirect('inscricao_aula')
         else:
-            print(formu)
+            print(formu.errors)
             messages.error(request, 'Ocorreu algum erro ao cadastrar')
             return render(request, 'inscricao_aula_e_servico/inscricao_aula_e_servico.html', {'formu': formu, 'form':form})
 
@@ -268,6 +270,7 @@ def vizualizar_servico(request, id):
 def visualizar_usuario_externo(request, id):
     userExterno = get_object_or_404(Usuario_Externo, id=id)
     return render(request, 'visualizar/visualizar_usuario_externo.html', {'userExterno': userExterno})
+
 
 @xframe_options_exempt
 @login_required(login_url='login')

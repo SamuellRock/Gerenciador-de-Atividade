@@ -23,6 +23,8 @@ urlpatterns = [
 
     path('update_aula/<int:id>/', update_aula, name='update_aula'),
     path('update_servico/<int:id>/', update_servico, name='update_servico'),
+    path('update_usuario_externo/<int:id>/', update_usuario_externo, name='update_usuario_externo'),
+
 
 
     #feito
@@ -33,6 +35,9 @@ urlpatterns = [
 
     path('lista_usuario_externo/', lista_usuario_externo, name='lista_usuario_externo'),
     path('vizualizar_usuario_externo/<int:id>', visualizar_usuario_externo, name='vizualizar_usuario_externo'),
+
+    path('visualizar_usuario_interno/<int:id>', visualizar_usuario_interno, name='visualizar_usuario_interno'),
+
     path('lista_usuario_interna/', lista_usuario_interno, name='lista_usuario_interno'),
 
     path('deletar_aula/<int:id>/', deletar_aula, name='deletar_aula'),

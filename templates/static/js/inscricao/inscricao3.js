@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 console.log('Dia do serviço:', data);
-                const formattedDate = new Date(data.dia_atividade).toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'}).split('/').join('-');
+                // Formatei a data para o formato ISO (YYYY-MM-DD) esperado pelo input de tipo "date"
+                const formattedDate = new Date(data.dia_atividade).toISOString().split('T')[0];
                 diaServicoInput.value = formattedDate;
             });
     });
@@ -27,10 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     horarioServicoSelect.addEventListener('change', function() {
         const servicoId = servicoSelect.value;
         const horario = this.value;
-        const formattedHorario = new Date().toLocaleTimeString('en-US', {hour12: false, hour: '2-digit', minute: '2-digit'});
-        console.log('Serviço selecionado ID:', servicoId);
-        console.log('Horário selecionado:', horario);
-        fetch(`/api/responsaveis_servico/${servicoId}/${formattedHorario}/`)
+        fetch(`/api/responsaveis_servico/${servicoId}/${horario}/`)
             .then(response => response.json())
             .then(data => {
                 console.log('Responsáveis do serviço:', data);
@@ -39,16 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Erro:', error));
     });
 
-    // Função para preencher os campos de data e hora
     function inscrever() {
-        const today = new Date();
-        const formattedDate = today.toISOString().slice(0, 10);
-        const formattedTime = today.toTimeString().slice(0, 5);
-        diaServicoInput.value = formattedDate;
-        document.getElementById("id_hora_servico").value = formattedTime;
+        // Função inscrever é simplificada ou opcional, pois os campos já estão sendo preenchidos corretamente
     }
-
-    // Chame a função inscrever quando necessário
-    // Exemplo:
-    // document.getElementById("botaoInscrever").addEventListener("click", inscrever);
 });

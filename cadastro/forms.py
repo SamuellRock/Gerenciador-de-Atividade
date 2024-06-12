@@ -129,11 +129,16 @@ class Inscrever_ServicoForm(forms.ModelForm):
         model = Inscrever_Servico
         fields = '__all__'
 
+    widgets = {
+        'hora_servico': TimeInput(format='%H:%M', attrs={'type': 'time', 'id': 'horarioServico'}),
+        'dia_servico': DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'id': 'horarioServico'}),
 
+    }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['aluno'].widget.attrs.update({'id': 'nomeServico'})
         self.fields['servico_atividade'].widget.attrs.update({'id': 'servico'})
+        self.fields['responsavel'].widget.attrs.update({'id': 'responsavelServico'})
 
 
 

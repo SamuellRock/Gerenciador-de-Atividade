@@ -1,24 +1,4 @@
 // Função para carregar dados do usuário do banco de dados
-function loadUserData() {
-    // Simulação de chamada para obter os dados do usuário
-    // Chamada real para o backend
-    const userData = {
-        beneficiaryName: "Maria da Silva",
-        beneficiaryCpf: "123.456.789-00",
-        beneficiaryDob: "2006-05-15",
-        beneficiaryPhone: "11999999999",
-        beneficiaryAddress: "Rua Exemplo, 123",
-        beneficiaryCity: "São Paulo",
-        beneficiaryState: "SP",
-        guardianName: "João da Silva",
-        guardianCpf: "987.654.321-00",
-        guardianPhone: "11988888888",
-        activities: [
-            { name: "Aula de Matemática", date: "25/05/2025", time: "10:00" },
-            { name: "Reunião Pedagógica", date: "26/05/2025", time: "14:00" },
-            { name: "Workshop de Ciências", date: "27/05/2025", time: "09:00" }
-        ]
-    };
 
     // Preenchendo os dados no formulário
     document.getElementById('beneficiaryName').value = userData.beneficiaryName;
@@ -46,7 +26,7 @@ function loadUserData() {
         activityItem.textContent = `${activity.name} - ${activity.date} - ${activity.time}`;
         activityList.appendChild(activityItem);
     });
-}
+
 
 // Função para calcular a idade
 function getAge(dob) {
