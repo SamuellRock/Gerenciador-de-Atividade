@@ -16,47 +16,50 @@
 <body>
     <h2>Edição de Usuário Externo</h2>
     <div class="form-container">
-        <form id="beneficiaryForm" action="update_usuario_externo" method="POST">
+        <form id="beneficiaryForm">
             <div class="form-group">
                 <label for="beneficiaryName">Nome:</label>
-                {{ form.nome}}
+                <input type="text" id="beneficiaryName" name="beneficiaryName" required>
             </div>
             <div class="form-group">
                 <label for="beneficiaryCpf">CPF:</label>
-                {{form.cpf}}
+                <input type="text" id="beneficiaryCpf" name="beneficiaryCpf" required>
             </div>
             <div class="form-group">
                 <label for="beneficiaryDob">Data de Nascimento:</label>
-                {{form.nascimento}}
+                <input type="date" id="beneficiaryDob" name="beneficiaryDob" required>
             </div>
             <div class="form-group">
                 <label for="beneficiaryPhone">Telefone:</label>
-                {{form.telefone}}
+                <input type="tel" id="beneficiaryPhone" name="beneficiaryPhone" required>
             </div>
             <div class="form-group">
                 <label for="beneficiaryAddress">Endereço:</label>
-                {{form.endereco}}
+                <input type="text" id="beneficiaryAddress" name="beneficiaryAddress" required>
             </div>
             <div class="form-group">
                 <label for="beneficiaryCity">Cidade:</label>
-                {{form.cidade}}
+                <input type="text" id="beneficiaryCity" name="beneficiaryCity" required>
             </div>
             <div class="form-group">
                 <label for="beneficiaryState">Estado:</label>
-                {{form.estado}}
+                <input type="text" id="beneficiaryState" name="beneficiaryState" required>
             </div>
             <div class="form-group hidden" id="guardianFields">
                 <div class="form-group">
                     <label for="guardianName">Nome do Responsável:</label>
-                    {{form.responsavel_nome}}
+                    <input type="text" id="guardianName" name="guardianName">
                 </div>
                 <div class="form-group">
                     <label for="guardianCpf">CPF do Responsável:</label>
-                    {{form.responsavel_cpf}}
+                    <input type="text" id="guardianCpf" name="guardianCpf">
                 </div>
-
+                <div class="form-group">
+                    <label for="guardianPhone">Contato do Responsável:</label>
+                    <input type="tel" id="guardianPhone" name="guardianPhone">
+                </div>
             </div>
-            <button type="submit" id="saveChangesBtn">Salvar Alterações</button>
+            <button type="button" id="saveChangesBtn">Salvar Alterações</button>
         </form>
     </div>
 
