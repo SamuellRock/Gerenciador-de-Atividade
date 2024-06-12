@@ -1,0 +1,110 @@
+:root {
+    --azul-claro: #4AA0CD;
+    --azul-escuro: #041241;
+    --rosa: #D155A4;
+    --amarelo: #FFD500;
+    --branco: #FFFFFF;
+    --fonte: "Nunito", sans-serif;
+    --verde: #2E8B57;
+}
+
+body {
+    font-family: var(--fonte);
+    margin: 0;
+    padding: 0;
+    background-color: var(--branco);
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0px auto;
+    padding: 10px;
+    background-color: var(--branco);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--azul-escuro);
+    font-weight: bold;
+    font-family: var(--fonte);
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="time"],
+input[type="date"],
+input[type="number"],
+input[type="tel"],
+input[type="checkbox"],
+input[type="email"] {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--azul-claro);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-family: var(--fonte);
+}
+
+button:hover {
+    background-color: var(--azul-claro);
+    color: var(--azul-escuro);
+}
+
+h2 {
+    margin: 0;
+    padding: 10px 0;
+    color: var(--azul-escuro);
+    font-family: var(--fonte);
+    text-decoration: underline;
+    text-decoration-color: var(--azul-claro);
+    text-align: center;
+}
+
+.notification {
+    display: none;
+    align-items: end;
+    padding: 10px;
+    background-color: var(--verde);
+    color: var(--branco);
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: var(--fonte);
+}
+
+.confirmation-box {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--branco);
+    border: 1px solid var(--azul-claro);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-family: var(--fonte);
+    width: 300px;
+    text-align: center;
+}
+
+.confirmation-box button {
+    margin: 5px;
+}

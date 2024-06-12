@@ -4,6 +4,7 @@ from rolepermissions.decorators import has_permission_decorator
 from django.contrib.auth.decorators import login_required
 from .models import Inscrever_Aula, Atividade, Usuario_Externo, Servico, DiaAtividade
 from perfis.models import Users
+from perfis.forms import UserFormTemplate
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -57,7 +58,23 @@ def update_usuario_externo(request, id):
             return redirect(reverse('update_usuario_externo', args=[id]))
     else:
         form = Usuario_ExternoForm(instance=usuario)
-    return render(request, 'update/update_usuario_externo.html', {'form': form, 'usuario': usuario})
+    return render(request, 'update/update_usuario_externo.html', {'form': form })
+
+
+
+@xframe_options_exempt
+@login_required(login_url='login')
+def update_usuario_interno(request, id):
+    usuario = get_object_or_404(Users, pk=id)
+    if request.method == 'POST':
+        form = UserFormTemplate(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Usuário Interno atualizado com sucesso!')
+            return redirect(reverse('update_usuario_interno', args=[id]))  
+    else:
+        form = UserFormTemplate(instance=usuario)
+    return render(request, 'update/update_usuario_interno.html', {'form': form, 'usuario': usuario})
 #ATÈ AQUI
 
 

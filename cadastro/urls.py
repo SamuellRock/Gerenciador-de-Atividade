@@ -24,7 +24,7 @@ urlpatterns = [
     path('update_aula/<int:id>/', update_aula, name='update_aula'),
     path('update_servico/<int:id>/', update_servico, name='update_servico'),
     path('update_usuario_externo/<int:id>/', update_usuario_externo, name='update_usuario_externo'),
-
+    path('update_usuario_interno/<int:id>/', update_usuario_interno, name='update_usuario_interno'),
 
 
     #feito
@@ -43,8 +43,5 @@ urlpatterns = [
     path('deletar_aula/<int:id>/', deletar_aula, name='deletar_aula'),
     path('deletar_servico/<int:id>/', deletar_servico, name='deletar_servico'),
     path('deletar/<slug:slug>/', deletar_cliente, name='deletarCli'),
-
-
-
 ]
 

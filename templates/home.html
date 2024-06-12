@@ -59,7 +59,7 @@
 
 <a href="{% url 'perfil_user' %}">
     <div class="profile">
-        <img src="{{ user.imagem_thumb.url }}" alt="Profile Picture" id="profile-thumbnail">
+        <img src="{% static 'img/login/user_thumb.png' %}" alt="Profile Picture" id="profile-thumbnail">
         <a href="{% url 'perfil_user' %}" id="profile-name">{{ user.first_name }}</a>
     </div>
 </a>
